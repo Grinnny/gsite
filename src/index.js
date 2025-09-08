@@ -4,6 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'url';
 import { v4 as uuidv4 } from 'uuid';
 import cors from '@fastify/cors'
+import fastifyCookie from '@fastify/cookie'
 import url from 'node:url'
 import fs from 'fs/promises'
 import puppeteer from "puppeteer";
@@ -36,6 +37,8 @@ fastify.register(cors, {
       allowedHeaders: ['Origin', 'X-Requested-With', 'Accept', 'Content-Type', 'Authorization'], // Allowed headers
       credentials: true 
 });
+
+fastify.register(fastifyCookie);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 let port = 4200
@@ -334,7 +337,7 @@ fastify.get('/auth/steam/return', async (req, res) => {
 		const sessionId = steamAuth.createSession(steamId, userProfile);
 		
 		// Set session cookie
-		res.setCookie('steam_session', sessionId, {
+		res.cookie('steam_session', sessionId, {
 			httpOnly: true,
 			secure: true, // HTTPS in production
 			maxAge: 24 * 60 * 60 * 1000, // 24 hours
