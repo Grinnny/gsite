@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Jackpot Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/balance.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-yellow-400">🎰 Admin Panel</h1>
+            <div class="flex items-center space-x-4">
+                <span id="authStatus" class="text-sm text-gray-400">Not Authenticated</span>
+                <button onclick="window.location.href = 'jackpot.html'" style="background-color: #424242; color: #4ECCA3; padding: 8px 16px; border-radius: 6px; border: 2px solid #4ECCA3; cursor: pointer; font-family: sansation; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                    Back to Game
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="container mx-auto p-6">
+        <div class="max-w-md mx-auto bg-gray-800 rounded-lg p-6 shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-center">🔐 Admin Authentication</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Admin Password</label>
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-yellow-400"
+                        placeholder="Enter admin password"
+                        onkeypress="if(event.key==='Enter') login()"
+                    >
+                </div>
+                <button 
+                    id="loginBtn" 
+                    onclick="login()"
+                    class="w-full bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-medium transition-colors"
+                >
+                    Login
+                </button>
+                <div id="loginError" class="text-red-400 text-sm text-center hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Content -->
+    <div id="adminPanel" class="container mx-auto px-4 py-8" style="display: none;">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 style="font-family: carving; color: #4ECCA3; font-size: 48px;" class="mb-4">🛠️ ADMIN PANEL</h1>
+                <p style="font-family: sansation; color: #b9b9b9;" class="text-lg">Administrative controls for ScrapHouse Jackpot</p>
+            </div>
+
+            <!-- Admin Controls Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Join Game Panel -->
+                <div style="background-color: #363636; border-radius: 15px; padding: 24px; border: 1px solid #424242;">
+                    <h2 style="font-family: carving; color: white; font-size: 24px;" class="mb-4">💰 Join Current Game</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label style="font-family: sansation; color: #b9b9b9;" class="block mb-2">Player Name:</label>
+                            <input type="text" id="adminPlayerName" placeholder="Admin_Player" 
+                                   style="width: 100%; padding: 12px; background-color: #282828; border: 1px solid #424242; border-radius: 8px; color: white; font-family: iceberg;"
+                                   value="Admin_Player">
+                        </div>
+                        <div>
+                            <label style="font-family: sansation; color: #b9b9b9;" class="block mb-2">Bet Amount ($):</label>
+                            <input type="number" id="adminBetAmount" placeholder="100" min="1" step="0.01"
+                                   style="width: 100%; padding: 12px; background-color: #282828; border: 1px solid #424242; border-radius: 8px; color: white; font-family: iceberg;"
+                                   value="100">
+                        </div>
+                        <button onclick="joinAsAdmin()" 
+                                style="width: 100%; padding: 12px; background-color: #4ECCA3; color: white; border: none; border-radius: 8px; font-family: carving; font-size: 18px; cursor: pointer; transition: all 0.3s ease;"
+                                onmouseover="this.style.backgroundColor='#389676'" 
+                                onmouseout="this.style.backgroundColor='#4ECCA3'">
+                            JOIN GAME
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Balance Management -->
+                <div style="background-color: #363636; border-radius: 15px; padding: 24px; border: 1px solid #424242;">
+                    <h2 style="font-family: carving; color: white; font-size: 24px;" class="mb-4">💳 Balance Management</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label style="font-family: sansation; color: #b9b9b9;" class="block mb-2">Set Balance ($):</label>
+                            <input type="number" id="adminSetBalance" placeholder="1000" min="0" step="0.01"
+                                   style="width: 100%; padding: 12px; background-color: #282828; border: 1px solid #424242; border-radius: 8px; color: white; font-family: iceberg;"
+                                   value="1000">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="setAdminBalance()" 
+                                    style="padding: 10px; background-color: #4ECCA3; color: white; border: none; border-radius: 6px; font-family: sansation; cursor: pointer; transition: all 0.3s ease;"
+                                    onmouseover="this.style.backgroundColor='#389676'" 
+                                    onmouseout="this.style.backgroundColor='#4ECCA3'">
+                                Set Balance
+                            </button>
+                            <button onclick="resetAdminBalance()" 
+                                    style="padding: 10px; background-color: #ff6b6b; color: white; border: none; border-radius: 6px; font-family: sansation; cursor: pointer; transition: all 0.3s ease;"
+                                    onmouseover="this.style.backgroundColor='#ff5252'" 
+                                    onmouseout="this.style.backgroundColor='#ff6b6b'">
+                                Reset to $0
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Status -->
+                <div style="background-color: #363636; border-radius: 15px; padding: 24px; border: 1px solid #424242;">
+                    <h2 style="font-family: carving; color: white; font-size: 24px;" class="mb-4">📊 Current Game Status</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span style="font-family: sansation; color: #b9b9b9;">Total Pot:</span>
+                            <span style="font-family: iceberg; color: #4ECCA3;" id="adminTotalPot">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span style="font-family: sansation; color: #b9b9b9;">Players:</span>
+                            <span style="font-family: iceberg; color: white;" id="adminPlayerCount">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span style="font-family: sansation; color: #b9b9b9;">Countdown:</span>
+                            <span style="font-family: iceberg; color: white;" id="adminCountdown">60s</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span style="font-family: sansation; color: #b9b9b9;">Game Active:</span>
+                            <span style="font-family: iceberg;" id="adminGameActive">Yes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div style="background-color: #363636; border-radius: 15px; padding: 24px; border: 1px solid #424242;">
+                    <h2 style="font-family: carving; color: white; font-size: 24px;" class="mb-4">⚡ Quick Actions</h2>
+                    <div class="space-y-3">
+                        <button onclick="quickJoin(50)" 
+                                style="width: 100%; padding: 10px; background-color: #424242; color: #4ECCA3; border: 2px solid #4ECCA3; border-radius: 6px; font-family: sansation; cursor: pointer; transition: all 0.3s ease;"
+                                onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" 
+                                onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                            Quick Join $50
+                        </button>
+                        <button onclick="quickJoin(100)" 
+                                style="width: 100%; padding: 10px; background-color: #424242; color: #4ECCA3; border: 2px solid #4ECCA3; border-radius: 6px; font-family: sansation; cursor: pointer; transition: all 0.3s ease;"
+                                onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" 
+                                onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                            Quick Join $100
+                        </button>
+                        <button onclick="quickJoin(500)" 
+                                style="width: 100%; padding: 10px; background-color: #424242; color: #4ECCA3; border: 2px solid #4ECCA3; border-radius: 6px; font-family: sansation; cursor: pointer; transition: all 0.3s ease;"
+                                onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" 
+                                onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                            Quick Join $500
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Log -->
+            <div style="background-color: #363636; border-radius: 15px; padding: 24px; border: 1px solid #424242; margin-top: 24px;">
+                <h2 style="font-family: carving; color: white; font-size: 24px;" class="mb-4">📝 Admin Log</h2>
+                <div id="adminLog" style="background-color: #282828; border-radius: 8px; padding: 16px; height: 200px; overflow-y: auto; font-family: monospace; font-size: 12px; color: #b9b9b9;">
+                    <div style="color: #4ECCA3;">[SYSTEM] Admin panel loaded</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Admin functionality
+        let gameState = null;
+        let isAuthenticated = false;
+        let adminSessionId = null;
+        const socket = io();
+
+        function showError(message) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            setTimeout(() => errorDiv.classList.add('hidden'), 5000);
+        }
+
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            if (!password) {
+                showError('Please enter a password');
+                return;
+            }
+
+            console.log('Attempting login with password:', password);
+            
+            if (!socket.connected) {
+                showError('Not connected to server. Please refresh the page.');
+                return;
+            }
+
+            socket.emit('admin_login', { password });
+            console.log('Login request sent to server');
+        }
+
+        function logAdmin(message, type = 'info') {
+            const log = document.getElementById('adminLog');
+            if (!log) return;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const colors = {
+                info: '#4ECCA3',
+                success: '#4CAF50',
+                error: '#ff6b6b',
+                warning: '#FFA726'
+            };
+            
+            const entry = document.createElement('div');
+            entry.style.color = colors[type] || colors.info;
+            entry.innerHTML = `[${timestamp}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function joinAsAdmin() {
+            if (!isAuthenticated) {
+                logAdmin('Not authenticated', 'error');
+                return;
+            }
+
+            const name = document.getElementById('adminPlayerName').value || 'Admin_Player';
+            const betAmount = parseFloat(document.getElementById('adminBetAmount').value) || 100;
+            
+            if (betAmount <= 0) {
+                logAdmin('Invalid bet amount', 'error');
+                return;
+            }
+
+            socket.emit('admin_join_game', { name, betAmount, sessionId: adminSessionId });
+            logAdmin(`Attempting to join as ${name} with $${betAmount}`, 'info');
+        }
+
+        function setAdminBalance() {
+            if (!isAuthenticated) {
+                logAdmin('Not authenticated', 'error');
+                return;
+            }
+
+            const amount = parseFloat(document.getElementById('adminSetBalance').value) || 1000;
+            socket.emit('admin_set_balance', { amount, sessionId: adminSessionId });
+            logAdmin(`Setting balance to $${amount.toFixed(2)}`, 'info');
+        }
+
+        function resetAdminBalance() {
+            if (!isAuthenticated) {
+                logAdmin('Not authenticated', 'error');
+                return;
+            }
+
+            socket.emit('admin_set_balance', { amount: 0, sessionId: adminSessionId });
+            logAdmin('Resetting balance to $0.00', 'warning');
+        }
+
+        function quickJoin(amount) {
+            if (!isAuthenticated) {
+                logAdmin('Not authenticated', 'error');
+                return;
+            }
+            document.getElementById('adminBetAmount').value = amount;
+            joinAsAdmin();
+        }
+
+        function updateGameStatus() {
+            if (gameState) {
+                document.getElementById('adminTotalPot').textContent = `$${gameState.totalPot.toFixed(2)}`;
+                document.getElementById('adminPlayerCount').textContent = gameState.players ? gameState.players.length : 0;
+                document.getElementById('adminCountdown').textContent = `${gameState.countdown}s`;
+                document.getElementById('adminGameActive').textContent = gameState.isActive ? 'Yes' : 'No';
+                document.getElementById('adminGameActive').style.color = gameState.isActive ? '#4CAF50' : '#ff6b6b';
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('authStatus').textContent = 'Authenticated ✓';
+            document.getElementById('authStatus').style.color = '#4CAF50';
+            logAdmin('Admin panel ready', 'success');
+        }
+
+        // Socket connection events
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+            showError('Connection lost. Please refresh the page.');
+        });
+
+        // Socket event listeners
+        socket.on('admin_auth_success', ({ sessionId }) => {
+            console.log('Authentication successful, sessionId:', sessionId);
+            isAuthenticated = true;
+            adminSessionId = sessionId;
+            showAdminPanel();
+            logAdmin('Authentication successful', 'success');
+        });
+
+        socket.on('admin_auth_failed', ({ error }) => {
+            console.log('Authentication failed:', error);
+            showError(error || 'Authentication failed');
+        });
+
+        socket.on('admin_action_denied', ({ error }) => {
+            logAdmin(`Action denied: ${error}`, 'error');
+        });
+
+        socket.on('admin_balance_updated', ({ newBalance }) => {
+            if (window.balanceManager) {
+                window.balanceManager.setBalance(newBalance);
+            }
+            logAdmin(`Balance updated to $${newBalance.toFixed(2)}`, 'success');
+        });
+
+        socket.on('game_state', (state) => {
+            gameState = state;
+            updateGameStatus();
+        });
+
+        socket.on('player_joined', ({ player, totalPot }) => {
+            logAdmin(`Player ${player.name} joined with $${player.betAmount} (${player.isBot ? 'BOT' : player.isAdmin ? 'ADMIN' : 'REAL'})`, 'info');
+            updateGameStatus();
+        });
+
+        socket.on('round_result', (entry) => {
+            logAdmin(`Round ended! Winner: ${entry.winner ? entry.winner.name : 'None'} - Pot: $${entry.totalPot.toFixed(2)}`, 'success');
+        });
+
+        socket.on('countdown_tick', ({ secondsLeft }) => {
+            if (gameState) {
+                gameState.countdown = secondsLeft;
+                updateGameStatus();
+            }
+        });
+
+        // Initialize
+        window.socket = socket;
+    </script>
+</body>
+</html>

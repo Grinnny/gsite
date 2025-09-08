@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <title>CS:GO Skins Deposit - ScrapHouse</title>
+</head>
+<body style="background-color: #282828;">
+    <div id="DepositShade" onclick="window.location.href = 'deposit.html'" class="DepositShade absolute flex justify-center items-center" style="background-color: black; opacity: 0.6; width: 100%; height: 100%; z-index: 4;"></div>
+    <div id="DepositPage" class="DepositPage absolute flex justify-center items-center" style="height: 100%; width: 100%;">
+        <div style="overflow-y: auto; background-color: #282828; border-radius: 30px 0px 0px 30px; z-index: 5; width: 70%; height: 80%; border: 1px solid #424242;" class="flex items-center flex-col">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between" style="width: 90%; margin-top: 20px;">
+                <button onclick="window.location.href = 'deposit.html'" class="flex items-center" style="background: none; border: none; color: #4ECCA3; font-family: sansation; cursor: pointer;">
+                    <span style="font-size: 20px; margin-right: 10px;">←</span> Back to Deposits
+                </button>
+                <div class="flex items-center">
+                    <img src="imgs/DepositMethods/csgo.png" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <span style="font-size: 28px; color: #4ECCA3; font-family: carving;">CS:GO Skins</span>
+                </div>
+            </div>
+
+            <hr style="color: rgb(65, 65, 65); width: 90%; height: 2px; margin: 20px 0;">
+
+            <!-- Disabled Notice -->
+            <div style="width: 90%; background-color: #1d1d1d; border-radius: 15px; padding: 30px; text-align: center;">
+                <div style="background-color: #ff6b6b; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <span style="font-size: 40px; color: white;">⚠️</span>
+                </div>
+                
+                <h2 style="color: #ff6b6b; font-family: carving; font-size: 32px; margin-bottom: 20px;">CS:GO Deposits Temporarily Disabled</h2>
+                
+                <p style="color: #b9b9b9; font-family: sansation; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
+                    Due to recent changes in Steam's trading policies and CS:GO market restrictions, we have temporarily disabled CS:GO skin deposits. 
+                    We are working on implementing new solutions to restore this functionality.
+                </p>
+
+                <div style="background-color: #363636; border-radius: 10px; padding: 20px; margin-bottom: 30px;">
+                    <h3 style="color: #4ECCA3; font-family: carving; font-size: 20px; margin-bottom: 15px;">Why is this disabled?</h3>
+                    <ul style="color: #b9b9b9; font-family: sansation; font-size: 14px; line-height: 1.8; text-align: left; list-style: none; padding: 0;">
+                        <li>• Steam trade restrictions on CS:GO items</li>
+                        <li>• Market volatility and pricing issues</li>
+                        <li>• Compliance with new trading regulations</li>
+                        <li>• Technical integration challenges</li>
+                    </ul>
+                </div>
+
+                <div style="background-color: #424242; border-radius: 10px; padding: 20px; margin-bottom: 30px;">
+                    <h3 style="color: #4ECCA3; font-family: carving; font-size: 20px; margin-bottom: 15px;">Alternative Options</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="window.location.href = 'deposit-rust.html'" style="background-color: #4ECCA3; color: white; border: none; border-radius: 8px; padding: 15px; font-family: sansation; cursor: pointer; transition: all 0.3s;">
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <img src="imgs/DepositMethods/rust.png" style="width: 24px; height: 24px; margin-right: 10px;">
+                                Deposit Rust Skins
+                            </div>
+                        </button>
+                        <button onclick="window.location.href = 'deposit-bitcoin.html'" style="background-color: #FF9500; color: white; border: none; border-radius: 8px; padding: 15px; font-family: sansation; cursor: pointer; transition: all 0.3s;">
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <img src="imgs/DepositMethods/bitcoin-btc-logo.png" style="width: 24px; height: 24px; margin-right: 10px;">
+                                Deposit Bitcoin
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="background-color: #4CAF50; border-radius: 10px; padding: 15px; margin-bottom: 20px;">
+                    <h4 style="color: white; font-family: sansation; font-size: 16px; margin-bottom: 10px;">📧 Get Notified</h4>
+                    <p style="color: white; font-family: sansation; font-size: 13px; margin-bottom: 15px;">
+                        Enter your email to be notified when CS:GO deposits are re-enabled
+                    </p>
+                    <div class="flex items-center justify-center gap-2">
+                        <input type="email" id="notifyEmail" placeholder="your@email.com" 
+                               style="background-color: white; border: none; border-radius: 6px; padding: 8px 12px; color: black; font-family: sansation; flex: 1; max-width: 250px;">
+                        <button onclick="subscribeNotifications()" style="background-color: #2E7D32; color: white; border: none; border-radius: 6px; padding: 8px 15px; cursor: pointer; font-family: sansation;">
+                            Notify Me
+                        </button>
+                    </div>
+                </div>
+
+                <button onclick="window.location.href = 'deposit.html'" style="background-color: #424242; color: #4ECCA3; border: 2px solid #4ECCA3; border-radius: 8px; padding: 12px 30px; cursor: pointer; font-family: sansation; font-size: 16px;">
+                    ← Back to All Deposit Methods
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
+        <div style="width: 95%; height: 60px; background-color: #363636; border-radius: 7px;" class="flex flex-row">
+            <ul class="nav-left flex items-center" style="height: 100%; width: 33%;">
+                <img src="imgs/ScrapHouseLogo.png" style="cursor: pointer;" class="logo" onclick="window.location.href = window.location.origin">
+            </ul>
+            <ul class="nav-middle flex justify-center items-center" style="width: 33%; height: 100%;">
+                <div class="balance flex items-center justify-center relative" style="cursor: pointer; height: 75%; background-color: #424242; min-width: 110px; width: auto; padding: 0 15px; border-radius: 10px;">
+                    <span style="color: rgb(185, 185, 185); white-space: nowrap;">Balance: <span style="color: #4ECCA3;"><strong class="balance-display">$0.00</strong></span></span>
+                </div>
+            </ul>
+            <ul class="nav-right" style="width: 33%;">
+                <div class="flex items-center" style="width: 100%; height: 100%; flex-direction: row-reverse;">
+                    <img src="imgs/user-circle.png" style="height: 40px; width: 40px;">
+                    <img src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        function subscribeNotifications() {
+            const email = document.getElementById('notifyEmail').value;
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // In a real implementation, this would save to database
+            localStorage.setItem('csgoNotifyEmail', email);
+            
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Subscribed!';
+            button.style.backgroundColor = '#1B5E20';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '#2E7D32';
+            }, 3000);
+            
+            alert('Thank you! We\'ll notify you when CS:GO deposits are available again.');
+        }
+    </script>
+</body>
+</html>

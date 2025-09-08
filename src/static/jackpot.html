@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="js/realtime.js"></script>
+    <script>
+        // Check user authentication status
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('/auth/user');
+                const data = await response.json();
+                
+                if (data.success) {
+                    // User is logged in
+                    document.getElementById('user-profile').classList.remove('hidden');
+                    document.getElementById('login-btn').style.display = 'none';
+                    document.getElementById('user-avatar').src = data.user.avatar;
+                    document.getElementById('user-name').textContent = data.user.name;
+                } else {
+                    // User is not logged in
+                    document.getElementById('user-profile').classList.add('hidden');
+                    document.getElementById('login-btn').style.display = 'block';
+                }
+            } catch (error) {
+                console.log('Auth check failed:', error);
+                document.getElementById('user-profile').classList.add('hidden');
+                document.getElementById('login-btn').style.display = 'block';
+            }
+        }
+        
+        function logout() {
+            window.location.href = '/auth/logout';
+        }
+        
+        // Check auth status on page load
+        document.addEventListener('DOMContentLoaded', checkAuthStatus);
+    </script>
+    <title>ScrapHouse - Jackpot</title>
+</head>
+<body style="background-color: #282828;">
+    <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
+        <div style="width: 95%; height: 60px; background-color: #363636; border-radius: 7px;" class="flex flex-row">
+            <ul class="nav-left flex items-center space-x-4" style="height: 100%; width: 33.33%; background-color: transparent;">
+                <img src="imgs/ScrapHouseLogo.png" style="cursor: pointer;" class="logo" onclick="window.location.href = window.location.origin">
+                <button onclick="window.location.href = 'verify.html'" style="background-color: #424242; color: #4ECCA3; padding: 8px 16px; border-radius: 6px; border: 2px solid #4ECCA3; cursor: pointer; font-family: sansation; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                    Provably Fair
+                </button>
+            </ul>
+            <ul class="nav-middle flex justify-center items-center" style="width: 33.33%; height: 100%;">
+                <div class="balance flex items-center justify-center relative" onclick="if (document.getElementById('depohud').classList.contains('hidden')) {document.getElementById('depohud').classList.remove('hidden')} else {document.getElementById('depohud').classList.add('hidden')}" style="cursor: pointer; height: 40px; background-color: #424242; min-width: 110px; width: auto; padding: 0 15px; border-radius: 10px;">
+                    <span style="color: rgb(185, 185, 185); white-space: nowrap;">Balance: <span style="color: #4ECCA3;"><strong id="userBalance" class="balance-display">$0.00</strong></span></span>
+                    
+                    <div id="depohud" class="depohud absolute flex justify-center items-center hidden" style="border-radius: 10px; background-color: #424242; top: 50px; height: 40px; width: 100%;">
+                        <div class="triangle-up absolute" style="top: -15px; width: 0; justify-content: 0; border-left: 7.5px solid transparent; border-right: 7.5px solid transparent; border-bottom: 15px solid #424242;"></div>
+                        <div class="deposit" onclick="window.location.href = window.location.origin + '/deposit.html'" style="width: 90%; height: 70%; border-radius: 5px; text-align: center; color: white; text-shadow: 1px 3px 10px #111">Deposit</div>
+                    </div>
+                </div>
+            </ul>
+            <ul class="nav-right" style="width: 33.33%;">
+                <div class="flex items-center justify-end space-x-2" style="width: 100%; height: 100%;">
+                    <!-- User Profile Section -->
+                    <div id="user-profile" class="hidden flex items-center space-x-2">
+                        <img id="user-avatar" src="" style="height: 40px; width: 40px; border-radius: 50%;">
+                        <span id="user-name" style="color: white; font-family: sansation;"></span>
+                        <button onclick="logout()" style="background-color: #424242; color: #ff6b6b; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Logout</button>
+                    </div>
+                    <!-- Login Button -->
+                    <button id="login-btn" onclick="window.location.href='/login'" style="background-color: #4ECCA3; color: white; padding: 8px 16px; border-radius: 6px; font-family: sansation; font-weight: bold;">
+                        Login with Steam
+                    </button>
+                    <img class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Jackpot Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Game Info Section -->
+        <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mb-6">
+            <div id="gameInfo" class="text-center">
+                <h2 style="font-family: carving; color: #4ECCA3; font-size: 28px;" class="mb-2">Loading Game...</h2>
+                <div style="font-family: iceberg; color: #4ECCA3; font-size: 48px;" class="font-bold mb-2">$0.00</div>
+                <div style="font-family: sansation; color: #b9b9b9; font-size: 18px;">0 Players</div>
+            </div>
+        </div>
+
+        <!-- Jackpot Spinner -->
+        <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mb-6">
+            <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4 text-center">Jackpot Wheel</h3>
+            <div class="flex justify-center">
+                <canvas id="jackpotSpinner" style="border-radius: 50%; box-shadow: 0 0 20px rgba(78, 204, 163, 0.3);"></canvas>
+            </div>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mb-6 text-center">
+            <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Next Draw In:</h3>
+            <div id="countdown" style="font-family: iceberg; color: #4ECCA3; font-size: 72px;" class="font-bold">60</div>
+            <div style="font-family: sansation; color: #b9b9b9;" class="mt-2">seconds</div>
+        </div>
+
+        <!-- Winner Display (Hidden by default) -->
+        <div id="winnerDisplay" class="mb-6 hidden"></div>
+
+        <!-- Join Game Section -->
+        <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mb-6">
+            <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Join Jackpot</h3>
+            <div class="flex items-center space-x-4">
+                <div class="flex-1">
+                    <label for="betAmount" style="font-family: sansation; color: #b9b9b9;" class="block text-sm mb-2">Bet Amount ($)</label>
+                    <input 
+                        type="number" 
+                        id="betAmount" 
+                        min="1" 
+                        step="0.01" 
+                        placeholder="Enter bet amount"
+                        style="font-family: iceberg; background-color: #424242; color: white; border: 1px solid #424242; border-radius: 10px;"
+                        class="w-full px-4 py-2 focus:outline-none"
+                    >
+                </div>
+                <button 
+                    id="joinGameBtn"
+                    style="font-family: sansation; background-color: #4ECCA3; color: white; border-radius: 10px; transition: 500ms ease;"
+                    class="px-6 py-2 font-semibold"
+                    onmouseover="this.style.backgroundColor='#389676'"
+                    onmouseout="this.style.backgroundColor='#4ECCA3'"
+                >
+                    Join Game
+                </button>
+            </div>
+            <div style="font-family: sansation; color: #b9b9b9;" class="mt-3 text-sm">
+                Your bet amount determines your win percentage.
+            </div>
+        </div>
+
+        <!-- Players List -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6">
+                <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Current Players</h3>
+                <div id="playersList" class="space-y-2 max-h-96 overflow-y-auto thingything">
+                    <!-- Players will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Game History -->
+            <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6">
+                <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Recent Games</h3>
+                <div id="gameHistory" class="space-y-1 max-h-96 overflow-y-auto thingything">
+                    <!-- History will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Rules -->
+        <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mt-6">
+            <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">How It Works</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div class="text-3xl mb-2">💰</div>
+                    <h4 style="font-family: sansation; color: white;" class="font-semibold mb-2">Place Your Bet</h4>
+                    <p style="font-family: iceberg; color: #b9b9b9;" class="text-sm">Your bet amount determines your percentage chance to win. You can join multiple times to increase your odds.</p>
+                </div>
+                <div class="text-center" style="background-color: transparent;">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <h4 style="font-family: sansation; color: white;" class="font-semibold mb-2">Provably Fair</h4>
+                    <p style="font-family: iceberg; color: #b9b9b9;" class="text-sm">Every game uses cryptographic secrets to ensure fairness. <a href="verify.html" style="color: #4ECCA3;">Verify results here</a>.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">🏆</div>
+                    <h4 style="font-family: sansation; color: white;" class="font-semibold mb-2">Winner Takes All</h4>
+                    <p style="font-family: iceberg; color: #b9b9b9;" class="text-sm">The winner is drawn every 60 seconds and takes the entire jackpot pot.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Jackpot JavaScript -->
+    <script src="js/spinner.js"></script>
+    <script src="js/jackpot.js"></script>
+</body>
+</html>

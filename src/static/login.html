@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Jackpot Casino</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .steam-btn {
+            background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .steam-btn:hover {
+            background: linear-gradient(135deg, #2a475e 0%, #1b2838 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .login-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="login-card rounded-2xl p-8 w-full max-w-md shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">Jackpot Casino</h1>
+            <p class="text-gray-300">Sign in to start playing</p>
+        </div>
+        
+        <!-- Error message display -->
+        <div id="error-message" class="error-message rounded-lg p-4 mb-6 hidden">
+            <p class="text-sm font-medium" id="error-text"></p>
+        </div>
+        
+        <!-- Steam Login Button -->
+        <div class="space-y-4">
+            <button onclick="loginWithSteam()" class="steam-btn w-full py-4 px-6 rounded-lg text-white font-semibold flex items-center justify-center space-x-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9.93 15v1c0 1.1.9 2 2 2v-.07zM17.9 17.39c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                </svg>
+                <span>Sign in through Steam</span>
+            </button>
+            
+            <div class="text-center">
+                <p class="text-gray-400 text-sm">
+                    Secure authentication via Steam OpenID
+                </p>
+            </div>
+        </div>
+        
+        <!-- Features -->
+        <div class="mt-8 pt-6 border-t border-gray-600">
+            <h3 class="text-white font-semibold mb-4">Why sign in?</h3>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Track your game history</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Secure wallet management</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Provably fair verification</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Guest Play Option -->
+        <div class="mt-6 text-center">
+            <a href="/jackpot.html" class="text-gray-400 hover:text-white text-sm underline">
+                Continue as guest
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Check for error messages in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        
+        if (error) {
+            const errorDiv = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            
+            let message = 'An error occurred during login.';
+            switch (error) {
+                case 'steam_auth_failed':
+                    message = 'Steam authentication failed. Please try again.';
+                    break;
+                case 'profile_fetch_failed':
+                    message = 'Failed to fetch Steam profile. Please try again.';
+                    break;
+                case 'internal_error':
+                    message = 'Internal server error. Please try again later.';
+                    break;
+            }
+            
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+        
+        function loginWithSteam() {
+            // Redirect to Steam authentication
+            window.location.href = '/auth/steam';
+        }
+        
+        // Check if user is already logged in
+        fetch('/auth/user')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // User is already logged in, redirect to game
+                    window.location.href = '/jackpot.html';
+                }
+            })
+            .catch(error => {
+                console.log('Not logged in');
+            });
+    </script>
+</body>
+</html>

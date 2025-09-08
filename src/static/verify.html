@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="js/realtime.js"></script>
+    <title>ScrapHouse - Provably Fair</title>
+</head>
+<body style="background-color: #282828;">
+    <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
+        <div style="width: 95%; height: 60px; background-color: #363636; border-radius: 7px;" class="flex flex-row">
+            <ul class="nav-left flex items-center space-x-4" style="height: 100%; width: 33.33%;">
+                <img src="imgs/ScrapHouseLogo.png" style="cursor: pointer;" class="logo" onclick="window.location.href = window.location.origin">
+                <button onclick="window.location.href = 'verify.html'" style="background-color: #424242; color: #4ECCA3; padding: 8px 16px; border-radius: 6px; border: 2px solid #4ECCA3; cursor: pointer; font-family: sansation; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                    Provably Fair
+                </button>
+            </ul>
+            <ul class="nav-middle flex justify-center items-center" style="width: 33.33%; height: 100%;">
+                <div class="balance flex items-center justify-center relative" onclick="if (document.getElementById('depohud').classList.contains('hidden')) {document.getElementById('depohud').classList.remove('hidden')} else {document.getElementById('depohud').classList.add('hidden')}" style="cursor: pointer; height: 40px; background-color: #424242; min-width: 110px; width: auto; padding: 0 15px; border-radius: 10px;">
+                    <span style="color: rgb(185, 185, 185); white-space: nowrap;">Balance: <span style="color: #4ECCA3;"><strong class="balance-display">$0.00</strong></span></span>
+                    
+                    <div id="depohud" class="depohud absolute flex justify-center items-center hidden" style="border-radius: 10px; background-color: #424242; top: 50px; height: 40px; width: 100%;">
+                        <div class="triangle-up absolute" style="top: -15px; width: 0; justify-content: 0; border-left: 7.5px solid transparent; border-right: 7.5px solid transparent; border-bottom: 15px solid #424242;"></div>
+                        <div class="deposit" onclick="window.location.href = window.location.origin + '/deposit.html'" style="width: 90%; height: 70%; border-radius: 5px; text-align: center; color: white; text-shadow: 1px 3px 10px #111">Deposit</div>
+                    </div>
+                </div>
+            </ul>
+            <ul class="nav-right" style="width: 33.33%;">
+                <div class="flex items-center justify-end space-x-2" style="width: 100%; height: 100%;">
+                    <img class="nav-icons" src="imgs/user-circle.png" style="height: 40px; width: 40px;">
+                    <img class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+    <style>
+        .verify-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(66, 66, 66, 0.9);
+            border-radius: 15px;
+            border: 1px solid #363636;
+        }
+        
+        .verify-form {
+            background: rgba(54, 54, 54, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .hash-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: rgba(33, 33, 33, 0.9);
+            border: 2px solid #4ECCA3;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+        
+        .verify-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #4ECCA3, #44A08D);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .verify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 204, 163, 0.4);
+        }
+        
+        .result-container {
+            background: rgba(54, 54, 54, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .game-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            background: rgba(33, 33, 33, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4ECCA3;
+        }
+        
+        .secret-reveal {
+            background: linear-gradient(135deg, #4ECCA3, #44A08D);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .players-list {
+            background: rgba(33, 33, 33, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(66, 66, 66, 0.5);
+            border-radius: 5px;
+        }
+        
+        .winner-highlight {
+            border: 2px solid #4ECCA3;
+            background: rgba(76, 204, 163, 0.2);
+        }
+        
+        .error-message {
+            background: rgba(220, 53, 69, 0.2);
+            border: 2px solid #dc3545;
+            color: #dc3545;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="main-content">
+        <div class="verify-container">
+            <h1 style="font-family: carving; color: #4ECCA3; font-size: 36px; text-align: center; margin-bottom: 30px;">
+                Provably Fair Gaming
+            </h1>
+            
+            <!-- Provably Fair Explanation Section -->
+            <div style="background: rgba(54, 54, 54, 0.8); padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+                <h2 style="font-family: carving; color: #4ECCA3; font-size: 28px; margin-bottom: 20px; text-align: center;">
+                    What is Provably Fair?
+                </h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                    <div>
+                        <h3 style="font-family: sansation; color: white; font-size: 20px; margin-bottom: 15px;">🔒 Transparency</h3>
+                        <p style="font-family: sansation; color: #b9b9b9; line-height: 1.6;">
+                            Every jackpot game generates a unique secret before it starts. This secret determines the outcome and cannot be changed once the game begins.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-family: sansation; color: white; font-size: 20px; margin-bottom: 15px;">🎯 Verification</h3>
+                        <p style="font-family: sansation; color: #b9b9b9; line-height: 1.6;">
+                            After each game ends, the secret is revealed. You can verify that the outcome was predetermined and fair using the game hash.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-family: sansation; color: white; font-size: 20px; margin-bottom: 15px;">🔐 Hash System</h3>
+                        <p style="font-family: sansation; color: #b9b9b9; line-height: 1.6;">
+                            Each game shows a hash (like a1b2c3d4) during play. This hash is mathematically linked to the secret but doesn't reveal the outcome.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-family: sansation; color: white; font-size: 20px; margin-bottom: 15px;">✅ Trust</h3>
+                        <p style="font-family: sansation; color: #b9b9b9; line-height: 1.6;">
+                            No one, including us, can manipulate the outcome once a game starts. The mathematics guarantee fairness for all players.
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(76, 204, 163, 0.1); border: 2px solid #4ECCA3; border-radius: 8px; padding: 20px; text-align: center;">
+                    <h4 style="font-family: sansation; color: #4ECCA3; font-size: 18px; margin-bottom: 10px;">How It Works</h4>
+                    <p style="font-family: sansation; color: white; margin-bottom: 15px;">
+                        1. Game starts → Secret generated → Hash displayed<br>
+                        2. Players join and place bets<br>
+                        3. Game ends → Secret revealed → Outcome verified
+                    </p>
+                    <p style="font-family: sansation; color: #b9b9b9; font-size: 14px;">
+                        The secret determines the exact spinner outcome, ensuring no manipulation is possible.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="verify-form">
+                <h2 style="font-family: sansation; color: white; font-size: 24px; margin-bottom: 20px; text-align: center;">
+                    Verify Game Results
+                </h2>
+                <p style="font-family: sansation; color: #b9b9b9; text-align: center; margin-bottom: 30px;">
+                    Enter a game hash from a completed jackpot to view its secret and verify the outcome was fair
+                </p>
+                
+                <input type="text" id="hashInput" class="hash-input" placeholder="Enter game hash (e.g., a1b2c3d4)" maxlength="8">
+                <button id="verifyBtn" class="verify-btn">Verify Game</button>
+            </div>
+            
+            <div id="resultContainer" class="result-container">
+                <h3 style="font-family: carving; color: #4ECCA3; font-size: 28px; text-align: center; margin-bottom: 20px;">
+                    Game Verification Result
+                </h3>
+                
+                <div id="gameDetails" class="game-details">
+                    <!-- Game details will be populated here -->
+                </div>
+                
+                <div id="secretReveal" class="secret-reveal">
+                    <!-- Secret will be revealed here -->
+                </div>
+                
+                <div id="playersList" class="players-list">
+                    <!-- Players list will be populated here -->
+                </div>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <!-- Error messages will be shown here -->
+            </div>
+        </div>
+    </main>
+
+    <script src="js/verify.js"></script>
+</body>
+</html>

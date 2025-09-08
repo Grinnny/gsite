@@ -1,0 +1,44 @@
+{
+  "bots": [
+    {
+      "id": "bot_1",
+      "name": "SteamBot_Alpha",
+      "avatar": "imgs/bot_avatars/bot1.png"
+    },
+    {
+      "id": "bot_2", 
+      "name": "RustMaster_Pro",
+      "avatar": "imgs/bot_avatars/bot2.png"
+    },
+    {
+      "id": "bot_3",
+      "name": "GambleLord_99",
+      "avatar": "imgs/bot_avatars/bot3.png"
+    },
+    {
+      "id": "bot_4",
+      "name": "SkinHunter_X",
+      "avatar": "imgs/bot_avatars/bot4.png"
+    },
+    {
+      "id": "bot_5",
+      "name": "TradeKing_Elite",
+      "avatar": "imgs/bot_avatars/bot5.png"
+    },
+    {
+      "id": "bot_6",
+      "name": "CasualGamer_42",
+      "avatar": "imgs/bot_avatars/bot6.png"
+    },
+    {
+      "id": "bot_7",
+      "name": "VaultKeeper_Z",
+      "avatar": "imgs/bot_avatars/bot7.png"
+    },
+    {
+      "id": "bot_8",
+      "name": "RustVeteran_2019",
+      "avatar": "imgs/bot_avatars/bot8.png"
+    }
+  ]
+}

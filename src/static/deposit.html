@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <title>ScrapHouse</title>
+</head>
+<body style="background-color: #282828;">
+    <div id="DepositShade" onclick="window.location.href = window.location.origin" class="DepositShade absolute flex justify-center items-center" style="background-color: black; opacity: 0.6; width: 100%; height: 100%; z-index: 4;"></div>
+    <div id="DepositPage" class="DepositPage  absolute flex justify-center items-center" style=" height: 100%; width: 100%;">
+        <div style="overflow-y: auto; background-color: #282828; border-radius: 30px 0px 0px 30px; z-index: 5; width: 70%; height: 80%; border: 1px solid #424242;" class="flex items-center flex-col thingything">
+            <div class="DepositWithdraw flex items-center" style="justify-content: space-between; width: 90%; height: 40px; background-color: #424242; margin-top: 10px; border-radius: 12px;">
+                <div onclick="window.location.href = window.location.origin + '/deposit.html'" class="DepositButton selectedMethod cursor-pointer" style="margin-left: 3px; width: 49%; height: 85%;  text-align: center; border-radius: 10px; color: #4ECCA3; text-shadow: 1px 6px 15px #111;">
+                    <strong style="font-family: sansation;">Deposit</strong>
+                </div>
+                <div onclick="window.location.href = window.location.origin + '/withdraw.html'" class="WithdrawButton cursor-pointer" style="margin-right: 3px; width: 49%; height: 85%; text-align: center;  color: #4ECCA3; text-shadow: 1px 6px 15px #111;  border-radius: 10px;">
+                    <strong style="font-family: sansation;">Withdraw</strong>
+                </div>
+            </div>
+            <br>
+            <br>
+            <span style="font-size: 25px; color: #4ECCA3; font-family: carving;">Crypto Deposits</span>
+            <br>
+            <hr style="color: rgb(65, 65, 65); width: 90%; height: 2px;">
+            <br>
+            <div style="width: 90%; min-height: 185px; background-color: rgb(29, 29, 29); border-radius: 13px; overflow-x: scroll;">
+                <ul class="flex items-center" style="margin-left: 15px; margin-right: 15px; width: max-content; height: 100%; z-index: 5; grid-gap: 30px;">
+                    <li onclick="window.location.href = 'deposit-bitcoin.html'" style=" width: 150px; height: 150px; background-color: #111; border-radius: 10px; cursor: pointer;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/bitcoin-btc-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Bitcoin (BTC)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(255, 153, 0, 0.3),rgba(51, 51, 51, 0.5));" class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-ethereum.html'" style=" cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/ethereum-eth-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 19px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Ethereum (ETH)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(154, 206, 255, 0.3),rgba(51, 51, 51, 0.5));" class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-solana.html'" style="cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/solana-sol-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Solana (SOL)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(119, 0, 255, 0.3),rgba(51, 51, 51, 0.5)); " class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-tether.html'" style="cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/tether-usdt-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Tether (USDT)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(0, 255, 136, 0.3),rgba(51, 51, 51, 0.5)); " class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-litecoin.html'" style="cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/litecoin-ltc-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Litecoin (LTC)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(0, 132, 255, 0.3),rgba(51, 51, 51, 0.5)); " class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-dogecoin.html'" style="cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/dogecoin-doge-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 15px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Dogecoin (DOGE)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(251, 255, 0, 0.3),rgba(51, 51, 51, 0.5)); " class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-xrp.html'" style="cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/xrp-xrp-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">XRP</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(197, 197, 197, 0.3),rgba(36, 36, 36, 0.5)); " class="">
+                        </div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-bnb.html'" style="cursor: pointer; width: 150px; height: 150px; background-color: #111; border-radius: 10px;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/bnb-bnb-logo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">BNB</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(255, 225, 91, 0.3),rgba(51, 51, 51, 0.5)); " class="">
+                        
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <span style="font-size: 25px; color: #4ECCA3; font-family: carving;">Skin Deposits</span>
+            <br>
+            <hr style="color: rgb(65, 65, 65); width: 90%; height: 2px;">
+            <br>
+            <div style="width: 90%; min-height: 185px; background-color: rgb(29, 29, 29); border-radius: 13px; overflow: auto;">
+                <ul class="flex items-center flex-row" style="margin-left: 15px; margin-right: 15px; width: max-content; height: 100%; z-index: 5; grid-gap: 30px;">
+                    <li onclick="window.location.href = 'deposit-rust.html'" style=" width: 150px; height: 150px; background-color: #111; border-radius: 10px; cursor: pointer;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/rust.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 20px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">Rust (STEAM)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(255, 0, 0, 0.3),rgba(51, 51, 51, 0.5)); " class=""></div>
+                    </li>
+                    <li onclick="window.location.href = 'deposit-csgo.html'" style=" width: 150px; height: 150px; background-color: #111; border-radius: 10px; cursor: pointer;" class="relative depoli">
+                        <div class="flex items-center flex-col justify-center" style="width: 100%; height: 100%; z-index: 7;">
+                            <img class="imgdropshadow" src="imgs/DepositMethods/csgo.png" style=" width: 50px; height: 50px; z-index: 8;">
+                            <span style="font-size: 19px; z-index: 8; color: #ffffff; font-family: carving; margin-top: 7px;">CSGO (STEAM)</span>
+                        </div>
+                        <div class="background-shadow" style="width: 148px; height: 148px; position: absolute; z-index: 4; top:1px; left:1px; border-radius: 10px; border: 2px solid #161616; background-image: radial-gradient(circle at 50% 150%,rgba(89, 142, 255, 0.3),rgba(51, 51, 51, 0.5));" class=""></div>
+                        <div class="comingsoon flex justify-center items-center" style="width: 148px; height: 148px; position: absolute; z-index: 10; top:1px; left:1px; border-radius: 10px; backdrop-filter: blur(5px);">
+                            <span style="font-size: 15px; font-family: carving; color: white; text-shadow: 1px 3px 5px #111; text-align: center;">DISABLED! (click for more info)</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <style>
+        .WithdrawButton:hover {
+            background-color: #4e4e4e;
+        }
+    </style>
+    <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
+        <div style="width: 95%; height: 60px; background-color: #363636; border-radius: 7px;" class="flex flex-row">
+            <ul class="nav-left flex items-center" style="height: 100%; width: 33%;">
+                <img src="imgs/ScrapHouseLogo.png" style="cursor: pointer;" class="logo" onclick="window.location.href = window.location.origin">
+                
+            </ul>
+            <ul class="nav-middle flex justify-center items-center" style="width: 33%; height: 100%;">
+                <div class="balance flex items-center justify-center relative" onclick="if (document.getElementById('depohud').classList.contains('hidden')) {document.getElementById('depohud').classList.remove('hidden')} else {document.getElementById('depohud').classList.add('hidden')}" style="cursor: pointer; height: 75%; background-color: #424242; min-width: 110px; width: auto; padding: 0 15px; border-radius: 10px;">
+                    <span style="color: rgb(185, 185, 185); white-space: nowrap;">Balance: <span style="color: #4ECCA3;"><strong class="balance-display">$0.00</strong></span></span>
+                    
+    
+                    <div id="depohud" class="depohud absolute flex justify-center items-center hidden" style="border-radius: 10px; background-color: #424242; top: 70px; height: 40px; width: 100%;">
+                        <div class="triangle-up absolute" style="top: -15px; width: 0; justify-content: 0; border-left: 7.5px solid transparent; border-right: 7.5px solid transparent; border-bottom: 15px solid #424242;"></div>
+                        <div class="deposit" onclick="document.getElementById('DepositShade').classList.remove('hidden'); document.getElementById('DepositPage').classList.remove('hidden')" style="width: 90%; height: 70%; border-radius: 5px; text-align: center; color: white; text-shadow: 1px 3px 10px #111">Deposit</div>
+                    </div>
+                </div>
+            </ul>
+            <ul class="nav-right" style="width: 33%;">
+                <div class="flex items-center" style="width: 100%; height: 100%; flex-direction: row-reverse;">
+                    <img src="imgs/user-circle.png" style="height: 40px; width: 40px;">
+                    <img src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                </div>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

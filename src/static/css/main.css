@@ -1,0 +1,175 @@
+@font-face {
+    font-family: iceberg;
+    src: url(Iceberg-Regular.ttf);
+}
+
+@font-face {
+    font-family: sansation;
+    src: url(Sansation-Regular.ttf);
+}
+
+@font-face {
+    font-family: carving;
+    src: url(carvingsoft.otf)
+}
+
+* {
+    font-family: iceberg;
+}
+
+.logo {
+    width: 180px;
+    height: 50px;
+}
+
+.errormessage {
+  transition: 500ms ease;
+}
+
+.DepositButton {
+    font-family: sansation;
+}
+
+
+.imgdropshadow {
+    -webkit-filter: drop-shadow(5px 5px 5px #141414);
+    filter: drop-shadow(5px 5px 5px #141414)
+}
+
+* {
+   --sb-track-color: #232e33;
+  --sb-thumb-color: #8dffc6;
+  --sb-size: 6px;
+}
+
+
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 8px;
+  
+}
+
+
+
+.depoli:hover .background-shadow {
+    background-color: black;
+    opacity: 0.67;
+}
+
+.background-shadow {
+    transition: 500ms ease;
+}
+
+.nav-icons {
+    transition: 500ms ease;
+    cursor: pointer;
+}
+
+.nav-icons:hover {
+    filter: brightness(0) invert(1);
+}
+
+.depoli {
+  width: 150px;
+  height: 150px;
+}
+
+.deposit {
+    background-color: #4ECCA3;
+    transition: 500ms ease;
+}
+
+.deposit:hover {
+    background-color: #389676;
+    transition: 500ms ease;
+}
+
+.WithdrawButton {
+    background-color: #424242;
+    transition: 500ms ease;
+}
+
+.DepositButton {
+    background-color: #424242;
+    transition: 500ms ease;
+}
+
+.selectedMethod {
+    background-color: #5c5c5c;
+}
+
+.withdrawpage {
+  width: 70%;
+}
+
+.assa {
+  width: 25%;
+}
+
+.miniwithdrawli {
+  height: 40px;
+}
+
+.fsdaafsd {
+  width: 75%;
+}
+
+.thingything {
+      --sb-track-color: #232e33;
+      --sb-thumb-color: #8dffc6;
+    --sb-size: 6px;
+}
+
+
+.DepositButton {
+    font-size: 24px;
+  }
+  .WithdrawButton {
+    font-size: 24px;
+  }
+
+@media screen and (max-width: 600px) {
+  .logo {
+    width: 125px;
+    height: 30px;
+  }
+
+  .miniwithdrawli {
+    height: 40px;
+  }
+  .DepositButton {
+    font-size: 20px;
+  }
+  .WithdrawButton {
+    font-size: 20px;
+  }
+
+  .depoli {
+    width: 125px;
+    height: 125px;
+  }
+
+  .assa {
+    width: 50%;
+  }
+  .fsdaafsd {
+    width: 50%;
+  }
+
+  .withdrawpage {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+}

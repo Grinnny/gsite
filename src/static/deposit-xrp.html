@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <title>XRP Deposit - ScrapHouse</title>
+</head>
+<body style="background-color: #282828;">
+    <div id="DepositShade" onclick="window.location.href = 'deposit.html'" class="DepositShade absolute flex justify-center items-center" style="background-color: black; opacity: 0.6; width: 100%; height: 100%; z-index: 4;"></div>
+    <div id="DepositPage" class="DepositPage absolute flex justify-center items-center" style="height: 100%; width: 100%;">
+        <div style="overflow-y: auto; background-color: #282828; border-radius: 30px 0px 0px 30px; z-index: 5; width: 70%; height: 80%; border: 1px solid #424242;" class="flex items-center flex-col">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between" style="width: 90%; margin-top: 20px;">
+                <button onclick="window.location.href = 'deposit.html'" class="flex items-center" style="background: none; border: none; color: #4ECCA3; font-family: sansation; cursor: pointer;">
+                    <span style="font-size: 20px; margin-right: 10px;">←</span> Back to Deposits
+                </button>
+                <div class="flex items-center">
+                    <img src="imgs/DepositMethods/xrp-xrp-logo.png" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <span style="font-size: 28px; color: #4ECCA3; font-family: carving;">XRP</span>
+                </div>
+            </div>
+
+            <hr style="color: rgb(65, 65, 65); width: 90%; height: 2px; margin: 20px 0;">
+
+            <!-- Deposit Form -->
+            <div style="width: 90%; background-color: #1d1d1d; border-radius: 15px; padding: 30px;">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Left Column - Deposit Info -->
+                    <div>
+                        <h3 style="color: #4ECCA3; font-family: carving; font-size: 22px; margin-bottom: 20px;">Deposit Information</h3>
+                        
+                        <div style="background-color: #363636; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                            <div style="margin-bottom: 15px;">
+                                <label style="color: #b9b9b9; font-family: sansation; font-size: 14px;">Deposit Address:</label>
+                                <div class="flex items-center" style="margin-top: 5px;">
+                                    <input type="text" id="xrpAddress" readonly value="rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH" 
+                                           style="background-color: #282828; border: 1px solid #424242; border-radius: 8px; padding: 10px; color: white; font-family: monospace; font-size: 12px; flex: 1;">
+                                    <button onclick="copyAddress()" style="background-color: #4ECCA3; color: white; border: none; border-radius: 8px; padding: 10px 15px; margin-left: 10px; cursor: pointer; font-family: sansation;">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="color: #b9b9b9; font-family: sansation; font-size: 14px;">Destination Tag:</label>
+                                <div class="flex items-center" style="margin-top: 5px;">
+                                    <input type="text" id="xrpTag" readonly value="123456789" 
+                                           style="background-color: #282828; border: 1px solid #424242; border-radius: 8px; padding: 10px; color: #FFD700; font-family: monospace; font-size: 12px; flex: 1;">
+                                    <button onclick="copyTag()" style="background-color: #FFD700; color: black; border: none; border-radius: 8px; padding: 10px 15px; margin-left: 10px; cursor: pointer; font-family: sansation;">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="color: #b9b9b9; font-family: sansation; font-size: 14px;">Network:</label>
+                                <div style="color: white; font-family: sansation; margin-top: 5px;">XRP Ledger</div>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="color: #b9b9b9; font-family: sansation; font-size: 14px;">Minimum Deposit:</label>
+                                <div style="color: #4ECCA3; font-family: sansation; margin-top: 5px; font-weight: bold;">$5.00 USD</div>
+                            </div>
+                            
+                            <div>
+                                <label style="color: #b9b9b9; font-family: sansation; font-size: 14px;">Confirmations Required:</label>
+                                <div style="color: white; font-family: sansation; margin-top: 5px;">1 confirmation</div>
+                            </div>
+                        </div>
+
+                        <!-- Important Notes -->
+                        <div style="background-color: #424242; border-radius: 10px; padding: 15px; border-left: 4px solid #ff6b6b;">
+                            <h4 style="color: #ff6b6b; font-family: sansation; font-size: 16px; margin-bottom: 10px;">⚠️ Important Notes</h4>
+                            <ul style="color: #b9b9b9; font-family: sansation; font-size: 13px; line-height: 1.5;">
+                                <li>• MUST include destination tag: 123456789</li>
+                                <li>• Only send XRP to this address</li>
+                                <li>• Minimum deposit: 20 XRP</li>
+                                <li>• Ultra-low fees (~0.00001 XRP)</li>
+                                <li>• Deposits typically take 3-5 seconds</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - QR Code & Status -->
+                    <div class="flex flex-col items-center">
+                        <h3 style="color: #4ECCA3; font-family: carving; font-size: 22px; margin-bottom: 20px;">QR Code</h3>
+                        
+                        <div style="background-color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                            <div id="qrcode" style="width: 200px; height: 200px; background-color: white; display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 10px; word-break: break-all; text-align: center; color: black;">
+                                rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH<br><br>Tag: 123456789
+                            </div>
+                        </div>
+
+                        <!-- Deposit Status -->
+                        <div style="width: 100%; background-color: #363636; border-radius: 10px; padding: 20px;">
+                            <h4 style="color: #4ECCA3; font-family: sansation; font-size: 16px; margin-bottom: 15px;">Deposit Status</h4>
+                            <div id="depositStatus" style="color: #b9b9b9; font-family: sansation; text-align: center; padding: 20px;">
+                                Waiting for deposit...
+                            </div>
+                            
+                            <div style="margin-top: 15px;">
+                                <div style="color: #b9b9b9; font-family: sansation; font-size: 14px; margin-bottom: 5px;">Ledger Status:</div>
+                                <div id="ledgerStatus" style="background-color: #282828; border-radius: 8px; padding: 10px; font-family: sansation; font-size: 12px; color: #4CAF50;">
+                                    ⚡ Lightning Fast Network
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
+        <div style="width: 95%; height: 60px; background-color: #363636; border-radius: 7px;" class="flex flex-row">
+            <ul class="nav-left flex items-center" style="height: 100%; width: 33%;">
+                <img src="imgs/ScrapHouseLogo.png" style="cursor: pointer;" class="logo" onclick="window.location.href = window.location.origin">
+            </ul>
+            <ul class="nav-middle flex justify-center items-center" style="width: 33%; height: 100%;">
+                <div class="balance flex items-center justify-center relative" style="cursor: pointer; height: 75%; background-color: #424242; min-width: 110px; width: auto; padding: 0 15px; border-radius: 10px;">
+                    <span style="color: rgb(185, 185, 185); white-space: nowrap;">Balance: <span style="color: #4ECCA3;"><strong class="balance-display">$0.00</strong></span></span>
+                </div>
+            </ul>
+            <ul class="nav-right" style="width: 33%;">
+                <div class="flex items-center" style="width: 100%; height: 100%; flex-direction: row-reverse;">
+                    <img src="imgs/user-circle.png" style="height: 40px; width: 40px;">
+                    <img src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        function copyAddress() {
+            const address = document.getElementById('xrpAddress');
+            address.select();
+            document.execCommand('copy');
+            
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '#4ECCA3';
+            }, 2000);
+        }
+
+        function copyTag() {
+            const tag = document.getElementById('xrpTag');
+            tag.select();
+            document.execCommand('copy');
+            
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.style.backgroundColor = '#4CAF50';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '#FFD700';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

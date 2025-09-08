@@ -1,0 +1,20 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@fastify/cors": "^11.1.0",
+    "@fastify/static": "^8.2.0",
+    "cors": "^2.8.5",
+    "express-session": "^1.18.2",
+    "fastify": "^5.5.0",
+    "passport": "^0.7.0",
+    "passport-steam": "^1.0.18",
+    "puppeteer": "^24.17.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "tailwindcss": "^4.1.12",
+    "uuid": "^11.1.0"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  }
+}

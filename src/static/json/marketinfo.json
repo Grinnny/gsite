@@ -1,0 +1,195 @@
+[
+    
+    {
+        "id": "MetalTreeDoor",
+        "name": "Metal Tree Door",
+        "quantity": "1x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "AlienRelic",
+        "name": "Alien Relic SMG",
+        "quantity": "2x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "BigGrin",
+        "name": "Big Grin",
+        "quantity": "7x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "HorrorBag",
+        "name": "Horror Bag",
+        "quantity": "5x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "CreepyClown",
+        "name": "Creepy Clown Bandana",
+        "quantity": "3x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "TemperedMp5",
+        "name": "Tempered Mp5",
+        "quantity": "5x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "FireJacket",
+        "name": "Fire jacket",
+        "quantity": "3x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "ZipperFace",
+        "name": "Zipper Face",
+        "quantity": "6x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "FreshlyDugGrave",
+        "name": "Freshly Dug Grave",
+        "quantity": "7x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "NeonDragonGarageDoor",
+        "name": "Neon Dragon Garage Door",
+        "quantity": "2x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "NoMercyRevolvere",
+        "name": "No Mercy Revolver - E Class",
+        "quantity": "2x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "GloryAk",
+        "name": "Glory AK47",
+        "quantity": "1x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "TemperedMask",
+        "name": "Tempered Mask",
+        "quantity": "3x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "ChristmasLights",
+        "name": "Christmas Lights",
+        "quantity": "7x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "HalloweenBat",
+        "name": "Halloween Bat",
+        "quantity": "5x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "Frostbite",
+        "name": "Frostbite",
+        "quantity": "5x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "HotTempered",
+        "name": "Hot-tempered Longsword",
+        "quantity": "2x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "GlowingSkull",
+        "name": "Glowing Skull",
+        "quantity": "2x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "ForestRaiderskilt",
+        "name": "Forest Raiders Roadsign Pants",
+        "quantity": "3x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "PlateCarrier",
+        "name": "Plate Carrier - Black",
+        "quantity": "2x",
+        "rarity": "epic"
+    },
+    {
+        "id": "StainlessFaceMask",
+        "name": "Stainless Facemask",
+        "quantity": "1x",
+        "rarity": "epic"
+    },
+    {
+        "id": "ForestRaidersRoadsignVest",
+        "name": "Forest Raiders Roadsign Vest",
+        "quantity": "5x",
+        "rarity": "epic"
+    },
+    {
+        "id": "SurgeonScrubs",
+        "name": "Surgeon Scrubs",
+        "quantity": "2x",
+        "rarity": "epic"
+    },
+    {
+        "id": "PolymerMP5",
+        "name": "Polymer MP5",
+        "quantity": "3x",
+        "rarity": "epic"
+    },
+    {
+        "id": "NeonBoom",
+        "name": "Neon Boom Storage",
+        "quantity": "3x",
+        "rarity": "epic"
+    },
+    {
+        "id": "HowlingDoubleDoor",
+        "name": "Howling Double Door",
+        "quantity": "5x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ForestRaidersPants",
+        "name": "Forest Raiders Pants",
+        "quantity": "1x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ChopShop",
+        "name": "Chop Shop Garage Door",
+        "quantity": "2x",
+        "rarity": "rare"
+    },
+    {
+        "id": "AK47FromHell",
+        "name": "AK-47 From Hell",
+        "quantity": "3x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ForestRaidersFacemask",
+        "name": "Forest Raiders Facemask",
+        "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "PressVest",
+        "name": "Press Vest",
+        "quantity": "2x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ArcticProtectionBurlapHeadwrap",
+        "name": "Arctic Protection Burlap Headwrap",
+        "quantity": "2x",
+        "rarity": "rare"
+    }
+]
