@@ -336,9 +336,10 @@ fastify.get('/auth/steam/return', async (req, res) => {
 		// Set session cookie
 		res.setCookie('steam_session', sessionId, {
 			httpOnly: true,
-			secure: false, // Set to true in production with HTTPS
+			secure: true, // HTTPS in production
 			maxAge: 24 * 60 * 60 * 1000, // 24 hours
-			path: '/'
+			path: '/',
+			sameSite: 'lax'
 		});
 		
 		// Redirect to main game page

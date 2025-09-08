@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Jackpot Casino</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Login - ScrapHouse</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
     <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
         .steam-btn {
             background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
             transition: all 0.3s ease;
@@ -22,12 +19,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
         
-        .login-card {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
         .error-message {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.3);
@@ -35,64 +26,90 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
-    <div class="login-card rounded-2xl p-8 w-full max-w-md shadow-2xl">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-white mb-2">Jackpot Casino</h1>
-            <p class="text-gray-300">Sign in to start playing</p>
-        </div>
-        
-        <!-- Error message display -->
-        <div id="error-message" class="error-message rounded-lg p-4 mb-6 hidden">
-            <p class="text-sm font-medium" id="error-text"></p>
-        </div>
-        
-        <!-- Steam Login Button -->
-        <div class="space-y-4">
-            <button onclick="loginWithSteam()" class="steam-btn w-full py-4 px-6 rounded-lg text-white font-semibold flex items-center justify-center space-x-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9.93 15v1c0 1.1.9 2 2 2v-.07zM17.9 17.39c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                </svg>
-                <span>Sign in through Steam</span>
-            </button>
-            
-            <div class="text-center">
-                <p class="text-gray-400 text-sm">
-                    Secure authentication via Steam OpenID
-                </p>
-            </div>
-        </div>
-        
-        <!-- Features -->
-        <div class="mt-8 pt-6 border-t border-gray-600">
-            <h3 class="text-white font-semibold mb-4">Why sign in?</h3>
-            <ul class="space-y-2 text-gray-300 text-sm">
-                <li class="flex items-center space-x-2">
-                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>Track your game history</span>
-                </li>
-                <li class="flex items-center space-x-2">
-                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>Secure wallet management</span>
-                </li>
-                <li class="flex items-center space-x-2">
-                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>Provably fair verification</span>
-                </li>
+<body style="background-color: #282828;">
+    <!-- Navigation -->
+    <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
+        <div style="width: 95%; height: 60px; background-color: #363636; border-radius: 7px;" class="flex flex-row">
+            <ul class="nav-left flex items-center space-x-4" style="height: 100%; width: 33.33%;">
+                <img src="imgs/ScrapHouseLogo.png" style="cursor: pointer;" class="logo" onclick="window.location.href = window.location.origin">
+                <button onclick="window.location.href = 'verify.html'" style="background-color: #424242; color: #4ECCA3; padding: 8px 16px; border-radius: 6px; border: 2px solid #4ECCA3; cursor: pointer; font-family: sansation; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#4ECCA3'; this.style.color='white'" onmouseout="this.style.backgroundColor='#424242'; this.style.color='#4ECCA3'">
+                    Provably Fair
+                </button>
+            </ul>
+            <ul class="nav-middle flex justify-center items-center" style="width: 33.33%; height: 100%;">
+                <div class="balance flex items-center justify-center relative" style="height: 40px; background-color: #424242; min-width: 110px; width: auto; padding: 0 15px; border-radius: 10px;">
+                    <span style="color: rgb(185, 185, 185); white-space: nowrap;">Balance: <span style="color: #4ECCA3;"><strong class="balance-display">$0.00</strong></span></span>
+                </div>
+            </ul>
+            <ul class="nav-right" style="width: 33.33%;">
+                <div class="flex items-center justify-end space-x-2" style="width: 100%; height: 100%;">
+                    <img class="nav-icons" src="imgs/user-circle.png" style="height: 40px; width: 40px;">
+                    <img class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                </div>
             </ul>
         </div>
-        
-        <!-- Guest Play Option -->
-        <div class="mt-6 text-center">
-            <a href="/jackpot.html" class="text-gray-400 hover:text-white text-sm underline">
-                Continue as guest
-            </a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 flex items-center justify-center min-h-screen">
+        <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-8 w-full max-w-md">
+            <div class="text-center mb-8">
+                <h1 style="font-family: carving; color: #4ECCA3; font-size: 36px;" class="mb-2">Welcome Back</h1>
+                <p style="font-family: sansation; color: #b9b9b9; font-size: 16px;">Sign in to start playing</p>
+            </div>
+            
+            <!-- Error message display -->
+            <div id="error-message" class="error-message rounded-lg p-4 mb-6 hidden">
+                <p class="text-sm font-medium" id="error-text"></p>
+            </div>
+            
+            <!-- Steam Login Button -->
+            <div class="space-y-4">
+                <button onclick="loginWithSteam()" class="steam-btn w-full py-4 px-6 rounded-lg text-white font-semibold flex items-center justify-center space-x-3" style="font-family: sansation;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9.93 15v1c0 1.1.9 2 2 2v-.07zM17.9 17.39c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span>Sign in through Steam</span>
+                </button>
+                
+                <div class="text-center">
+                    <p style="color: #b9b9b9; font-family: sansation; font-size: 14px;">
+                        Secure authentication via Steam OpenID
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="mt-8 pt-6" style="border-top: 1px solid #424242;">
+                <h3 style="color: #4ECCA3; font-family: sansation; font-weight: bold;" class="mb-4">Why sign in?</h3>
+                <ul class="space-y-2" style="color: #b9b9b9; font-family: sansation; font-size: 14px;">
+                    <li class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" style="color: #4ECCA3;" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Track your game history</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" style="color: #4ECCA3;" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Secure wallet management</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" style="color: #4ECCA3;" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Provably fair verification</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Guest Play Option -->
+            <div class="mt-6 text-center">
+                <a href="/jackpot.html" style="color: #b9b9b9; font-family: sansation; font-size: 14px; text-decoration: underline;" onmouseover="this.style.color='#4ECCA3'" onmouseout="this.style.color='#b9b9b9'">
+                    Continue as guest
+                </a>
+            </div>
         </div>
     </div>
 
