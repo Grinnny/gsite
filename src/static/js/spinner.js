@@ -384,7 +384,7 @@ class JackpotSpinner {
         
         // Calculate the middle of the target segment
         const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
-        const pointerAngle = 3 * Math.PI / 2; // top pointer
+        const pointerAngle = 3 * Math.PI / 2; // top pointer (270 degrees)
 
         // Determine final rotation. Prefer serverTargetRotation if provided.
         let finalRotation;
@@ -392,13 +392,22 @@ class JackpotSpinner {
             finalRotation = this.serverTargetRotation;
             console.log('🛰️ Using serverTargetRotation (deg):', (finalRotation * 180 / Math.PI).toFixed(2));
         } else {
-            // Client-side deterministic fallback
-            let targetRotation = segmentMid - pointerAngle;
+            // Client-side deterministic calculation
+            // We need to rotate the wheel so that the segment center aligns with the pointer
+            // The pointer is at 270° (3π/2), so we need: segmentMid + finalRotation = pointerAngle (mod 2π)
+            let targetRotation = pointerAngle - segmentMid;
+            
+            // Normalize to positive angle
             while (targetRotation < 0) targetRotation += 2 * Math.PI;
-            const extraSpins = 5;
+            
+            // Add multiple full rotations for dramatic effect (4-6 spins)
+            const extraSpins = 4 + Math.random() * 2;
             targetRotation += extraSpins * 2 * Math.PI;
+            
             finalRotation = targetRotation;
             console.log('🧮 Client-computed targetRotation (deg):', (finalRotation * 180 / Math.PI).toFixed(2));
+            console.log('🎯 Segment mid angle (deg):', (segmentMid * 180 / Math.PI).toFixed(2));
+            console.log('🎯 Expected final position (deg):', ((segmentMid + finalRotation) * 180 / Math.PI % 360).toFixed(2));
         }
 
         // Prepare rigged animation to final rotation
@@ -551,6 +560,10 @@ class JackpotSpinner {
             let segmentStart = (segment.startAngle + this.rotation) % (2 * Math.PI);
             let segmentEnd = (segment.endAngle + this.rotation) % (2 * Math.PI);
             
+            // Normalize angles to [0, 2π]
+            if (segmentStart < 0) segmentStart += 2 * Math.PI;
+            if (segmentEnd < 0) segmentEnd += 2 * Math.PI;
+            
             // Handle wraparound case
             let pointerInSegment = false;
             if (segmentStart <= segmentEnd) {
@@ -568,7 +581,8 @@ class JackpotSpinner {
                     isBot: this.winner.isBot,
                     segmentStart: (segmentStart * 180 / Math.PI).toFixed(2) + '°',
                     segmentEnd: (segmentEnd * 180 / Math.PI).toFixed(2) + '°',
-                    pointerAngle: (pointerAngle * 180 / Math.PI).toFixed(2) + '°'
+                    pointerAngle: (pointerAngle * 180 / Math.PI).toFixed(2) + '°',
+                    currentRotation: (this.rotation * 180 / Math.PI).toFixed(2) + '°'
                 });
                 break;
             }
