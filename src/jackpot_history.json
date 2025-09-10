@@ -1,5 +1,214 @@
 [
   {
+    "id": "389a8ae828c4da71",
+    "players": [
+      {
+        "id": "bot_105",
+        "name": "GODFATHER",
+        "betAmount": 23,
+        "avatar": "https://avatars.steamstatic.com/79462252d4d7bc645745361a7c8242f4546ecc51_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561199013304159/",
+        "isBot": true
+      },
+      {
+        "id": "bot_132",
+        "name": "Prodigyz",
+        "betAmount": 10,
+        "avatar": "https://avatars.steamstatic.com/9dd96e1342425ad809dc4fe673840cbd7d95b626_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561199245578405/",
+        "isBot": true
+      }
+    ],
+    "totalPot": 33,
+    "winner": {
+      "id": "bot_105",
+      "name": "GODFATHER",
+      "betAmount": 23,
+      "isBot": true,
+      "avatar": "https://avatars.steamstatic.com/79462252d4d7bc645745361a7c8242f4546ecc51_full.jpg",
+      "profileUrl": "https://steamcommunity.com/profiles/76561199013304159/"
+    },
+    "secret": "b87a16fd369588542867af0c191ba1bac835d65961953377056130adfdd9e347",
+    "hash": "aca10718cfe9803a8e36f71828f043f46188252297b02df09581c089bc821a4c",
+    "startTime": 1757476108713,
+    "endTime": 1757476196280,
+    "timestamp": 1757476196280,
+    "secretRevealed": true,
+    "playersCount": 2,
+    "gameInfo": {
+      "timestamp": 1757476108713,
+      "serverSeed": "b87a16fd369588542867af0c191ba1bac835d65961953377056130adfdd9e347",
+      "roundId": "1757476108713",
+      "endTime": 1757476196280,
+      "playerCount": 2,
+      "serverFallback": true,
+      "fairnessProof": {
+        "serverSeed": "b87a16fd369588542867af0c191ba1bac835d65961953377056130adfdd9e347",
+        "hash": "aca10718cfe9803a8e36f71828f043f46188252297b02df09581c089bc821a4c",
+        "timestamp": 1757476108713,
+        "verificationUrl": "/verify-game/389a8ae828c4da71"
+      }
+    }
+  },
+  {
+    "id": "7ba327fb2ecc291d",
+    "players": [
+      {
+        "id": "bot_157",
+        "name": "2007 Nissan Sentra",
+        "betAmount": 38,
+        "avatar": "https://avatars.steamstatic.com/b8395ac8298f94e2513b66b7c9641eed14bece08_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198353987646/",
+        "isBot": true
+      },
+      {
+        "id": "bot_81",
+        "name": "GeorgyZhukov",
+        "betAmount": 32,
+        "avatar": "https://avatars.steamstatic.com/8fd3678deeeca43ae4d21c5846c9714d281a87e5_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198075536517/",
+        "isBot": true
+      },
+      {
+        "id": "bot_57",
+        "name": "Penzk3",
+        "betAmount": 27,
+        "avatar": "https://avatars.steamstatic.com/55c99b19c88a3c86be0a22a232d0c66a3e47dbd0_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561199013463253/",
+        "isBot": true
+      },
+      {
+        "id": "bot_66",
+        "name": "GOONER GREG",
+        "betAmount": 31,
+        "avatar": "https://avatars.steamstatic.com/a6a94c209f187db3bb4ce5338f714670e0529d99_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198037856496/",
+        "isBot": true
+      },
+      {
+        "id": "bot_15",
+        "name": "gothangelz-",
+        "betAmount": 37,
+        "avatar": "https://avatars.steamstatic.com/289ff67991e7c892bb8c047d5c326c303bab4f9c_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198867818579/",
+        "isBot": true
+      }
+    ],
+    "totalPot": 165,
+    "winner": {
+      "id": "bot_57",
+      "name": "Penzk3",
+      "betAmount": 27,
+      "isBot": true,
+      "avatar": "https://avatars.steamstatic.com/55c99b19c88a3c86be0a22a232d0c66a3e47dbd0_full.jpg",
+      "profileUrl": "https://steamcommunity.com/profiles/76561199013463253/"
+    },
+    "secret": "d649fe9999734e362e87e715d69a4fdb8987e910a39c3240fc56b230babfb743",
+    "hash": "c53fd58ac83745e208b554685224934aacc3be16cd314805737cc22333447d37",
+    "startTime": 1757476006141,
+    "endTime": 1757476098705,
+    "timestamp": 1757476098705,
+    "secretRevealed": true,
+    "playersCount": 5,
+    "gameInfo": {
+      "timestamp": 1757476006141,
+      "serverSeed": "d649fe9999734e362e87e715d69a4fdb8987e910a39c3240fc56b230babfb743",
+      "roundId": "1757476006141",
+      "endTime": 1757476098705,
+      "playerCount": 5,
+      "serverFallback": true,
+      "fairnessProof": {
+        "serverSeed": "d649fe9999734e362e87e715d69a4fdb8987e910a39c3240fc56b230babfb743",
+        "hash": "c53fd58ac83745e208b554685224934aacc3be16cd314805737cc22333447d37",
+        "timestamp": 1757476006141,
+        "verificationUrl": "/verify-game/7ba327fb2ecc291d"
+      }
+    }
+  },
+  {
+    "id": "cfe7a86a0fd154c5",
+    "players": [
+      {
+        "id": "bot_131",
+        "name": "Penzk3",
+        "betAmount": 31,
+        "avatar": "https://avatars.steamstatic.com/55c99b19c88a3c86be0a22a232d0c66a3e47dbd0_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561199013463253/",
+        "isBot": true
+      },
+      {
+        "id": "bot_133",
+        "name": "λfg™ ☆ Allyson ★",
+        "betAmount": 41,
+        "avatar": "https://avatars.steamstatic.com/98af2c58d2763c307ce73335be79d99a26fc678c_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561199429722089/",
+        "isBot": true
+      },
+      {
+        "id": "bot_166",
+        "name": "Night",
+        "betAmount": 25,
+        "avatar": "https://avatars.steamstatic.com/21228275b3080fbd08eb7de40fa8ef7ad3098425_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198310775498/",
+        "isBot": true
+      },
+      {
+        "id": "bot_100",
+        "name": "Galore",
+        "betAmount": 31,
+        "avatar": "https://avatars.steamstatic.com/885f3e210bbd21ead29c55703b9ca79455b3684f_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561199160201064/",
+        "isBot": true
+      },
+      {
+        "id": "bot_154",
+        "name": "akve",
+        "betAmount": 33,
+        "avatar": "https://avatars.steamstatic.com/c65b1630d100b93f39c86ae6c98c28cb06bc0c7d_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198930501954/",
+        "isBot": true
+      },
+      {
+        "id": "bot_99",
+        "name": "Fu22yNutz",
+        "betAmount": 29,
+        "avatar": "https://avatars.steamstatic.com/67c58e34a9a0707e8ac82fbe596f520897133dbc_full.jpg",
+        "profileUrl": "https://steamcommunity.com/profiles/76561198148407637/",
+        "isBot": true
+      }
+    ],
+    "totalPot": 190,
+    "winner": {
+      "id": "bot_131",
+      "name": "Penzk3",
+      "betAmount": 31,
+      "isBot": true,
+      "avatar": "https://avatars.steamstatic.com/55c99b19c88a3c86be0a22a232d0c66a3e47dbd0_full.jpg",
+      "profileUrl": "https://steamcommunity.com/profiles/76561199013463253/"
+    },
+    "secret": "91b59d3ee0328a3d27d34819472bc64f66ed8bfe9778106623949e929a2729cf",
+    "hash": "6e01854902f33a2128fbae36005c8b8dc8f96a27aa7304e21ab85776f337c238",
+    "startTime": 1757475905566,
+    "endTime": 1757475996129,
+    "timestamp": 1757475996129,
+    "secretRevealed": true,
+    "playersCount": 6,
+    "gameInfo": {
+      "timestamp": 1757475905566,
+      "serverSeed": "91b59d3ee0328a3d27d34819472bc64f66ed8bfe9778106623949e929a2729cf",
+      "roundId": "1757475905566",
+      "endTime": 1757475996129,
+      "playerCount": 6,
+      "serverFallback": true,
+      "fairnessProof": {
+        "serverSeed": "91b59d3ee0328a3d27d34819472bc64f66ed8bfe9778106623949e929a2729cf",
+        "hash": "6e01854902f33a2128fbae36005c8b8dc8f96a27aa7304e21ab85776f337c238",
+        "timestamp": 1757475905566,
+        "verificationUrl": "/verify-game/cfe7a86a0fd154c5"
+      }
+    }
+  },
+  {
     "id": "aee33cc2289772bf",
     "players": [
       {

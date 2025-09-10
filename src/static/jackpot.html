@@ -9,44 +9,6 @@
     <script src="js/balance.js"></script>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
     <script src="js/realtime.js"></script>
-    <script>
-        // Check user authentication status
-        async function checkAuthStatus() {
-            try {
-                const response = await fetch('/auth/user');
-                const data = await response.json();
-                
-                if (data.success) {
-                    // User is logged in
-                    document.getElementById('user-profile').classList.remove('hidden');
-                    document.getElementById('login-btn').style.display = 'none';
-                    document.getElementById('user-avatar').src = data.user.avatar;
-                    document.getElementById('user-name').textContent = data.user.name;
-                    // Hide login warning when logged in
-                    document.getElementById('steamLoginWarning').classList.add('hidden');
-                } else {
-                    // User is not logged in
-                    document.getElementById('user-profile').classList.add('hidden');
-                    document.getElementById('login-btn').style.display = 'block';
-                    // Show login warning when not logged in
-                    document.getElementById('steamLoginWarning').classList.remove('hidden');
-                }
-            } catch (error) {
-                console.log('Auth check failed:', error);
-                document.getElementById('user-profile').classList.add('hidden');
-                document.getElementById('login-btn').style.display = 'block';
-                // Show login warning when auth check fails
-                document.getElementById('steamLoginWarning').classList.remove('hidden');
-            }
-        }
-        
-        function logout() {
-            window.location.href = '/auth/logout';
-        }
-        
-        // Check auth status on page load
-        document.addEventListener('DOMContentLoaded', checkAuthStatus);
-    </script>
     <title>ScrapHouse - Jackpot</title>
 </head>
 <body style="background-color: #282828;">
@@ -247,6 +209,7 @@
     </div>
 
     <!-- Include Jackpot JavaScript -->
+    <script src="js/auth.js"></script>
     <script src="js/spinner.js"></script>
     <script src="js/jackpot.js"></script>
     <script src="js/chat.js"></script>
