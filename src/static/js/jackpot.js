@@ -154,21 +154,23 @@ class JackpotGame {
                 this.updateCountdownDisplay();
             });
 
-            socket.on('spinner_start', ({ players, forcedWinner, preciseVelocity }) => {
+            socket.on('spinner_start', ({ players, forcedWinner, preciseVelocity, targetRotation }) => {
                 console.log('📡 Received spinner_start event');
                 console.log('🔍 CLIENT DEBUG: forcedWinner received:', forcedWinner);
                 console.log('🔍 CLIENT DEBUG: preciseVelocity received:', preciseVelocity);
+                console.log('🔍 CLIENT DEBUG: targetRotation received:', targetRotation);
                 
                 if (this.spinner) {
                     console.log('🎲 Current spinner segments:', this.spinner.segments.length);
                     
-                    if (forcedWinner && preciseVelocity) {
+                    if (forcedWinner && (preciseVelocity || targetRotation)) {
                         // Use server-calculated precise velocity
                         console.log('🎯 Using server-calculated velocity for real player:', forcedWinner.name);
                         console.log('🎰 Server velocity:', preciseVelocity);
                         this.spinner.forceWinner = forcedWinner;
                         this.spinner.predeterminedWinner = forcedWinner;
                         this.spinner.serverVelocity = preciseVelocity;
+                        this.spinner.serverTargetRotation = targetRotation || null;
                         console.log('✅ CLIENT: Set predeterminedWinner to:', this.spinner.predeterminedWinner.name);
                     } else if (forcedWinner) {
                         // Fallback to client calculation
@@ -176,6 +178,7 @@ class JackpotGame {
                         this.spinner.forceWinner = forcedWinner;
                         this.spinner.predeterminedWinner = forcedWinner;
                         this.spinner.serverVelocity = null;
+                        this.spinner.serverTargetRotation = null;
                         console.log('✅ CLIENT: Set predeterminedWinner to:', this.spinner.predeterminedWinner.name);
                     } else {
                         // Let physics decide (only bots in round)
@@ -183,6 +186,7 @@ class JackpotGame {
                         this.spinner.forceWinner = null;
                         this.spinner.predeterminedWinner = null;
                         this.spinner.serverVelocity = null;
+                        this.spinner.serverTargetRotation = null;
                     }
                     
                     this.spinner.spin();

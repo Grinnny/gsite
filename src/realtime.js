@@ -317,6 +317,7 @@ export async function initRealtime(fastify, steamAuthInstance) {
     const realPlayers = state.players.filter(p => !p.isBot);
     let forcedWinner = null;
     let preciseVelocity = null;
+    let targetRotation = null;
     
     console.log('🔍 RIGGING DEBUG: Total players:', state.players.length);
     console.log('🔍 RIGGING DEBUG: Player details:', state.players.map(p => ({
@@ -336,6 +337,35 @@ export async function initRealtime(fastify, steamAuthInstance) {
       // Calculate precise velocity to land on their segment
       preciseVelocity = calculatePreciseVelocity(state.players, forcedWinner);
       console.log('🎰 Calculated precise velocity:', preciseVelocity);
+
+      // Also calculate a deterministic targetRotation so all clients align exactly
+      try {
+        const pointerAngle = 3 * Math.PI / 2; // top
+        const totalPot = state.players.reduce((s,p)=>s+p.betAmount,0);
+        let currentAngle = 0;
+        const segments = [];
+        state.players.forEach((p)=>{
+          const pct = p.betAmount / totalPot;
+          const segAngle = pct * 2 * Math.PI;
+          segments.push({ player: p, startAngle: currentAngle, endAngle: currentAngle + segAngle });
+          currentAngle += segAngle;
+        });
+        const seg = segments.find(s=> s.player.id===forcedWinner.id || s.player.name===forcedWinner.name);
+        if (seg) {
+          const mid = (seg.startAngle + seg.endAngle) / 2;
+          let rot = pointerAngle - mid; // assume starting rotation 0 on clients
+          while (rot < 0) rot += 2*Math.PI;
+          // Use a fixed extra spin count so all clients match exactly (e.g., 5 full spins)
+          const extraSpins = 5; 
+          rot += extraSpins * 2 * Math.PI;
+          targetRotation = rot;
+          console.log('🎯 Server targetRotation (deg):', (rot*180/Math.PI).toFixed(2));
+        } else {
+          console.warn('⚠️ Could not find segment for forcedWinner when computing targetRotation');
+        }
+      } catch (e) {
+        console.error('❌ Error computing targetRotation:', e);
+      }
     } else {
       console.log('⚠️ NO REAL PLAYERS FOUND - rigging will not activate');
     }
@@ -345,7 +375,8 @@ export async function initRealtime(fastify, steamAuthInstance) {
     io.emit('spinner_start', { 
       players: state.players,
       forcedWinner: forcedWinner,
-      preciseVelocity: preciseVelocity
+      preciseVelocity: preciseVelocity,
+      targetRotation: targetRotation
     });
     
     // Set a fallback timer in case no spinner result is received (client disconnected/refreshed)
