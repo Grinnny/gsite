@@ -384,7 +384,7 @@ class JackpotSpinner {
         
         // Calculate the middle of the target segment
         const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
-        const pointerAngle = 3 * Math.PI / 2; // top pointer (270 degrees)
+        const pointerAngle = -Math.PI / 2; // top pointer (12 o'clock = -90 degrees = -π/2)
 
         // Determine final rotation. Prefer serverTargetRotation if provided.
         let finalRotation;
@@ -394,7 +394,7 @@ class JackpotSpinner {
         } else {
             // Client-side deterministic calculation
             // We need to rotate the wheel so that the segment center aligns with the pointer
-            // The pointer is at 270° (3π/2), so we need: segmentMid + finalRotation = pointerAngle (mod 2π)
+            // The pointer is at -90° (-π/2), so we need: segmentMid + finalRotation = pointerAngle (mod 2π)
             let targetRotation = pointerAngle - segmentMid;
             
             // Normalize to positive angle
@@ -550,7 +550,7 @@ class JackpotSpinner {
         }
         
         // Always determine winner by where the red pointer lands
-        const pointerAngle = (3 * Math.PI / 2); // 270 degrees - top of circle (red pointer position)
+        const pointerAngle = (-Math.PI / 2); // -90 degrees - top of circle (red pointer position)
         
         console.log('🎯 Determining winner by pointer position at:', (pointerAngle * 180 / Math.PI).toFixed(2) + '°');
         
@@ -564,14 +564,18 @@ class JackpotSpinner {
             if (segmentStart < 0) segmentStart += 2 * Math.PI;
             if (segmentEnd < 0) segmentEnd += 2 * Math.PI;
             
+            // Normalize pointer angle to [0, 2π] for comparison
+            let normalizedPointer = pointerAngle;
+            if (normalizedPointer < 0) normalizedPointer += 2 * Math.PI;
+            
             // Handle wraparound case
             let pointerInSegment = false;
             if (segmentStart <= segmentEnd) {
                 // Normal case - no wraparound
-                pointerInSegment = (pointerAngle >= segmentStart && pointerAngle <= segmentEnd);
+                pointerInSegment = (normalizedPointer >= segmentStart && normalizedPointer <= segmentEnd);
             } else {
                 // Wraparound case - segment crosses 0/360 boundary
-                pointerInSegment = (pointerAngle >= segmentStart || pointerAngle <= segmentEnd);
+                pointerInSegment = (normalizedPointer >= segmentStart || normalizedPointer <= segmentEnd);
             }
             
             if (pointerInSegment) {
@@ -581,7 +585,7 @@ class JackpotSpinner {
                     isBot: this.winner.isBot,
                     segmentStart: (segmentStart * 180 / Math.PI).toFixed(2) + '°',
                     segmentEnd: (segmentEnd * 180 / Math.PI).toFixed(2) + '°',
-                    pointerAngle: (pointerAngle * 180 / Math.PI).toFixed(2) + '°',
+                    pointerAngle: (normalizedPointer * 180 / Math.PI).toFixed(2) + '°',
                     currentRotation: (this.rotation * 180 / Math.PI).toFixed(2) + '°'
                 });
                 break;
