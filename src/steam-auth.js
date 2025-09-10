@@ -5,8 +5,12 @@ class SteamAuth {
     constructor() {
         this.steamOpenIdUrl = 'https://steamcommunity.com/openid/login';
         this.steamApiUrl = 'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/';
-        this.realm = 'https://scrap-house.com'; // Production domain
-        this.returnUrl = 'https://scrap-house.com/auth/steam/return';
+        // Use environment-based URLs for development/production
+        const baseUrl = process.env.NODE_ENV === 'production' 
+            ? 'https://scrap-house.com' 
+            : 'http://localhost:3000';
+        this.realm = baseUrl;
+        this.returnUrl = `${baseUrl}/auth/steam/return`;
         
         // Store active sessions
         this.sessions = new Map();

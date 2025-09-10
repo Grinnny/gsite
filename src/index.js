@@ -589,8 +589,8 @@ fastify.get('/balance', async (req, res) => {
 	res.send({ success: true, balance: balance });
 });
 
-// Initialize realtime jackpot (Socket.IO) if available
-await initRealtime(fastify);
+// Initialize realtime features with shared steamAuth instance
+initRealtime(fastify, steamAuth);
 
 fastify.listen({port: port}, () => {
     console.log(`listening on port: ${port}`)

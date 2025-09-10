@@ -205,10 +205,7 @@ class JackpotGame {
             // Load history on demand
             socket.on('join_game_error', ({ error }) => {
                 this.showError(error);
-                // Optionally redirect to login page after a delay
-                setTimeout(() => {
-                    window.location.href = '/login';
-                }, 2000);
+                // Don't automatically redirect - let user decide
             });
 
             socket.on('history_update', ({ history }) => {

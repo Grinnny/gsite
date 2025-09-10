@@ -8,9 +8,9 @@ import SteamAuth from './steam-auth.js';
 import path from 'node:path';
 import { fileURLToPath } from 'url';
 
-export async function initRealtime(fastify) {
-  // Initialize Steam authentication
-  const steamAuth = new SteamAuth();
+export async function initRealtime(fastify, steamAuthInstance) {
+  // Use the shared Steam authentication instance
+  const steamAuth = steamAuthInstance;
   let Server;
   try {
     // Dynamically import socket.io so the app still runs if it's not installed yet
