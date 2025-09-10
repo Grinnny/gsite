@@ -45,6 +45,7 @@
                                         Save
                                     </button>
                                 </div>
+                                <div style="color: #666; font-family: sansation; font-size: 11px; margin-top: 5px;">Required to scan your Rust inventory and send trade offers</div>
                             </div>
                             
                             <div style="margin-bottom: 15px;">
@@ -76,22 +77,30 @@
                         </div>
                     </div>
 
-                    <!-- Right Column - Bot Info & Status -->
+                    <!-- Right Column - Inventory & Selection -->
                     <div class="flex flex-col items-center">
-                        <h3 style="color: #4ECCA3; font-family: carving; font-size: 22px; margin-bottom: 20px;">Trade Bot</h3>
+                        <h3 style="color: #4ECCA3; font-family: carving; font-size: 22px; margin-bottom: 20px;">Your Rust Inventory</h3>
                         
                         <div style="background-color: #363636; border-radius: 15px; padding: 20px; margin-bottom: 20px; width: 100%;">
-                            <div class="flex items-center justify-center" style="margin-bottom: 15px;">
-                                <img src="imgs/steam-bot-avatar.png" style="width: 64px; height: 64px; border-radius: 50%; margin-right: 15px;" onerror="this.style.display='none'">
-                                <div>
-                                    <div style="color: #4ECCA3; font-family: sansation; font-size: 16px; font-weight: bold;">ScrapHouse Bot #1</div>
-                                    <div style="color: #4CAF50; font-family: sansation; font-size: 12px;">🟢 Online</div>
-                                </div>
+                            <button onclick="scanInventory()" id="scanBtn" style="width: 100%; background-color: #4ECCA3; color: white; border: none; border-radius: 8px; padding: 12px; font-family: sansation; cursor: pointer; margin-bottom: 15px;">
+                                Scan Rust Inventory
+                            </button>
+                            
+                            <div id="inventoryItems" style="max-height: 300px; overflow-y: auto; display: none;">
+                                <!-- Inventory items will be loaded here -->
                             </div>
                             
-                            <button onclick="sendTradeOffer()" id="tradeBtn" disabled style="width: 100%; background-color: #666; color: white; border: none; border-radius: 8px; padding: 12px; font-family: sansation; cursor: not-allowed;">
-                                Enter Trade URL First
-                            </button>
+                            <div id="selectedItems" style="background-color: #282828; border-radius: 8px; padding: 15px; margin-top: 15px; display: none;">
+                                <h5 style="color: #4ECCA3; font-family: sansation; font-size: 14px; margin-bottom: 10px;">Selected Items:</h5>
+                                <div id="selectedList" style="color: #b9b9b9; font-family: sansation; font-size: 12px; margin-bottom: 10px;">No items selected</div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #b9b9b9; font-family: sansation; font-size: 12px;">Total Value:</span>
+                                    <span id="totalValue" style="color: #4ECCA3; font-family: sansation; font-size: 14px; font-weight: bold;">$0.00</span>
+                                </div>
+                                <button onclick="sendTradeOffer()" id="tradeBtn" disabled style="width: 100%; background-color: #666; color: white; border: none; border-radius: 8px; padding: 10px; font-family: sansation; cursor: not-allowed;">
+                                    Select Items to Trade
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Deposit Status -->
@@ -130,6 +139,21 @@
     </nav>
 
     <script>
+        let skinportData = [];
+        let selectedItems = [];
+        let userInventory = [];
+
+        // Load skinport price data
+        async function loadSkinportData() {
+            try {
+                const response = await fetch('json/skinportdata.json');
+                skinportData = await response.json();
+                console.log('Loaded', skinportData.length, 'Rust skin prices');
+            } catch (error) {
+                console.error('Error loading skinport data:', error);
+            }
+        }
+
         function saveTradeUrl() {
             const tradeUrl = document.getElementById('tradeUrl').value;
             if (!tradeUrl || !tradeUrl.includes('steamcommunity.com/tradeoffer/new/')) {
@@ -144,17 +168,119 @@
             button.textContent = 'Saved!';
             button.style.backgroundColor = '#4CAF50';
             
-            // Enable trade button
-            const tradeBtn = document.getElementById('tradeBtn');
-            tradeBtn.disabled = false;
-            tradeBtn.style.backgroundColor = '#4ECCA3';
-            tradeBtn.style.cursor = 'pointer';
-            tradeBtn.textContent = 'Send Trade Offer';
-            
             setTimeout(() => {
                 button.textContent = originalText;
                 button.style.backgroundColor = '#4ECCA3';
             }, 2000);
+        }
+
+        function scanInventory() {
+            const scanBtn = document.getElementById('scanBtn');
+            scanBtn.textContent = 'Scanning...';
+            scanBtn.disabled = true;
+            
+            // Simulate inventory scanning with sample Rust items
+            setTimeout(() => {
+                userInventory = [
+                    { name: "AK-47 | Redline", market_hash_name: "AK-47 | Redline", icon_url: "https://community.cloudflare.steamstatic.com/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZULUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz56P7fiDzZ2TQXJVfdhX_Dsx1-5UGki5sAij6tOtQ/96fx96f" },
+                    { name: "MP5 | Acid Wash", market_hash_name: "MP5 | Acid Wash", icon_url: "https://community.cloudflare.steamstatic.com/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZULUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz5uJ_OKIz5rdwrBBLJhWvws8Qm5UWcz5sAij6tOtQ/96fx96f" },
+                    { name: "Hoodie | Tempered", market_hash_name: "Hoodie | Tempered", icon_url: "https://community.cloudflare.steamstatic.com/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZULUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz5uJ_OKIz5rdwrBBLJhWvws8Qm5UWcz5sAij6tOtQ/96fx96f" },
+                    { name: "Pants | Tempered", market_hash_name: "Pants | Tempered", icon_url: "https://community.cloudflare.steamstatic.com/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZULUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz5uJ_OKIz5rdwrBBLJhWvws8Qm5UWcz5sAij6tOtQ/96fx96f" },
+                    { name: "Gloves | Tempered", market_hash_name: "Gloves | Tempered", icon_url: "https://community.cloudflare.steamstatic.com/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZULUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz5uJ_OKIz5rdwrBBLJhWvws8Qm5UWcz5sAij6tOtQ/96fx96f" },
+                    { name: "Boots | Tempered", market_hash_name: "Boots | Tempered", icon_url: "https://community.cloudflare.steamstatic.com/economy/image/fWFc82js0fmoRAP-qOIPu5THSWqfSmTELLqcUywGkijVjZULUrsm1j-9xgEObwgfEh_nvjlWhNzZCveCDfIBj98xqodQ2CZknz5uJ_OKIz5rdwrBBLJhWvws8Qm5UWcz5sAij6tOtQ/96fx96f" }
+                ];
+                
+                displayInventory();
+                scanBtn.textContent = 'Rescan Inventory';
+                scanBtn.disabled = false;
+            }, 2000);
+        }
+
+        function displayInventory() {
+            const inventoryDiv = document.getElementById('inventoryItems');
+            const selectedDiv = document.getElementById('selectedItems');
+            
+            inventoryDiv.innerHTML = '';
+            inventoryDiv.style.display = 'block';
+            selectedDiv.style.display = 'block';
+            
+            userInventory.forEach((item, index) => {
+                const priceData = skinportData.find(skin => skin.market_hash_name === item.market_hash_name);
+                const price = priceData ? priceData.suggested_price : 0;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.style.cssText = `
+                    display: flex; align-items: center; padding: 10px; margin-bottom: 8px;
+                    background-color: #282828; border-radius: 8px; cursor: pointer;
+                    border: 2px solid transparent; transition: all 0.2s;
+                `;
+                
+                itemDiv.innerHTML = `
+                    <div style="width: 50px; height: 50px; background-color: #424242; border-radius: 6px; margin-right: 10px; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #666; font-size: 10px;">IMG</span>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="color: white; font-family: sansation; font-size: 12px; margin-bottom: 2px;">${item.name}</div>
+                        <div style="color: #4ECCA3; font-family: sansation; font-size: 11px; font-weight: bold;">$${price.toFixed(2)}</div>
+                    </div>
+                    <input type="checkbox" onchange="toggleItemSelection(${index})" style="margin-left: 10px;">
+                `;
+                
+                inventoryDiv.appendChild(itemDiv);
+            });
+        }
+
+        function toggleItemSelection(index) {
+            const item = userInventory[index];
+            const priceData = skinportData.find(skin => skin.market_hash_name === item.market_hash_name);
+            const price = priceData ? priceData.suggested_price : 0;
+            
+            const itemWithPrice = { ...item, price: price };
+            
+            const existingIndex = selectedItems.findIndex(selected => selected.name === item.name);
+            
+            if (existingIndex > -1) {
+                selectedItems.splice(existingIndex, 1);
+            } else {
+                selectedItems.push(itemWithPrice);
+            }
+            
+            updateSelectedDisplay();
+        }
+
+        function updateSelectedDisplay() {
+            const selectedList = document.getElementById('selectedList');
+            const totalValue = document.getElementById('totalValue');
+            const tradeBtn = document.getElementById('tradeBtn');
+            
+            if (selectedItems.length === 0) {
+                selectedList.textContent = 'No items selected';
+                totalValue.textContent = '$0.00';
+                tradeBtn.disabled = true;
+                tradeBtn.style.backgroundColor = '#666';
+                tradeBtn.style.cursor = 'not-allowed';
+                tradeBtn.textContent = 'Select Items to Trade';
+            } else {
+                const total = selectedItems.reduce((sum, item) => sum + item.price, 0);
+                
+                selectedList.innerHTML = selectedItems.map(item => 
+                    `<div style="margin-bottom: 2px;">${item.name} - $${item.price.toFixed(2)}</div>`
+                ).join('');
+                
+                totalValue.textContent = '$' + total.toFixed(2);
+                
+                if (total >= 5) {
+                    tradeBtn.disabled = false;
+                    tradeBtn.style.backgroundColor = '#4ECCA3';
+                    tradeBtn.style.cursor = 'pointer';
+                    tradeBtn.textContent = `Trade ${selectedItems.length} Items ($${total.toFixed(2)})`;
+                } else {
+                    tradeBtn.disabled = true;
+                    tradeBtn.style.backgroundColor = '#ff6b6b';
+                    tradeBtn.style.cursor = 'not-allowed';
+                    tradeBtn.textContent = `Minimum $5.00 required (Current: $${total.toFixed(2)})`;
+                }
+            }
         }
 
         function sendTradeOffer() {
@@ -164,22 +290,93 @@
                 return;
             }
             
-            // In a real implementation, this would send a request to your backend
-            // to initiate a Steam trade offer
-            alert('Trade offer functionality would be implemented here.\n\nThis would:\n1. Scan your Rust inventory\n2. Calculate skin values\n3. Send trade offer\n4. Credit your account upon acceptance');
+            if (selectedItems.length === 0) {
+                alert('Please select items to trade');
+                return;
+            }
+            
+            const totalValue = selectedItems.reduce((sum, item) => sum + item.price, 0);
+            
+            if (totalValue < 5) {
+                alert('Minimum trade value is $5.00');
+                return;
+            }
+            
+            // Simulate trade offer process
+            const tradeBtn = document.getElementById('tradeBtn');
+            tradeBtn.textContent = 'Sending Trade Offer...';
+            tradeBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Simulate trade acceptance and balance update
+                const currentBalance = parseFloat(localStorage.getItem('userBalance') || '0');
+                const newBalance = currentBalance + totalValue;
+                localStorage.setItem('userBalance', newBalance.toString());
+                
+                // Update balance display
+                const balanceElements = document.querySelectorAll('.balance-display');
+                balanceElements.forEach(el => {
+                    el.textContent = '$' + newBalance.toFixed(2);
+                });
+                
+                // Record deposit
+                const deposits = JSON.parse(localStorage.getItem('depositHistory') || '[]');
+                deposits.push({
+                    type: 'rust_skins',
+                    items: selectedItems,
+                    totalValue: totalValue.toFixed(2),
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('depositHistory', JSON.stringify(deposits));
+                
+                // Update recent deposits display
+                updateRecentDeposits();
+                
+                alert(`Trade completed successfully!\n\nItems traded: ${selectedItems.length}\nValue: $${totalValue.toFixed(2)}\nNew balance: $${newBalance.toFixed(2)}`);
+                
+                // Reset selection
+                selectedItems = [];
+                const checkboxes = document.querySelectorAll('#inventoryItems input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                updateSelectedDisplay();
+                
+                tradeBtn.textContent = 'Select Items to Trade';
+            }, 3000);
         }
 
-        // Load saved trade URL on page load
-        window.addEventListener('load', () => {
+        function updateRecentDeposits() {
+            const recentDeposits = document.getElementById('recentDeposits');
+            const deposits = JSON.parse(localStorage.getItem('depositHistory') || '[]');
+            const rustDeposits = deposits.filter(d => d.type === 'rust_skins').slice(-3);
+            
+            if (rustDeposits.length === 0) {
+                recentDeposits.innerHTML = '<div style="color: #666; font-family: sansation; font-size: 12px; text-align: center; padding: 20px;">No recent deposits</div>';
+            } else {
+                recentDeposits.innerHTML = rustDeposits.map(deposit => `
+                    <div style="background-color: #282828; border-radius: 6px; padding: 10px; margin-bottom: 8px;">
+                        <div style="color: #4ECCA3; font-family: sansation; font-size: 12px; font-weight: bold;">$${deposit.totalValue}</div>
+                        <div style="color: #b9b9b9; font-family: sansation; font-size: 10px;">${deposit.items.length} items • ${new Date(deposit.timestamp).toLocaleString()}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Load saved trade URL and initialize
+        window.addEventListener('load', async () => {
+            await loadSkinportData();
+            updateRecentDeposits();
+            
             const savedUrl = localStorage.getItem('steamTradeUrl');
             if (savedUrl) {
                 document.getElementById('tradeUrl').value = savedUrl;
-                const tradeBtn = document.getElementById('tradeBtn');
-                tradeBtn.disabled = false;
-                tradeBtn.style.backgroundColor = '#4ECCA3';
-                tradeBtn.style.cursor = 'pointer';
-                tradeBtn.textContent = 'Send Trade Offer';
             }
+            
+            // Load balance
+            const balance = parseFloat(localStorage.getItem('userBalance') || '0');
+            const balanceElements = document.querySelectorAll('.balance-display');
+            balanceElements.forEach(el => {
+                el.textContent = '$' + balance.toFixed(2);
+            });
         });
     </script>
 </body>

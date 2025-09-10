@@ -56,6 +56,10 @@ class JackpotGame {
             console.log('🎲 Initializing JackpotSpinner...');
             this.spinner = new JackpotSpinner('jackpotSpinner');
             console.log('✅ Spinner created:', !!this.spinner);
+            
+            // Check if we're recovering from a page refresh during spinning
+            this.checkForSpinnerRecovery();
+            
             this.updateSpinner();
         }, 100);
 
@@ -67,7 +71,10 @@ class JackpotGame {
             const socket = window.socket;
             socket.on('game_state', (state) => {
                 this.currentGame.id = state.id || this.currentGame.id;
-                this.currentGame.players = (state.players || []).map(p => ({ ...p, avatar: p.isBot ? 'imgs/bot-avatar.png' : 'imgs/user-circle.png' }));
+                this.currentGame.players = (state.players || []).map(p => ({ 
+                    ...p, 
+                    avatar: p.avatar // Use the avatar from server directly, don't override it
+                }));
                 this.currentGame.totalPot = state.totalPot || 0;
                 this.currentGame.isActive = !!state.isActive;
                 this.currentGame.startTime = state.startTime || null;
@@ -79,7 +86,7 @@ class JackpotGame {
                     console.log('🧹 Clearing spinner segments for empty pot');
                     this.spinner.segments = [];
                     this.spinner.winner = null;
-                    this.spinner.isSpinning = false;
+                    this.spinner.forceReset(); // Use force reset to clear any stuck state
                     this.spinner.draw();
                 }
                 
@@ -107,7 +114,7 @@ class JackpotGame {
             });
 
             socket.on('player_joined', ({ player, totalPot }) => {
-                const enriched = { ...player, avatar: player.isBot ? 'imgs/bot-avatar.png' : 'imgs/user-circle.png' };
+                const enriched = { ...player }; // Keep all player data including avatar as-is from server
                 this.currentGame.players.push(enriched);
                 this.currentGame.totalPot = totalPot;
                 this.updateUI();
@@ -196,6 +203,14 @@ class JackpotGame {
             });
 
             // Load history on demand
+            socket.on('join_game_error', ({ error }) => {
+                this.showError(error);
+                // Optionally redirect to login page after a delay
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            });
+
             socket.on('history_update', ({ history }) => {
                 if (Array.isArray(history)) {
                     this.gameHistory = history.map(h => ({
@@ -258,7 +273,7 @@ class JackpotGame {
                 name: botName + Math.floor(Math.random() * 1000),
                 betAmount: betAmount,
                 isBot: true,
-                avatar: 'imgs/bot-avatar.png'
+                avatar: player.avatar || 'imgs/bot-avatar.png'
             });
         }
         
@@ -330,6 +345,13 @@ class JackpotGame {
     // Start a new jackpot game
     startNewGame() {
         if (this.useRealtime) return; // server drives rounds
+        
+        // Clear any existing countdown interval
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+        }
+        
         const credentials = this.generateGameCredentials();
         
         this.currentGame = {
@@ -409,43 +431,32 @@ class JackpotGame {
 
     // Show error message to user
     showError(message) {
-        // Try to find existing error display element
-        let errorEl = document.getElementById('errorMessage');
+        // Try to use the auth error message display first
+        const authErrorDiv = document.getElementById('authErrorMessage');
+        const authErrorText = document.getElementById('authErrorText');
         
-        if (!errorEl) {
-            // Create error element if it doesn't exist
-            errorEl = document.createElement('div');
-            errorEl.id = 'errorMessage';
-            errorEl.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: rgba(220, 53, 69, 0.9);
-                color: white;
-                padding: 15px 20px;
-                border-radius: 8px;
-                font-family: sansation;
-                font-size: 16px;
-                z-index: 1000;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                border: 2px solid #dc3545;
-                max-width: 300px;
-            `;
-            document.body.appendChild(errorEl);
+        if (authErrorDiv && authErrorText) {
+            authErrorText.textContent = message;
+            authErrorDiv.classList.remove('hidden');
+            setTimeout(() => {
+                authErrorDiv.classList.add('hidden');
+            }, 5000);
+            return;
         }
         
-        errorEl.textContent = message;
-        errorEl.style.display = 'block';
-        
-        // Auto-hide after 5 seconds
-        setTimeout(() => {
-            if (errorEl) {
-                errorEl.style.display = 'none';
-            }
-        }, 5000);
+        // Fallback to general error message
+        const errorDiv = document.getElementById('errorMessage');
+        if (errorDiv) {
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        } else {
+            alert(message);
+        }
     }
 
-    // Calculate win percentages for each player
     calculateWinPercentages() {
         if (this.currentGame.totalPot === 0) return [];
 
@@ -476,6 +487,18 @@ class JackpotGame {
     // Start countdown timer
     startCountdown() {
         if (this.useRealtime) return; // server sends countdown_tick
+        
+        // Clear any existing countdown interval
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+        }
+        
+        // Reset countdown to 60 if it's at 0 or negative
+        if (this.currentGame.countdown <= 0) {
+            this.currentGame.countdown = 60;
+        }
+        
         this.countdownInterval = setInterval(() => {
             this.currentGame.countdown--;
             this.updateCountdownDisplay();
@@ -555,6 +578,12 @@ class JackpotGame {
 
     // Join game as real player
     joinGame(betAmount) {
+        // Check if user is logged in first
+        if (!authManager || !authManager.isLoggedIn) {
+            this.showError('You must be logged in to join games! Please login with Steam to continue.');
+            return false;
+        }
+
         if (!this.currentGame.isActive) {
             alert('No active game to join!');
             return false;
@@ -609,6 +638,19 @@ class JackpotGame {
         return true;
     }
 
+    // Check if we need to recover from a page refresh during spinning
+    checkForSpinnerRecovery() {
+        if (!this.spinner) return;
+        
+        // Check if there was a spinning state before refresh
+        const wasSpinning = localStorage.getItem('spinnerWasSpinning');
+        if (wasSpinning === 'true') {
+            console.log('🔄 Detected spinner was active before page refresh - forcing reset');
+            this.spinner.forceReset();
+            localStorage.removeItem('spinnerWasSpinning');
+        }
+    }
+    
     // Save current game state to localStorage
     saveGameState() {
         const gameStateToSave = {
@@ -616,6 +658,13 @@ class JackpotGame {
             savedAt: Date.now()
         };
         localStorage.setItem('currentJackpotGame', JSON.stringify(gameStateToSave));
+        
+        // Track if spinner is currently active
+        if (this.spinner && this.spinner.isSpinning) {
+            localStorage.setItem('spinnerWasSpinning', 'true');
+        } else {
+            localStorage.removeItem('spinnerWasSpinning');
+        }
     }
 
     // Load current game state from localStorage
@@ -710,13 +759,16 @@ class JackpotGame {
                 `;
                 countdownEl.className = 'text-center animate-pulse';
             } else {
+                // Ensure countdown doesn't go below 0
+                const displayCountdown = Math.max(0, this.currentGame.countdown);
+                
                 // Show normal countdown
-                countdownEl.textContent = this.currentGame.countdown;
+                countdownEl.textContent = displayCountdown;
                 
                 // Change color based on time remaining
-                if (this.currentGame.countdown <= 10) {
+                if (displayCountdown <= 10) {
                     countdownEl.className = 'text-6xl font-bold text-red-500 animate-pulse';
-                } else if (this.currentGame.countdown <= 30) {
+                } else if (displayCountdown <= 30) {
                     countdownEl.className = 'text-6xl font-bold text-yellow-500';
                 } else {
                     countdownEl.className = 'text-6xl font-bold text-green-500';
@@ -731,12 +783,26 @@ class JackpotGame {
         if (playersListEl) {
             const playersWithPercentages = this.calculateWinPercentages();
             
-            playersListEl.innerHTML = playersWithPercentages.map(player => `
+            playersListEl.innerHTML = playersWithPercentages.map((player, index) => {
+                // Generate a unique color for each player based on their index
+                const colors = [
+                    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', 
+                    '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9',
+                    '#F8C471', '#82E0AA', '#F1948A', '#85C1E9', '#D7BDE2'
+                ];
+                const playerColor = colors[index % colors.length];
+                
+                return `
                 <div style="background-color: #424242; border-radius: 10px; border: 1px solid #363636;" class="flex items-center justify-between p-3 mb-2">
                     <div class="flex items-center">
-                        <img src="${player.avatar}" alt="${player.name}" class="w-10 h-10 rounded-full mr-3">
+                        <div class="relative mr-3">
+                            <img src="${player.avatar}" alt="${player.name}" class="w-10 h-10 rounded-full">
+                            <div class="absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-white" style="background-color: ${playerColor};"></div>
+                        </div>
                         <div>
-                            <div style="font-family: sansation; color: white;" class="font-medium">${player.name}</div>
+                            <div style="font-family: sansation; color: white;" class="font-medium">
+                                ${player.profileUrl ? `<a href="${player.profileUrl}" target="_blank" style="color: white; text-decoration: none; cursor: pointer;" onmouseover="this.style.color='#4ECCA3'" onmouseout="this.style.color='white'">${player.name}</a>` : player.name}
+                            </div>
                             <div style="font-family: sansation; color: #b9b9b9;" class="text-sm">Player</div>
                         </div>
                     </div>
@@ -745,7 +811,8 @@ class JackpotGame {
                         <div style="font-family: sansation; color: #b9b9b9;" class="text-sm">${player.winPercentage}%</div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
     }
 
@@ -787,7 +854,7 @@ class JackpotGame {
                 <p><strong>Game ID:</strong> ${gameData.id}</p>
                 <p><strong>Total Pot:</strong> $${gameData.totalPot.toFixed(2)}</p>
                 <p><strong>Winner:</strong> ${gameData.winner.name} (${gameInfo.winnerType || 'unknown'})</p>
-                <p><strong>Players:</strong> ${gameInfo.playerCount || gameData.players?.length || 0} total (${gameInfo.realPlayers || 0} real, ${gameInfo.botPlayers || 0} bots)</p>
+                <p><strong>Players:</strong> ${gameInfo.playerCount || gameData.players?.length || 0} total</p>
                 <p><strong>End Time:</strong> ${new Date(gameInfo.endTime || Date.now()).toLocaleString()}</p>
             </div>
 
@@ -801,6 +868,7 @@ class JackpotGame {
                 
                 <p style="margin-top: 15px; color: #4ECCA3;"><strong>✅ Hash Verification:</strong> SHA256(secret) = hash</p>
                 <p style="font-size: 14px; color: #bbb;">You can verify this game's fairness by computing SHA256 of the secret and comparing it to the pre-revealed hash.</p>
+                <p style="margin-top: 10px; font-size: 12px; color: #888;">Truncated Hash for Verification: <span style="font-family: monospace; color: #4ECCA3;">${gameData.hash ? gameData.hash.substring(0, 8) : 'N/A'}</span></p>
             </div>
 
             <div style="display: flex; gap: 10px; justify-content: center;">
@@ -834,29 +902,58 @@ class JackpotGame {
     }
 
     updateHistory() {
-        const historyContainer = document.getElementById('history-container');
+        const historyContainer = document.getElementById('gameHistory');
         if (!historyContainer) return;
 
         historyContainer.innerHTML = '';
         this.gameHistory.forEach(game => {
             const historyItem = document.createElement('div');
-            historyItem.className = 'history-item';
-            historyItem.style.cursor = 'pointer';
+            historyItem.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px;
+                margin-bottom: 8px;
+                background-color: #2a2a2a;
+                border-radius: 8px;
+                border: 1px solid #424242;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-family: sansation;
+            `;
+            historyItem.onmouseover = () => {
+                historyItem.style.backgroundColor = '#363636';
+                historyItem.style.borderColor = '#4ECCA3';
+            };
+            historyItem.onmouseout = () => {
+                historyItem.style.backgroundColor = '#2a2a2a';
+                historyItem.style.borderColor = '#424242';
+            };
+            
             historyItem.innerHTML = `
-                <div class="history-pot">$${game.totalPot.toFixed(2)}</div>
-                <div class="history-winner">${game.winner.name}</div>
-                <div class="history-hash" title="Click to verify game fairness">${game.hash ? game.hash.substring(0, 8) + '...' : 'N/A'}</div>
+                <div style="color: #4ECCA3; font-weight: bold; font-size: 16px;">$${game.totalPot.toFixed(2)}</div>
+                <div style="color: white; flex: 1; text-align: center;">${game.winner.name}</div>
+                <div style="color: #b9b9b9; font-size: 12px; font-family: monospace;" title="Click to verify game fairness">${game.hash ? game.hash.substring(0, 8) + '...' : 'N/A'}</div>
             `;
             
-            // Add click handler to open verification page
+            // Add click handler to show verification modal
             historyItem.addEventListener('click', () => {
-                if (game.id) {
-                    window.open(`/verify-game/${game.id}`, '_blank');
+                if (game.hash && game.secret) {
+                    this.showGameVerification(game);
                 }
             });
             
             historyContainer.appendChild(historyItem);
         });
+        
+        // Show "No games yet" message if history is empty
+        if (this.gameHistory.length === 0) {
+            historyContainer.innerHTML = `
+                <div style="text-align: center; padding: 20px; color: #b9b9b9; font-family: sansation;">
+                    No games played yet. Join a game to see history!
+                </div>
+            `;
+        }
     }
 
     // Show winner animation
@@ -906,11 +1003,38 @@ document.addEventListener('DOMContentLoaded', function() {
             const betAmount = parseFloat(betInput.value);
             if (jackpotGame.joinGame(betAmount)) {
                 betInput.value = '';
-                joinBtn.disabled = true;
+                // Don't disable button - allow multiple joins
+                // Show temporary feedback
+                const originalText = joinBtn.textContent;
                 joinBtn.textContent = 'Joined!';
-                joinBtn.classList.add('bg-gray-600');
-                joinBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                setTimeout(() => {
+                    joinBtn.textContent = originalText;
+                }, 1500);
             }
         });
+    }
+
+    // Show/hide Steam login warning based on authentication status
+    function updateSteamLoginWarning() {
+        const warningDiv = document.getElementById('steamLoginWarning');
+        if (warningDiv) {
+            if (!authManager || !authManager.isLoggedIn) {
+                warningDiv.classList.remove('hidden');
+            } else {
+                warningDiv.classList.add('hidden');
+            }
+        }
+    }
+
+    // Update warning on page load and auth state changes
+    updateSteamLoginWarning();
+    
+    // Listen for auth state changes
+    if (authManager) {
+        const originalReplaceUserIcon = authManager.replaceUserIcon;
+        authManager.replaceUserIcon = function() {
+            originalReplaceUserIcon.call(this);
+            updateSteamLoginWarning();
+        };
     }
 });

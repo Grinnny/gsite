@@ -7,6 +7,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="js/chat-universal.js"></script>
     <style>
         .steam-btn {
             background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
@@ -44,7 +47,7 @@
             <ul class="nav-right" style="width: 33.33%;">
                 <div class="flex items-center justify-end space-x-2" style="width: 100%; height: 100%;">
                     <img class="nav-icons" src="imgs/user-circle.png" style="height: 40px; width: 40px;">
-                    <img class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                    <img id="chatToggle" class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;" onclick="toggleChat()">
                 </div>
             </ul>
         </div>

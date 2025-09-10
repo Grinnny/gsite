@@ -22,15 +22,21 @@
                     document.getElementById('login-btn').style.display = 'none';
                     document.getElementById('user-avatar').src = data.user.avatar;
                     document.getElementById('user-name').textContent = data.user.name;
+                    // Hide login warning when logged in
+                    document.getElementById('steamLoginWarning').classList.add('hidden');
                 } else {
                     // User is not logged in
                     document.getElementById('user-profile').classList.add('hidden');
                     document.getElementById('login-btn').style.display = 'block';
+                    // Show login warning when not logged in
+                    document.getElementById('steamLoginWarning').classList.remove('hidden');
                 }
             } catch (error) {
                 console.log('Auth check failed:', error);
                 document.getElementById('user-profile').classList.add('hidden');
                 document.getElementById('login-btn').style.display = 'block';
+                // Show login warning when auth check fails
+                document.getElementById('steamLoginWarning').classList.remove('hidden');
             }
         }
         
@@ -74,12 +80,44 @@
                     <button id="login-btn" onclick="window.location.href='/login'" style="background-color: #4ECCA3; color: white; padding: 8px 16px; border-radius: 6px; font-family: sansation; font-weight: bold;">
                         Login with Steam
                     </button>
-                    <img class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                    <img id="chatToggle" class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;" onclick="toggleChat()">
                 </div>
             </ul>
         </div>
     </nav>
 
+    <!-- Chat Panel -->
+    <div id="chatPanel" class="chat-panel">
+        <div class="chat-header">
+            <h3 style="font-family: carving; color: #4ECCA3; font-size: 20px; margin: 0;">Chat</h3>
+            <button id="chatClose" onclick="toggleChat()" style="background: none; border: none; color: #b9b9b9; font-size: 18px; cursor: pointer;">×</button>
+        </div>
+        <div id="chatMessages" class="chat-messages thingything">
+            <!-- Chat messages will be populated here -->
+        </div>
+        <div class="chat-input-container">
+            <input 
+                type="text" 
+                id="chatInput" 
+                placeholder="Type a message..." 
+                maxlength="200"
+                style="font-family: sansation; background-color: #424242; color: white; border: 1px solid #424242; border-radius: 6px; padding: 8px; width: 100%; outline: none;"
+                onkeypress="handleChatKeyPress(event)"
+            >
+            <button 
+                id="chatSend" 
+                onclick="sendChatMessage()"
+                style="font-family: sansation; background-color: #4ECCA3; color: white; border: none; border-radius: 6px; padding: 8px 12px; margin-left: 8px; cursor: pointer; transition: 500ms ease;"
+                onmouseover="this.style.backgroundColor='#389676'"
+                onmouseout="this.style.backgroundColor='#4ECCA3'"
+            >
+                Send
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div id="mainContent" class="main-content">
     <!-- Main Jackpot Content -->
     <div class="container mx-auto px-4 py-8">
         <!-- Game Info Section -->
@@ -109,10 +147,54 @@
         <!-- Winner Display (Hidden by default) -->
         <div id="winnerDisplay" class="mb-6 hidden"></div>
 
+        <!-- Error Message Display -->
+        <div id="authErrorMessage" class="mb-6 hidden" style="background-color: #2d1b1b; border: 1px solid #d32f2f; border-radius: 13px; padding: 16px;">
+            <div class="flex items-center">
+                <svg class="w-6 h-6 text-red-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                    <h4 style="font-family: carving; color: #f44336; font-size: 18px;" class="font-bold">Authentication Required</h4>
+                    <p id="authErrorText" style="font-family: sansation; color: #ffcdd2; font-size: 14px;" class="mt-1">You must be logged in to join games! Please login with Steam to continue.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Steam Login Warning (Hidden by default, shown for non-authenticated users) -->
+        <div id="steamLoginWarning" class="mb-6 hidden" style="background-color: #2d1b1b; border: 1px solid #d32f2f; border-radius: 13px; padding: 16px;">
+            <div class="flex items-center">
+                <svg class="w-6 h-6 text-red-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                    <h4 style="font-family: carving; color: #f44336; font-size: 18px;" class="font-bold">Steam Login Required</h4>
+                    <p style="font-family: sansation; color: #ffcdd2; font-size: 14px;" class="mt-1">You must log into Steam to join jackpot games. <a href="/login" style="color: #4ECCA3; text-decoration: underline;">Click here to login</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Players List -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6">
+                <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Current Players</h3>
+                <div id="playersList" class="space-y-2 max-h-96 overflow-y-auto thingything">
+                    <!-- Players will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Game History -->
+            <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6">
+                <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Recent Games</h3>
+                <div id="gameHistory" class="space-y-1 max-h-96 overflow-y-auto thingything">
+                    <!-- History will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
         <!-- Join Game Section -->
         <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mb-6">
             <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Join Jackpot</h3>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-end space-x-4">
                 <div class="flex-1">
                     <label for="betAmount" style="font-family: sansation; color: #b9b9b9;" class="block text-sm mb-2">Bet Amount ($)</label>
                     <input 
@@ -140,24 +222,6 @@
             </div>
         </div>
 
-        <!-- Players List -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6">
-                <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Current Players</h3>
-                <div id="playersList" class="space-y-2 max-h-96 overflow-y-auto thingything">
-                    <!-- Players will be populated by JavaScript -->
-                </div>
-            </div>
-
-            <!-- Game History -->
-            <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6">
-                <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">Recent Games</h3>
-                <div id="gameHistory" class="space-y-1 max-h-96 overflow-y-auto thingything">
-                    <!-- History will be populated by JavaScript -->
-                </div>
-            </div>
-        </div>
-
         <!-- Game Rules -->
         <div style="background-color: #1d1d1d; border-radius: 13px; border: 1px solid #424242;" class="p-6 mt-6">
             <h3 style="font-family: carving; color: #4ECCA3; font-size: 25px;" class="mb-4">How It Works</h3>
@@ -180,9 +244,11 @@
             </div>
         </div>
     </div>
+    </div>
 
     <!-- Include Jackpot JavaScript -->
     <script src="js/spinner.js"></script>
     <script src="js/jackpot.js"></script>
+    <script src="js/chat.js"></script>
 </body>
 </html>

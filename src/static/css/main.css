@@ -173,3 +173,180 @@
 
 @media screen and (max-width: 1000px) {
 }
+
+/* Chat Panel Styles */
+.chat-panel {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100vh;
+    background-color: #1d1d1d;
+    border-left: 1px solid #424242;
+    z-index: 999;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-panel.open {
+    right: 0;
+}
+
+.chat-header {
+    padding: 16px;
+    border-bottom: 1px solid #424242;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #363636;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-input-container {
+    padding: 16px;
+    border-top: 1px solid #424242;
+    display: flex;
+    align-items: center;
+    background-color: #363636;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #424242;
+}
+
+.chat-message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.chat-message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-message-name {
+    font-family: sansation;
+    color: #4ECCA3;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.chat-message-name.clickable {
+    transition: color 0.2s ease;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.chat-message-name.clickable:hover {
+    color: #6EFFD3;
+    text-decoration-color: #6EFFD3;
+}
+
+.chat-message-text {
+    font-family: iceberg;
+    color: #b9b9b9;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.chat-message-time {
+    font-family: sansation;
+    color: #666;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/* Main content and navbar transition */
+.main-content {
+    transition: margin-right 0.3s ease;
+    margin-top: 60px; /* Account for fixed navbar height */
+}
+
+nav {
+    transition: width 0.3s ease, right 0.3s ease;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    background-color: transparent !important;
+    width: 100% !important;
+    height: 100px !important;
+}
+
+/* Add drop shadow to navbar inner container */
+nav > div {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.main-content.chat-open {
+    margin-right: 350px;
+}
+
+/* Navbar shrinks in width when chat opens */
+nav.chat-open {
+    right: 350px !important;
+    width: calc(100% - 350px) !important;
+    left: 15px !important;
+    padding-right: 15px !important;
+}
+
+/* Also shrink the inner navbar container */
+nav.chat-open > div {
+    width: calc(100% - 30px) !important;
+    margin: 0 auto !important;
+}
+
+/* Make navbar content more compact when chat is open */
+nav.chat-open .navbar-content {
+    padding: 0 10px;
+}
+
+nav.chat-open .navbar-item {
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+    .chat-panel {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .main-content.chat-open {
+        margin-right: 0;
+        transform: translateX(-100%);
+    }
+    
+    nav.chat-open {
+        right: 100% !important;
+        width: 0 !important;
+        overflow: hidden;
+    }
+    
+    .main-content {
+        margin-top: 50px; /* Smaller margin for mobile */
+    }
+}
+
+@media screen and (max-width: 1000px) {
+}

@@ -6,9 +6,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="css/main.css">
     <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
+    <script src="js/balance.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="js/chat-universal.js"></script>
     <title>ScrapHouse</title>
     <script src="js/Iteminfo.js"></script>
-    <script src="js/balance.js"></script>
     <script src="js/auth.js"></script>
     <script defer src="js/loadmarket.js"></script>
     <script src="js/error.js"></script>
@@ -26,13 +28,28 @@
                 </div>
             </div>
             <br>
-            <div class=" flex flex-row" style="width: 90%; height: 85%; background-color: #3d3d3d; border-radius: 15px;" id="Market-UL">
+            <!-- Filter buttons -->
+            <div class="flex justify-center items-center" style="width: 90%; height: 40px; margin-bottom: 10px;">
+                <div class="flex" style="background-color: #424242; border-radius: 10px; padding: 5px;">
+                    <button id="sort-price-low" onclick="sortItems('price-low')" class="filter-btn" style="padding: 8px 15px; margin-right: 5px; background-color: #4ECCA3; color: white; border: none; border-radius: 5px; font-family: carving; cursor: pointer; font-size: 12px;">Price: Low → High</button>
+                    <button id="sort-price-high" onclick="sortItems('price-high')" class="filter-btn" style="padding: 8px 15px; margin-right: 5px; background-color: #363636; color: #4ECCA3; border: none; border-radius: 5px; font-family: carving; cursor: pointer; font-size: 12px;">Price: High → Low</button>
+                    <button id="sort-default" onclick="sortItems('default')" class="filter-btn" style="padding: 8px 15px; background-color: #363636; color: #4ECCA3; border: none; border-radius: 5px; font-family: carving; cursor: pointer; font-size: 12px;">Default</button>
+                </div>
+            </div>
+            <div class=" flex flex-row" style="width: 90%; height: 80%; background-color: #3d3d3d; border-radius: 15px;" id="Market-UL">
                 <div style=" height: 100%; background-color: #3d3d3d; border-radius: 15px 0px 0px 15px;" class="fsdaafsd">
                     <ul style="margin: 10px 10px 10px; flex-wrap: wrap; overflow-y: auto; height: 95%; justify-content: space-around; gap: 20px;" id="skin-market-ul" class="skin-market-ul flex flex-row">
                         
                     </ul>
                 </div>
-                <div class="flex items-center flex-col assa" style=" height:100%; background-color: #1a1a1a; border-radius: 0px 15px 15px 0px;">
+                <div class="flex items-center flex-col assa" style=" height:100%; background-color: #1a1a1a; border-radius: 0px 15px 15px 0px; position: relative;">
+                    <!-- Loading overlay -->
+                    <div id="market-loading-overlay" class="absolute flex items-center justify-center" style="top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); border-radius: 0px 15px 15px 0px; z-index: 10;">
+                        <div class="loading-spinner">
+                            <div class="spinner-ring"></div>
+                            <div class="loading-text" style="color: #4ECCA3; font-family: carving; margin-top: 20px; font-size: 18px;">Loading Items...</div>
+                        </div>
+                    </div>
                     <div style="color:rgb(185, 185, 185); border-radius:5px; text-align: center; width: 90%; height: 25px; margin-top: 20px; background-color: #363636;">
                         Balance: <span style="color: #4ECCA3;" class="balance-display">$0.00</span>
                     </div>
@@ -49,6 +66,57 @@
     <style>
         .DepositButton:hover {
             background-color: #4e4e4e;
+        }
+        
+        /* Loading spinner styles */
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .spinner-ring {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(78, 204, 163, 0.2);
+            border-top: 4px solid #4ECCA3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Hide loading overlay by default */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Filter button styles */
+        .filter-btn:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+        
+        .filter-btn.active {
+            background-color: #4ECCA3 !important;
+            color: white !important;
+        }
+        
+        .filter-btn:not(.active) {
+            background-color: #363636;
+            color: #4ECCA3;
         }
     </style>
     <nav style="background-color: transparent; width: 100%; height: 100px;" class="flex justify-center items-center">
@@ -71,7 +139,7 @@
             <ul class="nav-right" style="width: 33%;">
                 <div class="flex items-center" style="width: 100%; height: 100%; flex-direction: row-reverse;">
                     <img src="imgs/user-circle.png" style="height: 40px; width: 40px;">
-                    <img src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                    <img id="chatToggle" class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;" onclick="toggleChat()">
                 </div>
             </ul>
         </div>

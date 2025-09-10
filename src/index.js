@@ -25,6 +25,10 @@ let currentJackpot = {
 let jackpotHistory = [];
 let gameIdCounter = 1;
 
+// Deposit tracking system
+let userDeposits = new Map(); // steamId -> { addresses: {BTC: '', ETH: '', SOL: ''}, deposits: [] }
+let userBalances = new Map(); // steamId -> balance
+
 // Initialize Steam authentication
 const steamAuth = new SteamAuth();
 
@@ -80,18 +84,28 @@ fastify.get('/uuid', async (req, res) => {
 })
 
 async function getRustItemPrice(itemName) {
-		const url = "http://localhost:4200" + "/skinportdata.json";
-		try {
-			const response = await fetch(url);
-			const data = await response.json();
-			let item = data.find(item => item.market_hash_name === itemName)
-			let suggestedprice = item.suggested_price
-			return suggestedprice
-		} catch (er) {
-			console.error("Error fetching data:", err);
+	try {
+		const filePath = path.join(process.cwd(), 'skinportdata.json');
+		const fileContent = await fs.readFile(filePath, 'utf8');
+		const data = JSON.parse(fileContent);
+		
+		if (!Array.isArray(data)) {
+			console.error("Skinport data is not an array");
+			return null;
 		}
+		
+		let item = data.find(item => item.market_hash_name === itemName);
+		if (!item) {
+			console.log("Item not found in skinportdata:", itemName);
+			return null;
+		}
+		let suggestedprice = item.suggested_price;
 		return suggestedprice;
+	} catch (err) {
+		console.error("Error fetching data:", err);
+		return null;
 	}
+}
 
 fastify.get('/requestItemPrice', async (req, res) => {
 
@@ -99,6 +113,10 @@ fastify.get('/requestItemPrice', async (req, res) => {
 	let urlparam = parsedUrl.query
 
 	let price = await getRustItemPrice(urlparam.itemname)
+	if (price === null) {
+		res.send({"itemPrice": "$0.00"})
+		return
+	}
 	let result = price
 	let string = '{"itemPrice":'+'"$' + result + '"'+'}'
 	const jsonstring = JSON.parse(string)
@@ -107,34 +125,58 @@ fastify.get('/requestItemPrice', async (req, res) => {
 })
 
 async function getImage(itemName) {
-  	let response = await fetch("http://localhost:4200" + "/skins.json")
-	const data = await response.json();
-	const item = data.find(item => item.name === itemName)
-	const imgSrc = item.imageUrl
-	return imgSrc
-	
+	try {
+		let response = await fetch("http://localhost:4200" + "/skins.json")
+		const data = await response.json();
+		const item = data.find(item => item.name === itemName)
+		if (!item) {
+			console.log("Item not found in skins.json:", itemName)
+			return null
+		}
+		const imgSrc = item.imageUrl
+		return imgSrc
+	} catch (err) {
+		console.error("Error fetching skins.json:", err);
+		return null;
+	}
 }
 
 fastify.get('/requestItemIcon', async (req, res) => { 
 	async function getRustIcon(itemName) {
-		const url = "http://localhost:4200" + "/skinportdata.json";
-
 		try {
-			const response = await fetch(url);
-			const data = await response.json();
+			const filePath = path.join(process.cwd(), 'skinportdata.json');
+			const fileContent = await fs.readFile(filePath, 'utf8');
+			const data = JSON.parse(fileContent);
+			
+			if (!Array.isArray(data)) {
+				console.error("Skinport data is not an array");
+				return null;
+			}
 
-			let item = data.find(item => item.market_hash_name === itemName)
-			let icon = await getImage(item.market_hash_name)
-			return(icon)
+			let item = data.find(item => item.market_hash_name === itemName);
+			if (!item) {
+				console.log("Item not found in skinportdata for icon:", itemName);
+				return null;
+			}
+			let icon = await getImage(item.market_hash_name);
+			if (!icon) {
+				return null;
+			}
+			return(icon);
 		} catch (err) {
 			console.error("Error fetching data:", err);
+			return null;
 		}
 	}
 	let parsedUrl = url.parse(req.url, true);
 	let urlparam = parsedUrl.query
 
-	let price = await getRustIcon(urlparam.itemname)
-	let result = price
+	let icon = await getRustIcon(urlparam.itemname)
+	if (icon === null) {
+		res.send({"iconSrc": "imgs/default-item.png"})
+		return
+	}
+	let result = icon
 	let string = '{"iconSrc":'+'"' + result + '"'+'}'
 	const jsonstring = JSON.parse(string)
 	res.send(jsonstring)
@@ -369,18 +411,182 @@ fastify.get('/auth/user', async (req, res) => {
 	const session = sessionId ? steamAuth.getSession(sessionId) : null;
 	
 	if (session) {
+		// Initialize user balance if not exists
+		if (!userBalances.has(session.steamId)) {
+			userBalances.set(session.steamId, 0);
+		}
+		
 		res.send({
 			success: true,
 			user: {
 				steamId: session.steamId,
 				name: session.profile.personaname,
 				avatar: session.profile.avatar,
-				profileUrl: session.profile.profileurl
+				profileUrl: session.profile.profileurl,
+				balance: userBalances.get(session.steamId) || 0
 			}
 		});
 	} else {
 		res.send({ success: false, message: 'Not authenticated' });
 	}
+});
+
+// API endpoint to get game history for verification
+fastify.get('/api/game-history', async (req, res) => {
+	try {
+		const historyPath = path.join(__dirname, 'jackpot_history.json');
+		const data = await fs.readFile(historyPath, 'utf8');
+		let history = JSON.parse(data);
+		
+		// Clean up duplicates and ensure proper structure
+		if (Array.isArray(history)) {
+			// Remove duplicates based on ID and hash combination
+			const seen = new Set();
+			history = history.filter(game => {
+				const key = `${game.id}-${game.hash}`;
+				if (seen.has(key)) {
+					return false;
+				}
+				seen.add(key);
+				return true;
+			});
+			
+			// Ensure all games have secretRevealed flag
+			history = history.map(game => ({
+				...game,
+				secretRevealed: game.secret ? true : false
+			}));
+		}
+		
+		res.send({ success: true, history: Array.isArray(history) ? history : [] });
+	} catch (error) {
+		// If file doesn't exist or is invalid, return empty history
+		res.send({ success: true, history: [] });
+	}
+});
+
+// Save user deposit address for tracking
+fastify.post('/saveDepositAddress', async (req, res) => {
+	const sessionId = req.cookies?.steam_session;
+	const session = sessionId ? steamAuth.getSession(sessionId) : null;
+	
+	if (!session) {
+		return res.send({ success: false, message: 'Not authenticated' });
+	}
+	
+	const { userAddress, cryptoType } = req.body;
+	
+	if (!userAddress || !cryptoType) {
+		return res.send({ success: false, message: 'Missing required fields' });
+	}
+	
+	// Validate crypto type
+	if (!['BTC', 'ETH', 'SOL'].includes(cryptoType)) {
+		return res.send({ success: false, message: 'Invalid crypto type' });
+	}
+	
+	// Initialize user deposit tracking if not exists
+	if (!userDeposits.has(session.steamId)) {
+		userDeposits.set(session.steamId, {
+			addresses: {},
+			deposits: []
+		});
+	}
+	
+	const userData = userDeposits.get(session.steamId);
+	userData.addresses[cryptoType] = userAddress;
+	
+	console.log(`User ${session.profile.personaname} registered ${cryptoType} address: ${userAddress}`);
+	
+	res.send({ success: true, message: 'Address saved successfully' });
+});
+
+// Check for new deposits
+fastify.post('/checkDeposits', async (req, res) => {
+	const sessionId = req.cookies?.steam_session;
+	const session = sessionId ? steamAuth.getSession(sessionId) : null;
+	
+	if (!session) {
+		return res.send({ success: false, message: 'Not authenticated' });
+	}
+	
+	const { userAddress, cryptoType } = req.body;
+	
+	if (!userAddress || !cryptoType) {
+		return res.send({ success: false, message: 'Missing required fields' });
+	}
+	
+	try {
+		// In a real implementation, this would check blockchain APIs
+		// For now, we'll simulate deposit detection with a small chance
+		const simulateDeposit = Math.random() < 0.1; // 10% chance for demo
+		
+		if (simulateDeposit) {
+			// Simulate a deposit
+			const cryptoPrices = {
+				'BTC': 45000,
+				'ETH': 2500,
+				'SOL': 100
+			};
+			
+			const depositAmount = cryptoType === 'BTC' ? 0.001 : 
+								  cryptoType === 'ETH' ? 0.01 : 0.1;
+			
+			const usdValue = depositAmount * cryptoPrices[cryptoType];
+			const bonus = usdValue * 0.25; // 25% bonus
+			const totalCredit = usdValue + bonus;
+			
+			// Update user balance
+			const currentBalance = userBalances.get(session.steamId) || 0;
+			const newBalance = currentBalance + totalCredit;
+			userBalances.set(session.steamId, newBalance);
+			
+			// Record deposit
+			const userData = userDeposits.get(session.steamId);
+			if (userData) {
+				userData.deposits.push({
+					cryptoType,
+					amount: depositAmount,
+					usdValue: usdValue.toFixed(2),
+					bonus: bonus.toFixed(2),
+					totalCredit: totalCredit.toFixed(2),
+					timestamp: new Date(),
+					fromAddress: userAddress
+				});
+			}
+			
+			console.log(`Deposit detected for ${session.profile.personaname}: ${depositAmount} ${cryptoType} = $${totalCredit.toFixed(2)}`);
+			
+			res.send({
+				success: true,
+				newDeposits: [{
+					amount: depositAmount,
+					usdValue: usdValue.toFixed(2),
+					bonus: bonus.toFixed(2),
+					totalCredit: totalCredit.toFixed(2)
+				}],
+				newBalance: newBalance
+			});
+		} else {
+			res.send({ success: true, newDeposits: [] });
+		}
+	} catch (error) {
+		console.error('Error checking deposits:', error);
+		res.send({ success: false, message: 'Error checking deposits' });
+	}
+});
+
+// Get user balance
+fastify.get('/balance', async (req, res) => {
+	const sessionId = req.cookies?.steam_session;
+	const session = sessionId ? steamAuth.getSession(sessionId) : null;
+	
+	if (!session) {
+		return res.send({ success: false, message: 'Not authenticated' });
+	}
+	
+	const balance = userBalances.get(session.steamId) || 0;
+	res.send({ success: true, balance: balance });
 });
 
 // Initialize realtime jackpot (Socket.IO) if available

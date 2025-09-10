@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="imgs/scrapfavicon.png">
     <script src="js/balance.js"></script>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
-    <script src="js/balance.js"></script>
+    <script src="js/chat-universal.js"></script>
     <script src="js/auth.js"></script>
     <title>ScrapHouse - Verify</title>
 </head>
@@ -33,14 +33,31 @@
             </ul>
             <ul class="nav-right" style="width: 33.33%;">
                 <div class="flex items-center justify-end space-x-2" style="width: 100%; height: 100%;">
-                    <img class="nav-icons" src="imgs/user-circle.png" style="height: 40px; width: 40px;">
-                    <img class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;">
+                    <!-- User Profile Section -->
+                    <div id="user-profile" class="hidden flex items-center space-x-2">
+                        <img id="user-avatar" src="" style="height: 40px; width: 40px; border-radius: 50%;">
+                        <span id="user-name" style="color: white; font-family: sansation;"></span>
+                        <button onclick="logout()" style="background-color: #424242; color: #ff6b6b; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Logout</button>
+                    </div>
+                    <!-- Login Button -->
+                    <button id="login-btn" onclick="window.location.href='/login'" style="background-color: #4ECCA3; color: white; padding: 8px 16px; border-radius: 6px; font-family: sansation; font-weight: bold;">
+                        Login with Steam
+                    </button>
+                    <img id="chatToggle" class="nav-icons" src="imgs/message-dots.png" style="height: 40px; width: 40px;" onclick="toggleChat()">
                 </div>
             </ul>
         </div>
     </nav>
 
     <style>
+        .main-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
         .verify-container {
             max-width: 800px;
             margin: 0 auto;
@@ -48,6 +65,8 @@
             background: rgba(66, 66, 66, 0.9);
             border-radius: 15px;
             border: 1px solid #363636;
+            box-sizing: border-box;
+            overflow-x: hidden;
         }
         
         .verify-form {
@@ -67,6 +86,8 @@
             color: white;
             font-family: 'Courier New', monospace;
             text-align: center;
+            box-sizing: border-box;
+            word-break: break-all;
         }
         
         .verify-btn {
@@ -97,10 +118,54 @@
         }
         
         .game-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
             margin-top: 20px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .game-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 0 10px;
+            }
+            
+            .verify-container {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            
+            .verify-form {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 28px !important;
+            }
+            
+            h2 {
+                font-size: 24px !important;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .verify-container {
+                padding: 10px;
+                margin: 5px auto;
+            }
+            
+            .hash-input {
+                font-size: 16px;
+                padding: 12px;
+            }
+            
+            .verify-btn {
+                font-size: 16px;
+                padding: 12px;
+            }
         }
         
         .detail-item {
@@ -108,6 +173,8 @@
             padding: 15px;
             border-radius: 8px;
             border-left: 4px solid #4ECCA3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .secret-reveal {
@@ -154,8 +221,38 @@
             margin-top: 20px;
         }
     </style>
-</head>
-<body>
+
+    <script>
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('/auth/user');
+                const data = await response.json();
+                
+                if (data.success) {
+                    // User is logged in
+                    document.getElementById('user-profile').classList.remove('hidden');
+                    document.getElementById('login-btn').style.display = 'none';
+                    document.getElementById('user-avatar').src = data.user.avatar;
+                    document.getElementById('user-name').textContent = data.user.name;
+                } else {
+                    // User is not logged in
+                    document.getElementById('user-profile').classList.add('hidden');
+                    document.getElementById('login-btn').style.display = 'block';
+                }
+            } catch (error) {
+                console.log('Auth check failed:', error);
+                document.getElementById('user-profile').classList.add('hidden');
+                document.getElementById('login-btn').style.display = 'block';
+            }
+        }
+        
+        function logout() {
+            window.location.href = '/auth/logout';
+        }
+        
+        // Check auth status on page load
+        document.addEventListener('DOMContentLoaded', checkAuthStatus);
+    </script>
 
     <main class="main-content">
         <div class="verify-container">
@@ -169,7 +266,7 @@
                     What is Provably Fair?
                 </h2>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 30px;">
                     <div>
                         <h3 style="font-family: sansation; color: white; font-size: 20px; margin-bottom: 15px;">🔒 Transparency</h3>
                         <p style="font-family: sansation; color: #b9b9b9; line-height: 1.6;">
@@ -220,8 +317,17 @@
                     Enter a game hash from a completed jackpot to view its secret and verify the outcome was fair
                 </p>
                 
-                <input type="text" id="hashInput" class="hash-input" placeholder="Enter game hash (e.g., a1b2c3d4)" maxlength="8">
+                <input type="text" id="hashInput" class="hash-input" placeholder="Enter full game hash (64 characters)" maxlength="64">
                 <button id="verifyBtn" class="verify-btn">Verify Game</button>
+                
+                <div id="recentHashes" style="margin-top: 20px; padding: 15px; background: rgba(54, 54, 54, 0.8); border-radius: 8px; display: none;">
+                    <h4 style="font-family: sansation; color: #4ECCA3; margin-bottom: 10px;">Recent Game Hashes:</h4>
+                    <div id="hashList" style="font-family: 'Courier New', monospace; font-size: 12px; color: #b9b9b9;"></div>
+                </div>
+                
+                <button id="showHashesBtn" style="width: 100%; padding: 10px; margin-top: 15px; background: rgba(76, 204, 163, 0.2); border: 1px solid #4ECCA3; border-radius: 6px; color: #4ECCA3; cursor: pointer; font-family: sansation;">
+                    Show Recent Game Hashes
+                </button>
             </div>
             
             <div id="resultContainer" class="result-container">

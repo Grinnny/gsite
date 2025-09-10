@@ -1,39 +1,8 @@
 [
-    
     {
-        "id": "MetalTreeDoor",
-        "name": "Metal Tree Door",
-        "quantity": "1x",
-        "rarity": "legendary"
-    },
-    {
-        "id": "AlienRelic",
-        "name": "Alien Relic SMG",
+        "id": "NeonDragonGarageDoor",
+        "name": "Neon Dragon Garage Door",
         "quantity": "2x",
-        "rarity": "legendary"
-    },
-    {
-        "id": "BigGrin",
-        "name": "Big Grin",
-        "quantity": "7x",
-        "rarity": "legendary"
-    },
-    {
-        "id": "HorrorBag",
-        "name": "Horror Bag",
-        "quantity": "5x",
-        "rarity": "legendary"
-    },
-    {
-        "id": "CreepyClown",
-        "name": "Creepy Clown Bandana",
-        "quantity": "3x",
-        "rarity": "legendary"
-    },
-    {
-        "id": "TemperedMp5",
-        "name": "Tempered Mp5",
-        "quantity": "5x",
         "rarity": "legendary"
     },
     {
@@ -43,21 +12,57 @@
         "rarity": "legendary"
     },
     {
-        "id": "ZipperFace",
-        "name": "Zipper Face",
-        "quantity": "6x",
-        "rarity": "legendary"
-    },
-    {
         "id": "FreshlyDugGrave",
         "name": "Freshly Dug Grave",
         "quantity": "7x",
         "rarity": "legendary"
     },
     {
-        "id": "NeonDragonGarageDoor",
-        "name": "Neon Dragon Garage Door",
+        "id": "AlienRelic",
+        "name": "Alien Relic SMG",
         "quantity": "2x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "HorrorBag",
+        "name": "Horror Bag",
+        "quantity": "5x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "ZipperFace",
+        "name": "Zipper Face",
+        "quantity": "6x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "UndeadDoor",
+        "name": "Undead Door",
+        "quantity": "2x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "PunishmentMask",
+        "name": "Punishment Mask",
+        "quantity": "3x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "BigGrin",
+        "name": "Big Grin",
+        "quantity": "7x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "MetalTreeDoor",
+        "name": "Metal Tree Door",
+        "quantity": "1x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "TemperedMp5",
+        "name": "Tempered Mp5",
+        "quantity": "5x",
         "rarity": "legendary"
     },
     {
@@ -67,9 +72,15 @@
         "rarity": "legendary"
     },
     {
-        "id": "GloryAk",
-        "name": "Glory AK47",
-        "quantity": "1x",
+        "id": "CreepyClown",
+        "name": "Creepy Clown Bandana",
+        "quantity": "3x",
+        "rarity": "legendary"
+    },
+    {
+        "id": "HalloweenBat",
+        "name": "Halloween Bat",
+        "quantity": "5x",
         "rarity": "mythical"
     },
     {
@@ -85,9 +96,21 @@
         "rarity": "mythical"
     },
     {
-        "id": "HalloweenBat",
-        "name": "Halloween Bat",
-        "quantity": "5x",
+        "id": "GrandmothersGiftBarricade",
+        "name": "Grandmother's Gift Barricade",
+        "quantity": "1x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "GoldRock",
+        "name": "Gold Rock",
+        "quantity": "7x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "AlienRed",
+        "name": "Alien Red",
+        "quantity": "1x",
         "rarity": "mythical"
     },
     {
@@ -97,14 +120,44 @@
         "rarity": "mythical"
     },
     {
-        "id": "HotTempered",
-        "name": "Hot-tempered Longsword",
-        "quantity": "2x",
+        "id": "GloryAk",
+        "name": "Glory AK47",
+        "quantity": "1x",
         "rarity": "mythical"
     },
     {
         "id": "GlowingSkull",
         "name": "Glowing Skull",
+        "quantity": "2x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "BananaEoka",
+        "name": "Banana Eoka",
+        "quantity": "8x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "AfterDeathAR",
+        "name": "After Death AR",
+        "quantity": "1x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "CrimeBag",
+        "name": "Crime Bag",
+        "quantity": "2x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "MilitaryCamoMP5",
+        "name": "Military Camo MP5",
+        "quantity": "10x",
+        "rarity": "mythical"
+    },
+    {
+        "id": "HotTempered",
+        "name": "Hot-tempered Longsword",
         "quantity": "2x",
         "rarity": "mythical"
     },
@@ -115,15 +168,45 @@
         "rarity": "mythical"
     },
     {
-        "id": "PlateCarrier",
-        "name": "Plate Carrier - Black",
-        "quantity": "2x",
+        "id": "DigitalCamoMP5",
+        "name": "Digital Camo MP5",
+        "quantity": "7x",
         "rarity": "epic"
     },
     {
-        "id": "StainlessFaceMask",
-        "name": "Stainless Facemask",
-        "quantity": "1x",
+        "id": "SantaBalaclava",
+        "name": "Santa Balaclava",
+        "quantity": "4x",
+        "rarity": "epic"
+    },
+    {
+        "id": "ForestRaidersHelmet",
+        "name": "Forest Raiders Helmet",
+        "quantity": "6x",
+        "rarity": "epic"
+    },
+    {
+        "id": "UnholyGrenade",
+        "name": "Unholy Grenade",
+        "quantity": "8x",
+        "rarity": "epic"
+    },
+    {
+        "id": "DesertRaidersFacemask",
+        "name": "Desert Raiders Facemask",
+        "quantity": "9x",
+        "rarity": "epic"
+    },
+    {
+        "id": "SpaceRocketWorkGloves",
+        "name": "Space Rocket Work Gloves",
+        "quantity": "3x",
+        "rarity": "epic"
+    },
+    {
+        "id": "CreepyJack",
+        "name": "Creepy Jack",
+        "quantity": "8x",
         "rarity": "epic"
     },
     {
@@ -133,15 +216,15 @@
         "rarity": "epic"
     },
     {
-        "id": "SurgeonScrubs",
-        "name": "Surgeon Scrubs",
-        "quantity": "2x",
+        "id": "RustigEggBlue",
+        "name": "Rustigé Egg - Blue",
+        "quantity": "1x",
         "rarity": "epic"
     },
     {
-        "id": "PolymerMP5",
-        "name": "Polymer MP5",
-        "quantity": "3x",
+        "id": "LegendaryGoldFacemask",
+        "name": "Legendary Gold Facemask",
+        "quantity": "4x",
         "rarity": "epic"
     },
     {
@@ -151,21 +234,105 @@
         "rarity": "epic"
     },
     {
-        "id": "HowlingDoubleDoor",
-        "name": "Howling Double Door",
-        "quantity": "5x",
-        "rarity": "rare"
-    },
-    {
-        "id": "ForestRaidersPants",
-        "name": "Forest Raiders Pants",
-        "quantity": "1x",
-        "rarity": "rare"
-    },
-    {
-        "id": "ChopShop",
-        "name": "Chop Shop Garage Door",
+        "id": "SurgeonScrubs",
+        "name": "Surgeon Scrubs",
         "quantity": "2x",
+        "rarity": "epic"
+    },
+    {
+        "id": "AK47Victoria",
+        "name": "AK-47 Victoria",
+        "quantity": "2x",
+        "rarity": "epic"
+    },
+    {
+        "id": "DirectThreatSAP",
+        "name": "Direct Threat SAP",
+        "quantity": "1x",
+        "rarity": "epic"
+    },
+    {
+        "id": "ChristmasTreeDoor",
+        "name": "Christmas Tree Door",
+        "quantity": "9x",
+        "rarity": "epic"
+    },
+    {
+        "id": "StainlessFaceMask",
+        "name": "Stainless Facemask",
+        "quantity": "1x",
+        "rarity": "epic"
+    },
+    {
+        "id": "DemonicPistol",
+        "name": "Demonic Pistol",
+        "quantity": "10x",
+        "rarity": "epic"
+    },
+    {
+        "id": "NoMercyJacket",
+        "name": "No Mercy Jacket",
+        "quantity": "9x",
+        "rarity": "epic"
+    },
+    {
+        "id": "PolymerMP5",
+        "name": "Polymer MP5",
+        "quantity": "3x",
+        "rarity": "epic"
+    },
+    {
+        "id": "PlateCarrier",
+        "name": "Plate Carrier - Black",
+        "quantity": "2x",
+        "rarity": "epic"
+    },
+    {
+        "id": "CorrodedBronzeDoor",
+        "name": "Corroded Bronze Door",
+        "quantity": "9x",
+        "rarity": "epic"
+    },
+    {
+        "id": "CamoNetting",
+        "name": "Camo Netting",
+        "quantity": "10x",
+        "rarity": "epic"
+    },
+    {
+        "id": "IncarcerationArmoredDoor",
+        "name": "Incarceration Armored Door",
+        "quantity": "3x",
+        "rarity": "epic"
+    },
+    {
+        "id": "ShardofTrueIce",
+        "name": "Shard of True Ice",
+        "quantity": "8x",
+        "rarity": "epic"
+    },
+    {
+        "id": "RustIslandCarRug",
+        "name": "Rust Island Car Rug",
+        "quantity": "6x",
+        "rarity": "epic"
+    },
+    {
+        "id": "GlorySAR",
+        "name": "Glory SAR",
+        "quantity": "3x",
+        "rarity": "rare"
+    },
+    {
+        "id": "DesertRaidersPants",
+        "name": "Desert Raiders Pants",
+        "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "AKRoyale",
+        "name": "AK Royale",
+        "quantity": "7x",
         "rarity": "rare"
     },
     {
@@ -175,9 +342,63 @@
         "rarity": "rare"
     },
     {
+        "id": "ArcticProtectionBurlapPants",
+        "name": "Arctic Protection Burlap Pants",
+        "quantity": "10x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ArmyMinerHat",
+        "name": "Army Miner Hat",
+        "quantity": "3x",
+        "rarity": "rare"
+    },
+    {
+        "id": "SovietCarpet",
+        "name": "Soviet Carpet",
+        "quantity": "6x",
+        "rarity": "rare"
+    },
+    {
+        "id": "DesertRaidersChestPlate",
+        "name": "Desert Raiders Chest Plate",
+        "quantity": "4x",
+        "rarity": "rare"
+    },
+    {
+        "id": "PolymerPumpShotgun",
+        "name": "Polymer Pump Shotgun",
+        "quantity": "9x",
+        "rarity": "rare"
+    },
+    {
+        "id": "CowMooFlageHoodie",
+        "name": "Cow Moo Flage Hoodie",
+        "quantity": "4x",
+        "rarity": "rare"
+    },
+    {
+        "id": "DesertRaidersHelmet",
+        "name": "Desert Raiders Helmet",
+        "quantity": "10x",
+        "rarity": "rare"
+    },
+    {
+        "id": "HowlingDoubleDoor",
+        "name": "Howling Double Door",
+        "quantity": "5x",
+        "rarity": "rare"
+    },
+    {
         "id": "ForestRaidersFacemask",
         "name": "Forest Raiders Facemask",
         "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "MilitaryCamoRoadsignKilt",
+        "name": "Military Camo Roadsign Kilt",
+        "quantity": "6x",
         "rarity": "rare"
     },
     {
@@ -187,9 +408,3597 @@
         "rarity": "rare"
     },
     {
+        "id": "WastelandHatchet",
+        "name": "Wasteland Hatchet",
+        "quantity": "8x",
+        "rarity": "rare"
+    },
+    {
+        "id": "FishermanBoonieHat",
+        "name": "Fisherman Boonie Hat",
+        "quantity": "1x",
+        "rarity": "rare"
+    },
+    {
+        "id": "DoubleDoorfromHell",
+        "name": "Double Door from Hell",
+        "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "MilitaryHelmet",
+        "name": "Military Helmet",
+        "quantity": "8x",
+        "rarity": "rare"
+    },
+    {
+        "id": "DragonFurnace",
+        "name": "Dragon Furnace",
+        "quantity": "5x",
+        "rarity": "rare"
+    },
+    {
+        "id": "NeonOreStorage",
+        "name": "Neon Ore Storage",
+        "quantity": "8x",
+        "rarity": "rare"
+    },
+    {
+        "id": "PandaRug",
+        "name": "Panda Rug",
+        "quantity": "6x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ChopShop",
+        "name": "Chop Shop Garage Door",
+        "quantity": "2x",
+        "rarity": "rare"
+    },
+    {
+        "id": "BlackMeshCropTop",
+        "name": "Black Mesh Crop Top",
+        "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "TreasureFurnace",
+        "name": "Treasure Furnace",
+        "quantity": "5x",
+        "rarity": "rare"
+    },
+    {
+        "id": "Scarecrow",
+        "name": "Scarecrow",
+        "quantity": "2x",
+        "rarity": "rare"
+    },
+    {
+        "id": "BurlapNinjaSlippers",
+        "name": "Burlap Ninja Slippers",
+        "quantity": "6x",
+        "rarity": "rare"
+    },
+    {
+        "id": "WhiteoutHelmet",
+        "name": "Whiteout Helmet",
+        "quantity": "4x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ForestRaidersRoadsignGloves",
+        "name": "Forest Raiders Roadsign Gloves",
+        "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ForestRaidersPants",
+        "name": "Forest Raiders Pants",
+        "quantity": "1x",
+        "rarity": "rare"
+    },
+    {
+        "id": "Raven",
+        "name": "Raven",
+        "quantity": "8x",
+        "rarity": "rare"
+    },
+    {
+        "id": "HighVoltage",
+        "name": "High Voltage",
+        "quantity": "10x",
+        "rarity": "rare"
+    },
+    {
+        "id": "CowMooFlagePants",
+        "name": "Cow Moo Flage Pants",
+        "quantity": "3x",
+        "rarity": "rare"
+    },
+    {
         "id": "ArcticProtectionBurlapHeadwrap",
         "name": "Arctic Protection Burlap Headwrap",
         "quantity": "2x",
         "rarity": "rare"
+    },
+    {
+        "id": "DesertRaidersRoadsignVest",
+        "name": "Desert Raiders Roadsign Vest",
+        "quantity": "2x",
+        "rarity": "rare"
+    },
+    {
+        "id": "DesertRaidersHoodie",
+        "name": "Desert Raiders Hoodie",
+        "quantity": "7x",
+        "rarity": "rare"
+    },
+    {
+        "id": "PolymerSAP",
+        "name": "Polymer SAP",
+        "quantity": "4x",
+        "rarity": "rare"
+    },
+    {
+        "id": "RustigEggRed",
+        "name": "Rustigé Egg - Red",
+        "quantity": "1x",
+        "rarity": "rare"
+    },
+    {
+        "id": "ForestCamoChestPlate",
+        "name": "Forest Camo Chest Plate",
+        "quantity": "2x",
+        "rarity": "rare"
+    },
+    {
+        "id": "PaintRushSAP",
+        "name": "Paint Rush SAP",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MilitaryFacemask",
+        "name": "Military Facemask",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "60sArmyJacket",
+        "name": "60's Army Jacket",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonScrapStorage",
+        "name": "Neon Scrap Storage",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CutoffShorts",
+        "name": "Cutoff Shorts",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RustigEggIvory",
+        "name": "Rustigé Egg - Ivory",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CryptArmoredDoubleDoor",
+        "name": "Crypt Armored Double Door",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ForestRaidersHoodie",
+        "name": "Forest Raiders Hoodie",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PredatorDBS",
+        "name": "Predator DBS",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutJacket",
+        "name": "Blackout Jacket",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DragonGlassStonePickaxe",
+        "name": "Dragon Glass Stone Pickaxe",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CryptofDeathAK47",
+        "name": "Crypt of Death AK47",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScraptoothSword",
+        "name": "Scraptooth Sword",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TelogreikaJacket",
+        "name": "Telogreika Jacket",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonSignPack",
+        "name": "Neon Sign Pack",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DesertPatrolVest",
+        "name": "Desert Patrol Vest",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonToolsStorage",
+        "name": "Neon Tools Storage",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PolymerSMG",
+        "name": "Polymer SMG",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RustigEggPurple",
+        "name": "Rustigé Egg - Purple",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NordicRelic",
+        "name": "Nordic Relic",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MoroccoPython",
+        "name": "Morocco Python",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Jawboy",
+        "name": "Jawboy",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "AztecGoldDoor",
+        "name": "Aztec Gold Door",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ThundergoldHelmet",
+        "name": "Thundergold Helmet",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonWoodStorage",
+        "name": "Neon Wood Storage",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SacrificialMask",
+        "name": "Sacrificial Mask",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MeatMask",
+        "name": "Meat Mask",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TankCrewPants",
+        "name": "Tank Crew Pants",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WhiteoutPants",
+        "name": "Whiteout Pants",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ForestRaidersBoots",
+        "name": "Forest Raiders Boots",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "UrbanIceJacket",
+        "name": "Urban Ice Jacket",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "VikingDoor",
+        "name": "Viking Door",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ComicsHoodie",
+        "name": "Comics Hoodie",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Satchelo",
+        "name": "Satchelo",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Meteorite",
+        "name": "Meteorite",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BombshellSheetMetalDoubleDoor",
+        "name": "Bombshell Sheet Metal Double Door",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NoMercyHelmet",
+        "name": "No Mercy Helmet",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "HatchetofAntiquities",
+        "name": "Hatchet of Antiquities",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Wakizashi",
+        "name": "Wakizashi",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RatMask",
+        "name": "Rat Mask",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WastelandHunterGloves",
+        "name": "Wasteland Hunter Gloves",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WhiteoutFacemask",
+        "name": "Whiteout Facemask",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DaemonStrike",
+        "name": "Daemon Strike",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PVCHat",
+        "name": "PVC Hat",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutVest",
+        "name": "Blackout Vest",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RedSkullBandana",
+        "name": "Red Skull Bandana",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FireWalkSAP",
+        "name": "Fire Walk SAP",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SnowWarriorHoodie",
+        "name": "Snow Warrior Hoodie",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FuriousRaiderRiotHelmet",
+        "name": "Furious Raider Riot Helmet",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonDropBoxStorage",
+        "name": "Neon Drop Box Storage",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SpookySlimeFurnace",
+        "name": "Spooky Slime Furnace",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScudpunkHoodie",
+        "name": "Scudpunk Hoodie",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TeaVendingMachine",
+        "name": "Tea Vending Machine",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RedLeatherDay",
+        "name": "Red Leather Day",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "KOI",
+        "name": "KOI",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TemperedAK47",
+        "name": "Tempered AK47",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "UrbanAfterburnPumpShotgun",
+        "name": "Urban Afterburn Pump Shotgun",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ArmyArmoredHelmet",
+        "name": "Army Armored Helmet",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FlakVestGreen",
+        "name": "Flak Vest - Green",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FrozenTurkey",
+        "name": "Frozen Turkey",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ArcticProtectionBurlapShirt",
+        "name": "Arctic Protection Burlap Shirt",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScientificMetalStorage",
+        "name": "Scientific Metal Storage",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NoMercyPants",
+        "name": "No Mercy Pants",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CaptainsHelmet",
+        "name": "Captain's Helmet",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ShinobiCowl",
+        "name": "Shinobi Cowl",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FreshBrain",
+        "name": "Fresh Brain",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GoldenLeafSAP",
+        "name": "Golden Leaf SAP",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SkeletonHoodie",
+        "name": "Skeleton Hoodie",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonElecStorage",
+        "name": "Neon Elec Storage",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RoadsignSword",
+        "name": "Roadsign Sword",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FireandBrimstoneGrenade",
+        "name": "Fire and Brimstone Grenade",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ForestCamoBag",
+        "name": "Forest Camo Bag",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ArmyBoltRifle",
+        "name": "Army Bolt Rifle",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SubmarineDoor",
+        "name": "Submarine Door",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DesertRaidersRoadsignPants",
+        "name": "Desert Raiders Roadsign Pants",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MysticAK47",
+        "name": "Mystic AK47",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutHoodie",
+        "name": "Blackout Hoodie",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NerdGlasses",
+        "name": "Nerd Glasses",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NinetiesZapper",
+        "name": "Nineties Zapper",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutGloves",
+        "name": "Blackout Gloves",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "StitchedSkin",
+        "name": "Stitched Skin",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ExplosivesBox",
+        "name": "Explosives Box",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonCharcoalStorage",
+        "name": "Neon Charcoal Storage",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PolymerBAR",
+        "name": "Polymer BAR",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "KayakHelmet",
+        "name": "Kayak Helmet",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WhiteoutVest",
+        "name": "Whiteout Vest",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScorchedHammer",
+        "name": "Scorched Hammer",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "LittleFriend",
+        "name": "Little Friend",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PlaymakerGloves",
+        "name": "Playmaker Gloves",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "VictoriaCrossbow",
+        "name": "Victoria Crossbow",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "AztekNightHunter",
+        "name": "Aztek Night Hunter",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ColdHunterMP5",
+        "name": "Cold Hunter MP5",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "EliteForestCamoHoodie",
+        "name": "Elite Forest Camo Hoodie",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "HighQualityBag",
+        "name": "High Quality Bag",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FishermanBurlapPants",
+        "name": "Fisherman Burlap Pants",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PhantomRevolver",
+        "name": "Phantom Revolver",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ThePlagueDoctor",
+        "name": "The Plague Doctor",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScavengerFacemask",
+        "name": "Scavenger Facemask",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MedicalRiotHelmet",
+        "name": "Medical Riot Helmet",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NoMercyFacemask",
+        "name": "No Mercy Facemask",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutBow",
+        "name": "Blackout Bow",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RocketScrapSalvagedPickaxe",
+        "name": "Rocket Scrap Salvaged Pickaxe",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CargoHeliStorage",
+        "name": "Cargo Heli Storage",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SergeantShirt",
+        "name": "Sergeant Shirt",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CardboardKilt",
+        "name": "Cardboard Kilt",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "StingerIcepick",
+        "name": "Stinger Icepick",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "HottemperedRevolver",
+        "name": "Hot-tempered Revolver",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CombatKnifefromHell",
+        "name": "Combat Knife from Hell",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CamoShorts",
+        "name": "Camo Shorts",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BrutalistSheetMetalDoor",
+        "name": "Brutalist Sheet Metal Door",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ComicsAR",
+        "name": "Comics AR",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WeldedHammer",
+        "name": "Welded Hammer",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ArmyFacemask",
+        "name": "Army Facemask",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MilitaryDoubleDoor",
+        "name": "Military Double Door",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GrassRug",
+        "name": "Grass Rug",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MilitaryVest",
+        "name": "Military Vest",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ReptileHunterFacemask",
+        "name": "Reptile Hunter Facemask",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Smolder",
+        "name": "Smolder",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "UnknownTerritoryHoodie",
+        "name": "Unknown Territory Hoodie",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PortableToilet",
+        "name": "Portable Toilet",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScientificFuelStorage",
+        "name": "Scientific Fuel Storage",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonClothesStorage",
+        "name": "Neon Clothes Storage",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SmileGrenade",
+        "name": "Smile Grenade",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WhiteoutKilt",
+        "name": "Whiteout Kilt",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutHelmet",
+        "name": "Blackout Helmet",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ThatGermanGuyWarhawk",
+        "name": "ThatGermanGuy Warhawk",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CheckpointRiotHelmet",
+        "name": "Checkpoint Riot Helmet",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "OrdnanceBox",
+        "name": "Ordnance Box",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FarmerHat",
+        "name": "Farmer Hat",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutPants",
+        "name": "Blackout Pants",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "AztecLongTShirt",
+        "name": "Aztec Long T-Shirt",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "JungleCamoSleepingBag",
+        "name": "Jungle Camo Sleeping Bag",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NoWarGuitar",
+        "name": "No War Guitar",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "IrishKilt",
+        "name": "Irish Kilt",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PolymerLR300",
+        "name": "Polymer LR300",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PiratePipe",
+        "name": "Pirate Pipe",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "IchtacaTreasureBox",
+        "name": "Ichtaca Treasure Box",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FarmerOverallsTop",
+        "name": "Farmer Overalls Top",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PiratePants",
+        "name": "Pirate Pants",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutKilt",
+        "name": "Blackout Kilt",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CargoTruckGarageDoor",
+        "name": "Cargo Truck Garage Door",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonCompsStorage",
+        "name": "Neon Comps Storage",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BrassLion",
+        "name": "Brass Lion",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ColdHunterAK",
+        "name": "Cold Hunter AK",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonFragsStorage",
+        "name": "Neon Frags Storage",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "LeatherBoonieHat",
+        "name": "Leather Boonie Hat",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PlaymakerAK47",
+        "name": "Playmaker AK47",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BikerGothHelmet",
+        "name": "Biker Goth Helmet",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TrainConductorMinersHat",
+        "name": "Train Conductor Miner's Hat",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TrophyPirateDoor",
+        "name": "Trophy Pirate Door",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ForestRaidersMetalChestPlate",
+        "name": "Forest Raiders Metal Chest Plate",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ArcticWolfMP5",
+        "name": "Arctic Wolf MP5",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MilitaryKilt",
+        "name": "Military Kilt",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WorkmansSafetyHat",
+        "name": "Workman's Safety Hat",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "MummyWraps",
+        "name": "Mummy Wraps",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PredatorHoodie",
+        "name": "Predator Hoodie",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ColdHunterLR300",
+        "name": "Cold Hunter LR 300",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "LastBlast",
+        "name": "Last Blast",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SnowCamoShorts",
+        "name": "Snow Camo Shorts",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "HardlineHelmet",
+        "name": "Hardline Helmet",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ChristmasElf",
+        "name": "Christmas Elf",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ImpSAR",
+        "name": "Imp SAR",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TankMP5",
+        "name": "Tank MP5",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "OathbreakerBox",
+        "name": "Oathbreaker Box",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "FullMetalKilt",
+        "name": "Full Metal Kilt",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DragonGlassStoneHatchet",
+        "name": "Dragon Glass Stone Hatchet",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GravelStoneHatchet",
+        "name": "Gravel Stone Hatchet",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SinotypeFirearms",
+        "name": "Sinotype Firearms",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ScientificGunsStorage",
+        "name": "Scientific Guns Storage",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NeonGunStorage",
+        "name": "Neon Gun Storage",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "CautionTapeTop",
+        "name": "Caution Tape Top",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BlackoutBoots",
+        "name": "Blackout Boots",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BornToLoot",
+        "name": "Born To Loot",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SalvagedPlatingArmor",
+        "name": "Salvaged Plating Armor",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WizardBandana",
+        "name": "Wizard Bandana",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "HeatDoubleShotgun",
+        "name": "Heat Double Shotgun",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Spacesuit",
+        "name": "Spacesuit",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RubberHazardMat",
+        "name": "Rubber Hazard Mat",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GreenCheckeredShirt",
+        "name": "Green Checkered Shirt",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "ComicsSAR",
+        "name": "Comics SAR",
+        "quantity": "6x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GloryThompson",
+        "name": "Glory Thompson",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SamuraiKozaneDo",
+        "name": "Samurai Kozane Do",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "NoMercyHoodie",
+        "name": "No Mercy Hoodie",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "Lavapick",
+        "name": "Lavapick",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TribesmanHidePants",
+        "name": "Tribesman Hide Pants",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RoxBlackVendingMachine",
+        "name": "Rox Black Vending Machine",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GoldSpiritCrossbow",
+        "name": "Gold Spirit Crossbow",
+        "quantity": "2x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DangerFork",
+        "name": "Danger Fork",
+        "quantity": "5x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "WhiteoutHoodie",
+        "name": "Whiteout Hoodie",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "TriadSAP",
+        "name": "Triad SAP",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "UprisingDeerSkullMask",
+        "name": "Uprising Deer Skull Mask",
+        "quantity": "10x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "KryssLongsword",
+        "name": "Kryss Longsword",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "XtremeSword",
+        "name": "Xtreme Sword",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "SandPrince",
+        "name": "SandPrince",
+        "quantity": "8x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GreyWolfHidePoncho",
+        "name": "Grey Wolf Hide Poncho",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "GraffitiGunsStorage",
+        "name": "Graffiti Guns Storage",
+        "quantity": "9x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DarkArtsIcepick",
+        "name": "Dark Arts Icepick",
+        "quantity": "1x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "PhantomAK",
+        "name": "Phantom AK",
+        "quantity": "3x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "BoxfromHell",
+        "name": "Box from Hell",
+        "quantity": "7x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "DesertPatrolPants",
+        "name": "Desert Patrol Pants",
+        "quantity": "4x",
+        "rarity": "uncommon"
+    },
+    {
+        "id": "RedLeatherChair",
+        "name": "Red Leather Chair",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ConquistadorPants",
+        "name": "Conquistador Pants",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "DoodleSleepingBag",
+        "name": "Doodle Sleeping Bag",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChameleonLR",
+        "name": "Chameleon LR",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChristmasBag",
+        "name": "Christmas Bag",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "ConstellationsSmallBox",
+        "name": "Constellations Small Box",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CautionBoltRifle",
+        "name": "Caution Bolt Rifle",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CobaltQuarantine",
+        "name": "Cobalt Quarantine",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CorruptedBandana",
+        "name": "Corrupted Bandana",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ConquistadorHoodie",
+        "name": "Conquistador Hoodie",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "FishRoadsignPants",
+        "name": "Fish Roadsign Pants",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackguardChestplate",
+        "name": "Blackguard Chestplate",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "CaravannerGloves",
+        "name": "Caravanner Gloves",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "ConstructionSiteBow",
+        "name": "Construction Site Bow",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ArmySurplusRocketLauncher",
+        "name": "Army Surplus Rocket Launcher",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "AbyssKilt",
+        "name": "Abyss Kilt",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackGoldPants",
+        "name": "Black Gold Pants",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "PunkBoots",
+        "name": "Punk Boots",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChekistsHoodie",
+        "name": "Chekist's Hoodie",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "AdobeGarageDoor",
+        "name": "Adobe Garage Door",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "BumbleBeeHelmet",
+        "name": "Bumble Bee Helmet",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "BurlapBanditBandana",
+        "name": "Burlap Bandit Bandana",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonVibesArmoredDoor",
+        "name": "Neon Vibes Armored Door",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "Bulletstorm",
+        "name": "Bulletstorm",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "BuccaneerBlade",
+        "name": "Buccaneer Blade",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackAcousticGuitar",
+        "name": "Black Acoustic Guitar",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "MoltenVisageFurnace",
+        "name": "Molten Visage Furnace",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ConquistadorFaceMask",
+        "name": "Conquistador Face Mask",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChillZoneGarageDoor",
+        "name": "Chill Zone Garage Door",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackOpsRevolver",
+        "name": "Black Ops Revolver",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "AbyssAR",
+        "name": "Abyss AR",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "NutcrackerHelmet",
+        "name": "Nutcracker Helmet",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CopperL96",
+        "name": "Copper L96",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "OxumsRacingTeamVest",
+        "name": "Oxums Racing Team Vest",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackoutAR",
+        "name": "Blackout AR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BullDozerAK47",
+        "name": "BullDozer AK47",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "CopperKilt",
+        "name": "Copper Kilt",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "MainframeDoor",
+        "name": "Mainframe Door",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "CobaltSAR",
+        "name": "Cobalt SAR",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "LargeRabbitBox",
+        "name": "Large Rabbit Box",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "CautionCrate",
+        "name": "Caution Crate",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CardboardHatchet",
+        "name": "Cardboard Hatchet",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "BerserkerMP5",
+        "name": "Berserker MP5",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "ConquistadorChestPlate",
+        "name": "Conquistador Chest Plate",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "MothersDayRock",
+        "name": "Mother's Day Rock",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonPumpkinMetalDoubleDoor",
+        "name": "Neon Pumpkin Metal Double Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "FarmerStrawHat",
+        "name": "Farmer Straw Hat",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CookieMakerFurnace",
+        "name": "Cookie Maker Furnace",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "AstonChristmas",
+        "name": "Aston Christmas",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChameleonPants",
+        "name": "Chameleon Pants",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "BurlapDiscoShirt",
+        "name": "Burlap Disco Shirt",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonSnowflakeGarageDoor",
+        "name": "Neon Snowflake Garage Door",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "DarkMagicLibrary",
+        "name": "Dark Magic Library",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "MegalodonTotemPickaxe",
+        "name": "Megalodon Totem Pickaxe",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CautionRevolver",
+        "name": "Caution Revolver",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepRubyAR",
+        "name": "Deep Ruby AR",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "CobaltJungleContainerSMD",
+        "name": "Cobalt Jungle Container SMD",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "CelAR",
+        "name": "Cel AR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackGoldPumpShotgun",
+        "name": "Black Gold Pump Shotgun",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CobaltWoodenDoor",
+        "name": "Cobalt Wooden Door",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "CarrotEoka",
+        "name": "Carrot Eoka",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "CardboardVest",
+        "name": "Cardboard Vest",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonHazmatLocker",
+        "name": "Neon Hazmat Locker",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "AztecGarageDoor",
+        "name": "Aztec Garage Door",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "GhostlySleepingBag",
+        "name": "Ghostly Sleeping Bag",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "GravelStonePickaxe",
+        "name": "Gravel Stone Pickaxe",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "HappyEasterAR",
+        "name": "Happy Easter AR",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadManCrossbow",
+        "name": "Dead Man Crossbow",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "MilitaryStorageWoodenDoubleDoor",
+        "name": "Military Storage Wooden Double Door",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "GingerbreadThompson",
+        "name": "Gingerbread Thompson",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "CowMooFlageVest",
+        "name": "Cow Moo Flage Vest",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "BrotherhoodDBS",
+        "name": "Brotherhood DBS",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "HellfirePortal",
+        "name": "Hellfire Portal",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChildhoodToolbox",
+        "name": "Childhood Toolbox",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "CursedPirateTreasureChest",
+        "name": "Cursed Pirate Treasure Chest",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "BoneScepter",
+        "name": "Bone Scepter",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColosseumPickAxe",
+        "name": "Colosseum Pick Axe",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "PumpkinRock",
+        "name": "Pumpkin Rock",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "GreenRivetedBucketHelmet",
+        "name": "Green Riveted Bucket Helmet",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "GunLordDoor",
+        "name": "Gun Lord Door",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "Cyberpants",
+        "name": "Cyberpants",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepJungleAR",
+        "name": "Deep Jungle AR",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepWaterCrossbow",
+        "name": "Deep Water Crossbow",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "PhantomKilt",
+        "name": "Phantom Kilt",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadRingerLR300",
+        "name": "Dead Ringer LR300",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "GurkhaCrossbow",
+        "name": "Gurkha Crossbow",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "GlisterPants",
+        "name": "Glister Pants",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "AdobeDoor",
+        "name": "Adobe Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "DamascusSteelHatchet",
+        "name": "Damascus Steel Hatchet",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonExitGarageDoor",
+        "name": "Neon Exit Garage Door",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepRubyVest",
+        "name": "Deep Ruby Vest",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackGoldSMG",
+        "name": "Black Gold SMG",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "AbyssFurnace",
+        "name": "Abyss Furnace",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "DesertBeastBandana",
+        "name": "Desert Beast Bandana",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "DominusMortisSAR",
+        "name": "Dominus Mortis SAR",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "DesertBeastHoodie",
+        "name": "Desert Beast Hoodie",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "GreenLumberjack",
+        "name": "Green Lumberjack",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadPumpkinFacemask",
+        "name": "Dead Pumpkin Facemask",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackGoldSAR",
+        "name": "Black Gold SAR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BuzzardSAR",
+        "name": "Buzzard SAR",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackGoldThompson",
+        "name": "Black Gold Thompson",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "DartWheel",
+        "name": "Dart Wheel",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "GrimFarmGarageDoor",
+        "name": "Grim Farm Garage Door",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "CautionVest",
+        "name": "Caution Vest",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CenturionKilt",
+        "name": "Centurion Kilt",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "GuardianofEasterHoodie",
+        "name": "Guardian of Easter Hoodie",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "BananaLeafBandana",
+        "name": "Banana Leaf Bandana",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "EaterHatchet",
+        "name": "Eater Hatchet",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "PixelDecayPickaxe",
+        "name": "Pixel Decay Pickaxe",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackAlligatorHelmet",
+        "name": "Black Alligator Helmet",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeliverySatchel",
+        "name": "Delivery Satchel",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "KnightBackpack",
+        "name": "Knight Backpack",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "AltarLargeBox",
+        "name": "Altar Large Box",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "JunkyardSamuraiPants",
+        "name": "Junkyard Samurai Pants",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BonelordL96",
+        "name": "Bonelord L96",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CautionGarageDoor",
+        "name": "Caution Garage Door",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "GridDoor",
+        "name": "Grid Door",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "JPEGBoots",
+        "name": "JPEG Boots",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "GlisterRoadsignGloves",
+        "name": "Glister Roadsign Gloves",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "GuardianofEasterMask",
+        "name": "Guardian of Easter Mask",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CursedTreasureHatchet",
+        "name": "Cursed Treasure Hatchet",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "ApocalypticKnightHoodie",
+        "name": "Apocalyptic Knight Hoodie",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "AncientFurnace",
+        "name": "Ancient Furnace",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "DDIncDBS",
+        "name": "DD Inc DBS",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "DefenseGarageDoor",
+        "name": "Defense Garage Door",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "GingerbreadWoodenDoor",
+        "name": "Gingerbread Wooden Door",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "HarborSealHammer",
+        "name": "Harbor Seal Hammer",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BadboyPants",
+        "name": "Badboy Pants",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadSoulsSleepingBag",
+        "name": "Dead Souls Sleeping Bag",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "JunkyardKingPants",
+        "name": "Junkyard King Pants",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "KhinkaliFurnace",
+        "name": "Khinkali Furnace",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "AncientAmberHammer",
+        "name": "Ancient Amber Hammer",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "LastFriend",
+        "name": "Last Friend",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CyberCodeSAR",
+        "name": "Cyber Code SAR",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackoutChestplate",
+        "name": "Blackout Chestplate",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "GoldenDrakeSleepingBag",
+        "name": "Golden Drake Sleeping Bag",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "DangerZoneSleepingBag",
+        "name": "Danger Zone Sleeping Bag",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "GNH315",
+        "name": "GNH-315",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadFishMP5",
+        "name": "Dead Fish MP5",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "DemonFurance",
+        "name": "Demon Furance",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepSeaDoor",
+        "name": "Deep Sea Door",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadHammer",
+        "name": "Dead Hammer",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackGoldVest",
+        "name": "Black Gold Vest",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "AntiqueRocketLauncher",
+        "name": "Antique Rocket Launcher",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChainedSpiritsAR",
+        "name": "Chained Spirits AR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "JungleKingGarageDoor",
+        "name": "Jungle King Garage Door",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "DamascusSteelPickaxe",
+        "name": "Damascus Steel Pickaxe",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "DesertBeastBurlapPants",
+        "name": "Desert Beast Burlap Pants",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepSeaHatchet",
+        "name": "Deep Sea Hatchet",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColosseumDBS",
+        "name": "Colosseum DBS",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "HotTopic",
+        "name": "Hot Topic",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackPaladinPants",
+        "name": "Black Paladin Pants",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "IceEyeGarageDoor",
+        "name": "Ice Eye Garage Door",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "GingerbreadDoubleDoor",
+        "name": "Gingerbread Double Door",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "AntiqueDiningChair",
+        "name": "Antique Dining Chair",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "AncientGodsStonePickaxe",
+        "name": "Ancient Gods Stone Pickaxe",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "EagleSheetMetalDoor",
+        "name": "Eagle Sheet Metal Door",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "ElDiabloPython",
+        "name": "El Diablo Python",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ImmortalAngelBag",
+        "name": "Immortal Angel Bag",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "DemonicRavenDoor",
+        "name": "Demonic Raven Door",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "CocoKnightBackPack",
+        "name": "CocoKnight BackPack",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "AutumnHuntersShirt",
+        "name": "Autumn Hunter's Shirt",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "CobaltSecurityAR",
+        "name": "Cobalt Security AR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackAlligatorMetalChestPlate",
+        "name": "Black Alligator Metal Chest Plate",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "BronyPants",
+        "name": "Brony Pants",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "KrakenShellChestplate",
+        "name": "Kraken Shell Chestplate",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "CargoHeliBow",
+        "name": "Cargo Heli Bow",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "FlyerMask",
+        "name": "Flyer Mask",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "AbyssHuntingBow",
+        "name": "Abyss Hunting Bow",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepRubyRoadsignGloves",
+        "name": "Deep Ruby Roadsign Gloves",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "HollowPointGifter",
+        "name": "Hollow Point Gifter",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "EasterCarrotStorage",
+        "name": "Easter Carrot Storage",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "AnarchistSAR",
+        "name": "Anarchist SAR",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "DayandNightSmallBox",
+        "name": "Day and Night Small Box",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "ElectroGarageDoor",
+        "name": "Electro Garage Door",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChristmasHolidayBag",
+        "name": "Christmas Holiday Bag",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackAlligatorKilt",
+        "name": "Black Alligator Kilt",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "CartagenaAK47",
+        "name": "Cartagena AK47",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackHoodie",
+        "name": "Black Hoodie",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ContaminationPistol",
+        "name": "Contamination Pistol",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackOpsSAR",
+        "name": "Black Ops SAR",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "FrogCosplayPants",
+        "name": "Frog Cosplay Pants",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "AncientAmberStoneHatchet",
+        "name": "Ancient Amber Stone Hatchet",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "GreyLongsleeveTShirt",
+        "name": "Grey Longsleeve T-Shirt",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "GingerbreadHouseGarageDoor",
+        "name": "Gingerbread House Garage Door",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "GlisterMP5",
+        "name": "Glister MP5",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColdHunterWaterpipe",
+        "name": "Cold Hunter Waterpipe",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "HockeyMask",
+        "name": "Hockey Mask",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "BeachCrate",
+        "name": "Beach Crate",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "GreeningAreaLargeBox",
+        "name": "Greening Area Large Box",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadPiratesChest",
+        "name": "Dead Pirates Chest",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "CarpentersSmallBox",
+        "name": "Carpenter's Small Box",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "AntiqueSword",
+        "name": "Antique Sword",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "GhostHalloweenL96",
+        "name": "Ghost Halloween L96",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "BrothersofFireWoodenDoor",
+        "name": "Brothers of Fire Wooden Door",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "LambBox",
+        "name": "Lamb Box",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "Crossbownana",
+        "name": "Crossbownana",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChristmasHideSkirt",
+        "name": "Christmas Hide Skirt",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "GoldDigger",
+        "name": "Gold Digger",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "IronWing",
+        "name": "Iron Wing",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "NauticalStorageBox",
+        "name": "Nautical Storage Box",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "Distillery",
+        "name": "Distillery",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "CryoFridge",
+        "name": "Cryo Fridge",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepSeaLocker",
+        "name": "Deep Sea Locker",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "CozyWoodenDoor",
+        "name": "Cozy Wooden Door",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "RebirthPickaxe",
+        "name": "Rebirth Pickaxe",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "SolarPanelHelmet",
+        "name": "Solar Panel Helmet",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoadHatchet",
+        "name": "Road Hatchet",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "RainbowPonyChestPlate",
+        "name": "Rainbow Pony Chest Plate",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "ElysiumAssaultRifle",
+        "name": "Elysium Assault Rifle",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "IceEyePickAxe",
+        "name": "Ice Eye Pick Axe",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "AmuletRug",
+        "name": "Amulet Rug",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RiotLR",
+        "name": "Riot LR",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoadRaiderPants",
+        "name": "Road Raider Pants",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "RetroBlastMP5",
+        "name": "Retro Blast MP5",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "RainbowPonyHatchet",
+        "name": "Rainbow Pony Hatchet",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RedemptionPython",
+        "name": "Redemption Python",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "ARnana",
+        "name": "ARnana",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "SaboteursCanHelmet",
+        "name": "Saboteur's Can Helmet",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "RockfromHell",
+        "name": "Rock from Hell",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "InquisitorMetalDoor",
+        "name": "Inquisitor Metal Door",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "SaboteursVest",
+        "name": "Saboteur's Vest",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "MiniBeehiveBox",
+        "name": "Mini Beehive Box",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "AnimeAR",
+        "name": "Anime AR",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "LightweightPumpShotgun",
+        "name": "Lightweight Pump Shotgun",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "CargoHeliPickAxe",
+        "name": "Cargo Heli Pick Axe",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CyberCodeAR",
+        "name": "Cyber Code AR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "NukeRoomGarageDoor",
+        "name": "Nuke Room Garage Door",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "AzulHelmet",
+        "name": "Azul Helmet",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RustpunkAK47",
+        "name": "Rustpunk AK47",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "NecromancerPython",
+        "name": "Necromancer Python",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "GhostCatcherJackhammer",
+        "name": "Ghost Catcher Jackhammer",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "RainbowPonyM249",
+        "name": "Rainbow Pony M249",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RavenDeerSkullMask",
+        "name": "Raven Deer Skull Mask",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "HardsuitBackpack",
+        "name": "Hardsuit Backpack",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "DamascusRoadsignGloves",
+        "name": "Damascus Roadsign Gloves",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "HazardCrate",
+        "name": "Hazard Crate",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "HoboSleepingBag",
+        "name": "Hobo Sleeping Bag",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeoSoulAR",
+        "name": "Neo Soul AR",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "OneSidedTownSignPost",
+        "name": "One Sided Town Sign Post",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "LandscapePictureFrame",
+        "name": "Landscape Picture Frame",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "AirmanHoodie",
+        "name": "Airman Hoodie",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "KrisSword",
+        "name": "Kris Sword",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "EggBasketBox",
+        "name": "Egg Basket Box",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "NightmareClownBalaclava",
+        "name": "Nightmare Clown Balaclava",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "DemonicAK47",
+        "name": "Demonic AK47",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "AntiqueDiningTable",
+        "name": "Antique Dining Table",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonVibesSheetMetalDoor",
+        "name": "Neon Vibes Sheet Metal Door",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "EliteCrateSAR",
+        "name": "Elite Crate SAR",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "AnarchySMG",
+        "name": "Anarchy SMG",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "GMOFreeSeedBox",
+        "name": "GMO Free Seed Box",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "FriendlyCap",
+        "name": "Friendly Cap",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "CargoHeliSatchelCharge",
+        "name": "Cargo Heli Satchel Charge",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "NorthRock",
+        "name": "North Rock",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "CargoHeliHelmet",
+        "name": "Cargo Heli Helmet",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoadRaiderBandana",
+        "name": "Road Raider Bandana",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "EasterSleepingBag",
+        "name": "Easter Sleeping Bag",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadSoulsAR",
+        "name": "Dead Souls AR",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoosterMask",
+        "name": "Rooster Mask",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "NotebookCrossbow",
+        "name": "Notebook Crossbow",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "EliteCrateMP5",
+        "name": "Elite Crate MP5",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "AbyssMetalDoubleDoor",
+        "name": "Abyss Metal Double Door",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "NordicBeastHelmet",
+        "name": "Nordic Beast Helmet",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "NewYearOxfurnace",
+        "name": "New Year Ox furnace",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "BroccoliClub",
+        "name": "Broccoli Club",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackBoots",
+        "name": "Black Boots",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonPumpkinGarageDoor",
+        "name": "Neon Pumpkin Garage Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RainbowPonyAR",
+        "name": "Rainbow Pony AR",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "RebarKnife",
+        "name": "Rebar Knife",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "NorthernForesterPants",
+        "name": "Northern Forester Pants",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "NOTFriendlyWoodenDoor",
+        "name": "NOT Friendly Wooden Door",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "OutlawPython",
+        "name": "Outlaw Python",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChainmailPoncho",
+        "name": "Chainmail Poncho",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "BambooSAR",
+        "name": "Bamboo SAR",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoosterPoncho",
+        "name": "Rooster Poncho",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColorfulRevolver",
+        "name": "Colorful Revolver",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "CucumberEoka",
+        "name": "Cucumber Eoka",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "NewYearOxFurnace",
+        "name": "New Year Ox Furnace",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "IceEyeHatchet",
+        "name": "Ice Eye Hatchet",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "NordicBeastHoodie",
+        "name": "Nordic Beast Hoodie",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CarrotPowerFacemask",
+        "name": "Carrot Power Facemask",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "OnTarget",
+        "name": "On Target",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RedemptionSAP",
+        "name": "Redemption SAP",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "NeonEggsBox",
+        "name": "Neon Eggs Box",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "MOTOPARTY",
+        "name": "MOTO PARTY!",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CorruptedPants",
+        "name": "Corrupted Pants",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "DamascusFacemask",
+        "name": "Damascus Facemask",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "RecyclerThompson",
+        "name": "Recycler Thompson",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "NoMercyRoadsignGloves",
+        "name": "No Mercy Roadsign Gloves",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "CryoFurnace",
+        "name": "Cryo Furnace",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "CapybaraDoor",
+        "name": "Capybara Door",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "CheckpointSAP",
+        "name": "Checkpoint SAP",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "OpulentRoadsignGloves",
+        "name": "Opulent Roadsign Gloves",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "MetalRosesShortSword",
+        "name": "Metal Roses Short Sword",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "LunarSnakeSMG",
+        "name": "Lunar Snake SMG",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "RetrowaveCrossbow",
+        "name": "Retrowave Crossbow",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "OldHeavyWoodenDoor",
+        "name": "Old Heavy Wooden Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "MetalhunterGloves",
+        "name": "Metalhunter Gloves",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "RegalHatchet",
+        "name": "Regal Hatchet",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "KitchenTileHammer",
+        "name": "Kitchen Tile Hammer",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepRubySAP",
+        "name": "Deep Ruby SAP",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "LizardSkull",
+        "name": "Lizard Skull",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "MilitaryArmoredDoor",
+        "name": "Military Armored Door",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "CheeseSheetMetalDoor",
+        "name": "Cheese Sheet Metal Door",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "ParquetTable",
+        "name": "Parquet Table",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "IceSmallBox",
+        "name": "Ice Small Box",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RevolutionHoodie",
+        "name": "Revolution Hoodie",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "FurnacefromHell",
+        "name": "Furnace from Hell",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RubyHatchet",
+        "name": "Ruby Hatchet",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "MetalhunterFacemask",
+        "name": "Metalhunter Facemask",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "GoingDeepSheetMetalDoor",
+        "name": "Going Deep Sheet Metal Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RootedRock",
+        "name": "Rooted Rock",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepSeaFurnace",
+        "name": "Deep Sea Furnace",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "PopstarThompson",
+        "name": "Popstar Thompson",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "RedemptionPumpShotgun",
+        "name": "Redemption Pump Shotgun",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BanditosPants",
+        "name": "Banditos Pants",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColdHunterSAR",
+        "name": "Cold Hunter SAR",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackOpsPython",
+        "name": "Black Ops Python",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "AbyssLR",
+        "name": "Abyss LR",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "BadboyHoodie",
+        "name": "Badboy Hoodie",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "LadybugCosplayHoodie",
+        "name": "Ladybug Cosplay Hoodie",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "LowPolyHoodie",
+        "name": "Low Poly Hoodie",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "RevolutionGarageDoor",
+        "name": "Revolution Garage Door",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeadlyRoseBAR",
+        "name": "Deadly Rose BAR",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "ChemicalBurnBow",
+        "name": "Chemical Burn Bow",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "RecyclerSAR",
+        "name": "Recycler SAR",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "RenegadeMetalFacemask",
+        "name": "Renegade Metal Facemask",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "MoltenVisageMetalDoor",
+        "name": "Molten Visage Metal Door",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "BrutalDoor",
+        "name": "Brutal Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "MadRiderGloves",
+        "name": "Mad Rider Gloves",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepRubyHelmet",
+        "name": "Deep Ruby Helmet",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "HomemadeShorts",
+        "name": "Homemade Shorts",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlindsRug",
+        "name": "Blinds Rug",
+        "quantity": "3x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColdHunterSMG",
+        "name": "Cold Hunter SMG",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "IronJawsHatchet",
+        "name": "Iron Jaws Hatchet",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "BrutalFurnace",
+        "name": "Brutal Furnace",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "BlackoutPython",
+        "name": "Blackout Python",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "RainbowPonySMG",
+        "name": "Rainbow Pony SMG",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeepRubyPickaxe",
+        "name": "Deep Ruby Pickaxe",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RedShinePistol",
+        "name": "Red Shine Pistol",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoadRaiderShirt",
+        "name": "Road Raider Shirt",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "MetalhunterRoadsignVest",
+        "name": "Metalhunter Roadsign Vest",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "ColdHunterBAR",
+        "name": "Cold Hunter BAR",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoadAngelsPants",
+        "name": "Road Angels Pants",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "PrototypeSaw",
+        "name": "Prototype Saw",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "BangerThompson",
+        "name": "Banger Thompson",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "CorruptedFacemask",
+        "name": "Corrupted Facemask",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "MKULTRAMP5",
+        "name": "MK-ULTRA MP5",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "NukeDBS",
+        "name": "Nuke DBS",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "GentlemansShirt",
+        "name": "Gentleman's Shirt",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "LargePresentSheetMetalDoor",
+        "name": "Large Present Sheet Metal Door",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RedemptionFacemask",
+        "name": "Redemption Facemask",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "RedemptionMP5",
+        "name": "Redemption MP5",
+        "quantity": "7x",
+        "rarity": "common"
+    },
+    {
+        "id": "BerserkFacemask",
+        "name": "Berserk Facemask",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "GodOfBuildersHammer",
+        "name": "God Of Builders Hammer",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "FrogRock",
+        "name": "Frog Rock",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "DeathcoreLR300",
+        "name": "Deathcore LR300",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "BrainstormSAR",
+        "name": "Brainstorm SAR",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "MarkedforDeath",
+        "name": "Marked for Death",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "LoveBomb",
+        "name": "Love Bomb",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RenegadeKilt",
+        "name": "Renegade Kilt",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "NecroFacemask",
+        "name": "Necro Facemask",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "BoneHatchet",
+        "name": "Bone Hatchet",
+        "quantity": "5x",
+        "rarity": "common"
+    },
+    {
+        "id": "MonsterGarageDoor",
+        "name": "Monster Garage Door",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "8BITAR",
+        "name": "8-BIT AR",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "LaboratoryRollingDoor",
+        "name": "Laboratory Rolling Door",
+        "quantity": "8x",
+        "rarity": "common"
+    },
+    {
+        "id": "RoyaltyPumpShotgun",
+        "name": "Royalty Pump Shotgun",
+        "quantity": "4x",
+        "rarity": "common"
+    },
+    {
+        "id": "MilitaryLargeBox",
+        "name": "Military Large Box",
+        "quantity": "10x",
+        "rarity": "common"
+    },
+    {
+        "id": "EmperorsKnife",
+        "name": "Emperor's Knife",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "EisensheetBox",
+        "name": "Eisensheet Box",
+        "quantity": "6x",
+        "rarity": "common"
+    },
+    {
+        "id": "QuarantineMP5",
+        "name": "Quarantine MP5",
+        "quantity": "9x",
+        "rarity": "common"
+    },
+    {
+        "id": "MetalhunterRoadsignPants",
+        "name": "Metalhunter Roadsign Pants",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "RainbowPonyVest",
+        "name": "Rainbow Pony Vest",
+        "quantity": "2x",
+        "rarity": "common"
+    },
+    {
+        "id": "HQMAR",
+        "name": "HQM AR",
+        "quantity": "1x",
+        "rarity": "common"
+    },
+    {
+        "id": "RaptorFacemask",
+        "name": "Raptor Facemask",
+        "quantity": "7x",
+        "rarity": "common"
     }
 ]

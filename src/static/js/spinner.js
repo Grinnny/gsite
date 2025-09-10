@@ -35,6 +35,11 @@ class JackpotSpinner {
         // Pointer settings
         this.pointerAngle = 0; // Pointer at top (12 o'clock)
         
+        // Handle page refresh/unload while spinning
+        window.addEventListener('beforeunload', () => {
+            this.handlePageUnload();
+        });
+        
         this.setupCanvas();
         this.draw();
     }
@@ -251,7 +256,12 @@ class JackpotSpinner {
             const x = this.centerX + Math.cos(midAngle) * labelRadius;
             const y = this.centerY + Math.sin(midAngle) * labelRadius;
             
-            // Draw player name
+            // Draw player avatar
+            if (segment.player.avatar) {
+                this.drawPlayerAvatar(segment.player.avatar, x, y - 10, 40); // 40px avatar size, moved up
+            }
+            
+            // Draw percentage below avatar with more spacing
             this.ctx.fillStyle = '#FFFFFF';
             this.ctx.font = 'bold 12px Arial';
             this.ctx.textAlign = 'center';
@@ -263,11 +273,7 @@ class JackpotSpinner {
             this.ctx.shadowOffsetX = 1;
             this.ctx.shadowOffsetY = 1;
             
-            this.ctx.fillText(segment.player.name, x, y - 8);
-            
-            // Draw percentage
-            this.ctx.font = '10px Arial';
-            this.ctx.fillText(`${segment.percentage.toFixed(1)}%`, x, y + 8);
+            this.ctx.fillText(`${segment.percentage.toFixed(1)}%`, x, y + 25); // Moved further down
             
             // Reset shadow
             this.ctx.shadowColor = 'transparent';
@@ -277,10 +283,87 @@ class JackpotSpinner {
         });
     }
     
+    drawPlayerAvatar(avatarSrc, x, y, size) {
+        // Check if we already have this image cached
+        if (!this.avatarCache) {
+            this.avatarCache = new Map();
+        }
+        
+        if (this.avatarCache.has(avatarSrc)) {
+            const img = this.avatarCache.get(avatarSrc);
+            if (img.complete) {
+                this.ctx.save();
+                
+                // Create circular clipping path
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI);
+                this.ctx.clip();
+                
+                // Draw the image
+                this.ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
+                
+                this.ctx.restore();
+                
+                // Draw border around avatar
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI);
+                this.ctx.strokeStyle = '#FFFFFF';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+            }
+        } else {
+            // Load and cache the image
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                this.avatarCache.set(avatarSrc, img);
+                // Redraw to show the loaded avatar
+                this.draw();
+            };
+            img.onerror = () => {
+                // Fallback to initials if image fails to load
+                this.drawAvatarFallback(x, y, size, avatarSrc);
+            };
+            img.src = avatarSrc;
+            
+            // Draw placeholder while loading
+            this.drawAvatarFallback(x, y, size, avatarSrc);
+        }
+    }
+    
+    drawAvatarFallback(x, y, size, avatarSrc) {
+        // Draw a circle with initials as fallback
+        this.ctx.save();
+        
+        // Draw background circle
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI);
+        this.ctx.fillStyle = '#4ECCA3';
+        this.ctx.fill();
+        
+        // Draw border
+        this.ctx.strokeStyle = '#FFFFFF';
+        this.ctx.lineWidth = 2;
+        this.ctx.stroke();
+        
+        // Draw "?" as fallback text
+        this.ctx.fillStyle = '#FFFFFF';
+        this.ctx.font = `bold ${size * 0.4}px Arial`;
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillText('?', x, y);
+        
+        this.ctx.restore();
+    }
+    
     spin() {
         if (this.isSpinning || this.segments.length === 0) {
+            console.log('🚫 Cannot spin - already spinning or no segments');
             return;
         }
+        
+        // Force reset any stuck state from previous refresh
+        this.forceReset();
         
         this.isSpinning = true;
         
@@ -309,9 +392,16 @@ class JackpotSpinner {
                 this.velocity = 0.8 + Math.random() * 0.8;
             }
         } else {
-            // Random velocity for natural physics
-            this.velocity = 0.8 + Math.random() * 0.8;
-            console.log('🎲 Using random velocity:', this.velocity.toFixed(4));
+            // Calculate velocity to spin for approximately 25 seconds
+            // Using physics: final_velocity = initial_velocity * friction^time
+            // We want velocity to reach minVelocity after 25 seconds
+            const targetTime = 25; // 25 seconds
+            const framesPerSecond = 60;
+            const totalFrames = targetTime * framesPerSecond;
+            
+            // Calculate initial velocity needed to last 25 seconds
+            this.velocity = this.minVelocity / Math.pow(this.friction, totalFrames);
+            console.log('🎲 Calculated velocity for 25 second spin:', this.velocity.toFixed(4));
         }
         
         // Log spin start with position
@@ -464,8 +554,16 @@ class JackpotSpinner {
             }, 6000);
         }
         
-        // Start winner animation
+        // Start winner animation immediately after spinner stops
         this.startWinnerAnimation();
+        
+        // Notify server that spinner has stopped (after winner animation completes)
+        setTimeout(() => {
+            if (window.socket) {
+                console.log('📡 Notifying server that spinner has stopped');
+                window.socket.emit('spinner_stopped');
+            }
+        }, 3000); // Wait for winner animation to complete
         
         return this.winner;
     }
@@ -667,6 +765,51 @@ class JackpotSpinner {
         }
         
         this.draw();
+    }
+    
+    // Handle page unload while spinning
+    handlePageUnload() {
+        if (this.isSpinning) {
+            console.log('🔄 Page unloading while spinner is active - cleaning up');
+            
+            // Stop animation immediately
+            this.isSpinning = false;
+            this.velocity = 0;
+            
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+                this.animationId = null;
+            }
+            
+            // If we're in realtime mode, notify server that spinner was interrupted
+            if (window.socket) {
+                window.socket.emit('spinner_interrupted', {
+                    reason: 'page_refresh',
+                    currentRotation: this.rotation
+                });
+            }
+        }
+    }
+    
+    // Force reset spinner state (used when recovering from page refresh)
+    forceReset() {
+        console.log('🔧 Force resetting spinner state');
+        
+        // Cancel any running animations
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+        
+        // Reset all spinning state
+        this.isSpinning = false;
+        this.velocity = 0;
+        this.winner = null;
+        this.winnerAnimation.active = false;
+        this.winnerAnimation.progress = 0;
+        
+        // Don't reset rotation or segments - keep visual state
+        console.log('✅ Spinner state force reset complete');
     }
     
     // Get current winner without spinning (for testing)

@@ -39,7 +39,7 @@
                             <div style="margin-bottom: 15px;">
                                 <label style="color: #b9b9b9; font-family: sansation; font-size: 14px;">Deposit Address:</label>
                                 <div class="flex items-center" style="margin-top: 5px;">
-                                    <input type="text" id="solAddress" readonly value="9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM" 
+                                    <input type="text" id="solAddress" readonly value="4p8FCxXYAtymCJaQ1joa61KRTzLMwppv74zyJv2RP7Fb" 
                                            style="background-color: #282828; border: 1px solid #424242; border-radius: 8px; padding: 10px; color: white; font-family: monospace; font-size: 12px; flex: 1;">
                                     <button onclick="copyAddress()" style="background-color: #4ECCA3; color: white; border: none; border-radius: 8px; padding: 10px 15px; margin-left: 10px; cursor: pointer; font-family: sansation;">
                                         Copy
@@ -102,16 +102,26 @@
                         <h3 style="color: #4ECCA3; font-family: carving; font-size: 22px; margin-bottom: 20px;">QR Code</h3>
                         
                         <div style="background-color: white; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-                            <div id="qrcode" style="width: 200px; height: 200px; background-color: white; display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 9px; word-break: break-all; text-align: center; color: black;">
-                                9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+                            <img src="imgs/DepositMethods/qr/solpng.png" alt="Solana QR Code" style="width: 200px; height: 200px; border-radius: 10px;">
+                        </div>
+
+                        <!-- User Address Input -->
+                        <div style="width: 100%; background-color: #363636; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                            <h4 style="color: #4ECCA3; font-family: sansation; font-size: 16px; margin-bottom: 15px;">Your Sending Address</h4>
+                            <div style="margin-bottom: 10px;">
+                                <input type="text" id="userSolAddress" placeholder="Enter your Solana address (for tracking)" 
+                                       style="background-color: #282828; border: 1px solid #424242; border-radius: 8px; padding: 10px; color: white; font-family: monospace; font-size: 12px; width: 100%;">
                             </div>
+                            <button onclick="saveUserAddress('SOL')" style="background-color: #4ECCA3; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-family: sansation; width: 100%;">
+                                Save & Start Monitoring
+                            </button>
                         </div>
 
                         <!-- Deposit Status -->
                         <div style="width: 100%; background-color: #363636; border-radius: 10px; padding: 20px;">
                             <h4 style="color: #4ECCA3; font-family: sansation; font-size: 16px; margin-bottom: 15px;">Deposit Status</h4>
                             <div id="depositStatus" style="color: #b9b9b9; font-family: sansation; text-align: center; padding: 20px;">
-                                Waiting for deposit...
+                                Enter your address to start monitoring...
                             </div>
                             
                             <div style="margin-top: 15px;">
@@ -148,8 +158,9 @@
     </nav>
 
     <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
+        function copyAddress() {
+            const address = document.getElementById('solAddress').value;
+            navigator.clipboard.writeText(address).then(() => {
                 // Show success feedback
                 const button = event.target;
                 const originalText = button.textContent;
@@ -198,6 +209,105 @@
                 console.error('Error calculating deposit:', error);
                 alert('Error calculating deposit. Please try again.');
             }
+        }
+
+        function saveUserAddress(crypto) {
+            const addressInput = document.getElementById('userSolAddress');
+            const userAddress = addressInput.value.trim();
+            
+            if (!userAddress) {
+                alert('Please enter your Solana address');
+                return;
+            }
+
+            try {
+                // Save to localStorage
+                const depositAddresses = JSON.parse(localStorage.getItem('depositAddresses') || '{}');
+                depositAddresses[crypto] = userAddress;
+                localStorage.setItem('depositAddresses', JSON.stringify(depositAddresses));
+                
+                // Save timestamp for tracking
+                localStorage.setItem(`${crypto}_monitoring_start`, Date.now().toString());
+
+                document.getElementById('depositStatus').innerHTML = `
+                    <div style="color: #4ECCA3;">✅ Monitoring Started</div>
+                    <div style="font-size: 12px; margin-top: 10px;">Watching for deposits from:<br>
+                    <span style="font-family: monospace; word-break: break-all;">${userAddress}</span></div>
+                `;
+                startDepositMonitoring(userAddress, crypto);
+            } catch (error) {
+                console.error('Error saving address:', error);
+                alert('Error saving address. Please try again.');
+            }
+        }
+
+        function startDepositMonitoring(userAddress, crypto) {
+            // Poll for deposits every 30 seconds
+            const monitoringInterval = setInterval(() => {
+                try {
+                    // Simulate deposit detection (10% chance for demo)
+                    const simulateDeposit = Math.random() < 0.1;
+                    
+                    if (simulateDeposit) {
+                        // Simulate a deposit
+                        const cryptoPrices = {
+                            'BTC': 45000,
+                            'ETH': 2500,
+                            'SOL': 100
+                        };
+                        
+                        const depositAmount = crypto === 'BTC' ? 0.001 : 
+                                              crypto === 'ETH' ? 0.01 : 0.1;
+                        
+                        const usdValue = depositAmount * cryptoPrices[crypto];
+                        const bonus = usdValue * 0.25; // 25% bonus
+                        const totalCredit = usdValue + bonus;
+                        
+                        // Update balance in localStorage
+                        const currentBalance = parseFloat(localStorage.getItem('userBalance') || '0');
+                        const newBalance = currentBalance + totalCredit;
+                        localStorage.setItem('userBalance', newBalance.toString());
+                        
+                        // Record deposit in localStorage
+                        const deposits = JSON.parse(localStorage.getItem('depositHistory') || '[]');
+                        deposits.push({
+                            cryptoType: crypto,
+                            amount: depositAmount,
+                            usdValue: usdValue.toFixed(2),
+                            bonus: bonus.toFixed(2),
+                            totalCredit: totalCredit.toFixed(2),
+                            timestamp: new Date().toISOString(),
+                            fromAddress: userAddress
+                        });
+                        localStorage.setItem('depositHistory', JSON.stringify(deposits));
+                        
+                        // Update status with new deposits
+                        const statusDiv = document.getElementById('depositStatus');
+                        statusDiv.innerHTML = `
+                            <div style="color: #4CAF50;">🎉 Deposit Detected!</div>
+                            <div style="font-size: 12px; margin-top: 10px;">
+                                Amount: ${depositAmount} ${crypto}<br>
+                                Value: $${usdValue.toFixed(2)}<br>
+                                Bonus: $${bonus.toFixed(2)}<br>
+                                <strong>Total Credit: $${totalCredit.toFixed(2)}</strong>
+                            </div>
+                        `;
+                        
+                        // Update balance display
+                        const balanceElements = document.querySelectorAll('.balance-display');
+                        balanceElements.forEach(el => {
+                            el.textContent = '$' + newBalance.toFixed(2);
+                        });
+                        
+                        // Clear interval after successful deposit
+                        clearInterval(monitoringInterval);
+                        
+                        console.log(`Deposit detected: ${depositAmount} ${crypto} = $${totalCredit.toFixed(2)}`);
+                    }
+                } catch (error) {
+                    console.error('Error checking deposits:', error);
+                }
+            }, 30000);
         }
     </script>
 </body>

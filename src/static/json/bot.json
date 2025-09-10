@@ -1,6 +1,51 @@
 {
   "bots": [
     {
+      "id": "bot_1",
+      "name": "SteamBot_Alpha",
+      "avatar": "https://avatars.steamstatic.com/1c2e5849c83d30ba16570c720306001d60dd1a34_full.jpg"
+    },
+    {
+      "id": "bot_2",
+      "name": "RustMaster_Pro",
+      "avatar": "https://avatars.steamstatic.com/cf2564e0ea09da0fea61e7a2d4f0f971b056a96b_full.jpg"
+    },
+    {
+      "id": "bot_3",
+      "name": "GambleLord_99",
+      "avatar": "https://avatars.steamstatic.com/cf2564e0ea09da0fea61e7a2d4f0f971b056a96b_full.jpg"
+    },
+    {
+      "id": "bot_4",
+      "name": "SkinHunter_X",
+      "avatar": "https://avatars.steamstatic.com/25f7591af9b2776d7a9a1764820187136ee99734_full.jpg"
+    },
+    {
+      "id": "bot_5",
+      "name": "TradeKing_Elite",
+      "avatar": "https://avatars.steamstatic.com/cf37a7557142bc7f96358ccf32d71a91a11852d6_full.jpg"
+    },
+    {
+      "id": "bot_6",
+      "name": "CasualGamer_42",
+      "avatar": "https://avatars.steamstatic.com/3330e22170b9f1dece123b78bb5531313777d7cc_full.jpg"
+    },
+    {
+      "id": "bot_7",
+      "name": "VaultKeeper_Z",
+      "avatar": "https://avatars.steamstatic.com/3f0717082eb2a2ed45c03830ee373b6365658c60_full.jpg"
+    },
+    {
+      "id": "bot_8",
+      "name": "RustVeteran_2019",
+      "avatar": "https://avatars.steamstatic.com/cf37a7557142bc7f96358ccf32d71a91a11852d6_full.jpg"
+    },
+    {
+      "id": "bot_9",
+      "name": "λfg™ ☆ Allyson ★",
+      "avatar": "https://avatars.fastly.steamstatic.com/98af2c58d2763c307ce73335be79d99a26fc678c_full.jpg"
+    },
+    {
       "id": "bot_10",
       "name": "λfg™ ☆ Allyson ★",
       "avatar": "https://avatars.steamstatic.com/98af2c58d2763c307ce73335be79d99a26fc678c_full.jpg"
