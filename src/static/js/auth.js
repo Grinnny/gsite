@@ -52,8 +52,10 @@ class AuthManager {
         // Replace user icon with profile picture across all pages
         this.replaceUserIcon(loggedIn);
         
-        // Add login button to nav-right if not logged in and no existing login button
-        this.addLoginButtonIfNeeded(loggedIn);
+        // Show login button if not logged in
+        if (!loggedIn) {
+            this.showLoginButton();
+        }
     }
 
     replaceUserIcon(loggedIn) {
