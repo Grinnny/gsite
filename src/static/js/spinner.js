@@ -386,24 +386,24 @@ class JackpotSpinner {
         const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
         const pointerAngle = 3 * Math.PI / 2; // top pointer
 
-        // Determine delta rotation to apply. Prefer serverTargetRotation if provided.
-        let deltaRotation;
+        // Determine final rotation. Prefer serverTargetRotation if provided.
+        let finalRotation;
         if (this.serverTargetRotation && typeof this.serverTargetRotation === 'number') {
-            deltaRotation = this.serverTargetRotation; // server computed from a zero start
-            console.log('🛰️ Using serverTargetRotation (deg):', (deltaRotation * 180 / Math.PI).toFixed(2));
+            finalRotation = this.serverTargetRotation;
+            console.log('🛰️ Using serverTargetRotation (deg):', (finalRotation * 180 / Math.PI).toFixed(2));
         } else {
-            // Client-side deterministic fallback (will look the same locally, but server is preferred)
-            let targetRotation = pointerAngle - segmentMid;
+            // Client-side deterministic fallback
+            let targetRotation = segmentMid - pointerAngle;
             while (targetRotation < 0) targetRotation += 2 * Math.PI;
-            const extraSpins = 5; // fixed to avoid divergence across refreshes
+            const extraSpins = 5;
             targetRotation += extraSpins * 2 * Math.PI;
-            deltaRotation = targetRotation;
-            console.log('🧮 Client-computed targetRotation (deg):', (deltaRotation * 180 / Math.PI).toFixed(2));
+            finalRotation = targetRotation;
+            console.log('🧮 Client-computed targetRotation (deg):', (finalRotation * 180 / Math.PI).toFixed(2));
         }
 
-        // Prepare rigged animation from current rotation by deltaRotation
+        // Prepare rigged animation to final rotation
         this.riggedStartRotation = this.rotation;
-        this.riggedDeltaRotation = deltaRotation;
+        this.riggedFinalRotation = finalRotation;
         this.riggedAnimationFrames = 180; // 3s @60fps
         this.riggedCurrentFrame = 0;
         
@@ -418,8 +418,8 @@ class JackpotSpinner {
         const progress = this.riggedCurrentFrame / this.riggedAnimationFrames;
         const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
         
-        // Update rotation with easing from start by delta
-        this.rotation = this.riggedStartRotation + easedProgress * this.riggedDeltaRotation;
+        // Update rotation with easing to final rotation
+        this.rotation = this.riggedStartRotation + easedProgress * (this.riggedFinalRotation - this.riggedStartRotation);
         
         // Redraw spinner
         this.draw();

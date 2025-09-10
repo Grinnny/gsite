@@ -340,26 +340,43 @@ export async function initRealtime(fastify, steamAuthInstance) {
 
       // Also calculate a deterministic targetRotation so all clients align exactly
       try {
-        const pointerAngle = 3 * Math.PI / 2; // top
+        const pointerAngle = 3 * Math.PI / 2; // top pointer (270 degrees)
         const totalPot = state.players.reduce((s,p)=>s+p.betAmount,0);
         let currentAngle = 0;
         const segments = [];
-        state.players.forEach((p)=>{
-          const pct = p.betAmount / totalPot;
-          const segAngle = pct * 2 * Math.PI;
-          segments.push({ player: p, startAngle: currentAngle, endAngle: currentAngle + segAngle });
-          currentAngle += segAngle;
+        
+        // Match client segment creation exactly (same order, same calculation)
+        state.players.forEach((player, index) => {
+          const percentage = player.betAmount / totalPot;
+          const segmentAngle = percentage * 2 * Math.PI;
+          segments.push({ 
+            player: player, 
+            startAngle: currentAngle, 
+            endAngle: currentAngle + segmentAngle,
+            percentage: percentage * 100
+          });
+          currentAngle += segmentAngle;
         });
+        
         const seg = segments.find(s=> s.player.id===forcedWinner.id || s.player.name===forcedWinner.name);
         if (seg) {
-          const mid = (seg.startAngle + seg.endAngle) / 2;
-          let rot = pointerAngle - mid; // assume starting rotation 0 on clients
-          while (rot < 0) rot += 2*Math.PI;
-          // Use a fixed extra spin count so all clients match exactly (e.g., 5 full spins)
-          const extraSpins = 5; 
-          rot += extraSpins * 2 * Math.PI;
-          targetRotation = rot;
-          console.log('🎯 Server targetRotation (deg):', (rot*180/Math.PI).toFixed(2));
+          const segmentMid = (seg.startAngle + seg.endAngle) / 2;
+          console.log('🎯 Server segment mid (deg):', (segmentMid * 180 / Math.PI).toFixed(2));
+          
+          // Calculate rotation needed to align segment middle with pointer
+          // The spinner rotates clockwise, so we need to rotate the wheel so the segment aligns with the fixed pointer
+          let targetRot = segmentMid - pointerAngle;
+          
+          // Normalize to positive rotation
+          while (targetRot < 0) targetRot += 2 * Math.PI;
+          
+          // Add extra spins for visual effect (fixed amount for consistency)
+          const extraSpins = 5;
+          targetRot += extraSpins * 2 * Math.PI;
+          
+          targetRotation = targetRot;
+          console.log('🎯 Server targetRotation (deg):', (targetRot*180/Math.PI).toFixed(2));
+          console.log('🎯 Final pointer will be at segment:', forcedWinner.name);
         } else {
           console.warn('⚠️ Could not find segment for forcedWinner when computing targetRotation');
         }
