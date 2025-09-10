@@ -10,6 +10,7 @@
   const socket = io(url, {
     transports: ['websocket', 'polling'],
     autoConnect: true,
+    withCredentials: true,
   });
 
   // Expose globally
