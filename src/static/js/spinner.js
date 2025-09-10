@@ -256,30 +256,41 @@ class JackpotSpinner {
             const x = this.centerX + Math.cos(midAngle) * labelRadius;
             const y = this.centerY + Math.sin(midAngle) * labelRadius;
             
-            // Draw player avatar
-            if (segment.player.avatar) {
-                this.drawPlayerAvatar(segment.player.avatar, x, y - 10, 40); // 40px avatar size, moved up
+            // Calculate segment arc length to determine if content fits
+            const segmentAngle = segment.endAngle - segment.startAngle;
+            const arcLength = segmentAngle * this.radius;
+            
+            // Minimum arc length needed for avatar (40px) + percentage text (approx 30px) + padding
+            const minArcLengthForContent = 80;
+            
+            // Only draw content if segment is large enough
+            if (arcLength >= minArcLengthForContent) {
+                // Draw player avatar
+                if (segment.player.avatar) {
+                    this.drawPlayerAvatar(segment.player.avatar, x, y - 10, 40); // 40px avatar size, moved up
+                }
+                
+                // Draw percentage below avatar with more spacing
+                this.ctx.fillStyle = '#FFFFFF';
+                this.ctx.font = 'bold 12px Arial';
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                
+                // Add shadow for better readability
+                this.ctx.shadowColor = '#000000';
+                this.ctx.shadowBlur = 3;
+                this.ctx.shadowOffsetX = 1;
+                this.ctx.shadowOffsetY = 1;
+                
+                this.ctx.fillText(`${segment.percentage.toFixed(1)}%`, x, y + 25); // Moved further down
+                
+                // Reset shadow
+                this.ctx.shadowColor = 'transparent';
+                this.ctx.shadowBlur = 0;
+                this.ctx.shadowOffsetX = 0;
+                this.ctx.shadowOffsetY = 0;
             }
-            
-            // Draw percentage below avatar with more spacing
-            this.ctx.fillStyle = '#FFFFFF';
-            this.ctx.font = 'bold 12px Arial';
-            this.ctx.textAlign = 'center';
-            this.ctx.textBaseline = 'middle';
-            
-            // Add shadow for better readability
-            this.ctx.shadowColor = '#000000';
-            this.ctx.shadowBlur = 3;
-            this.ctx.shadowOffsetX = 1;
-            this.ctx.shadowOffsetY = 1;
-            
-            this.ctx.fillText(`${segment.percentage.toFixed(1)}%`, x, y + 25); // Moved further down
-            
-            // Reset shadow
-            this.ctx.shadowColor = 'transparent';
-            this.ctx.shadowBlur = 0;
-            this.ctx.shadowOffsetX = 0;
-            this.ctx.shadowOffsetY = 0;
+            // Note: Segment color and shape are still drawn in drawSegment() regardless of size
         });
     }
     
@@ -486,6 +497,14 @@ class JackpotSpinner {
         }
         
         console.log('✅ CONFIRMED: Spinner is at complete stop, determining winner...');
+        
+        // If we have a predetermined winner (real player), FORCE them to win
+        if (this.predeterminedWinner) {
+            console.log('🎯 FORCING predetermined winner:', this.predeterminedWinner.name);
+            this.winner = this.predeterminedWinner;
+            this.startWinnerAnimation();
+            return this.winner;
+        }
         
         // Always determine winner by where the red pointer lands
         const pointerAngle = (3 * Math.PI / 2); // 270 degrees - top of circle (red pointer position)

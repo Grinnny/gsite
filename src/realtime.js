@@ -171,24 +171,25 @@ export async function initRealtime(fastify, steamAuthInstance) {
     const minVelocity = 0.0005;
     const pointerAngle = 3 * Math.PI / 2; // 270 degrees - top of circle
     
-    // Calculate segments based on bet amounts
+    // Calculate segments EXACTLY like client-side (same order, same calculation)
     const totalPot = players.reduce((sum, p) => sum + p.betAmount, 0);
     let currentAngle = 0;
     const segments = [];
     
-    for (const player of players) {
-      const percentage = (player.betAmount / totalPot) * 100;
-      const segmentSize = (percentage / 100) * 2 * Math.PI;
+    // Use forEach to match client-side exactly
+    players.forEach((player, index) => {
+      const percentage = player.betAmount / totalPot;
+      const segmentAngle = percentage * 2 * Math.PI;
       
       segments.push({
         player: player,
         startAngle: currentAngle,
-        endAngle: currentAngle + segmentSize,
-        percentage: percentage
+        endAngle: currentAngle + segmentAngle,
+        percentage: percentage * 100
       });
       
-      currentAngle += segmentSize;
-    }
+      currentAngle += segmentAngle;
+    });
     
     // Find target player's segment
     const targetSegment = segments.find(s => 
@@ -204,7 +205,9 @@ export async function initRealtime(fastify, steamAuthInstance) {
     const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
     
     // Calculate required rotation to land pointer on segment middle
-    let targetRotation = pointerAngle - segmentMid;
+    // Account for current spinner rotation (assume starting at 0)
+    const currentRotation = 0; // Client starts at 0
+    let targetRotation = pointerAngle - segmentMid - currentRotation;
     
     // Normalize to positive rotation
     while (targetRotation < 0) {
