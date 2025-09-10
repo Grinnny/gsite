@@ -366,80 +366,113 @@ class JackpotSpinner {
         this.ctx.restore();
     }
     
-    spin() {
-        if (this.isSpinning || this.segments.length === 0) {
-            console.log('🚫 Cannot spin - already spinning or no segments');
+    rigSpinnerToWinner(targetPlayer) {
+        console.log('🎯 ABSOLUTE RIGGING: Setting up guaranteed win for:', targetPlayer.name);
+        
+        // Find the target player's segment
+        const targetSegment = this.segments.find(segment => 
+            segment.player.id === targetPlayer.id || segment.player.name === targetPlayer.name
+        );
+        
+        if (!targetSegment) {
+            console.error('❌ Target segment not found for player:', targetPlayer.name);
+            // Fallback to normal spin
+            this.velocity = Math.random() * 0.3 + 0.1;
+            this.animate();
             return;
         }
         
-        // Force reset any stuck state from previous refresh
-        this.forceReset();
+        // Calculate the middle of the target segment
+        const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
+        
+        // Pointer is at top (270 degrees = 3π/2 radians)
+        const pointerAngle = 3 * Math.PI / 2;
+        
+        // Calculate exact rotation needed to align segment middle with pointer
+        let targetRotation = pointerAngle - segmentMid;
+        
+        // Normalize to positive rotation
+        while (targetRotation < 0) {
+            targetRotation += 2 * Math.PI;
+        }
+        
+        // Add several full rotations for visual effect (4-6 spins)
+        const extraSpins = 4 + Math.random() * 2;
+        targetRotation += extraSpins * 2 * Math.PI;
+        
+        console.log('🎯 Target segment middle:', (segmentMid * 180 / Math.PI).toFixed(2) + '°');
+        console.log('🎯 Target rotation needed:', (targetRotation * 180 / Math.PI).toFixed(2) + '°');
+        
+        // Set up rigged animation
+        this.riggedTargetRotation = targetRotation;
+        this.riggedCurrentRotation = 0;
+        this.riggedAnimationFrames = 180; // 3 seconds at 60fps
+        this.riggedCurrentFrame = 0;
+        
+        // Start rigged animation
+        this.animateRigged();
+    }
+    
+    animateRigged() {
+        this.riggedCurrentFrame++;
+        
+        // Use easing function for smooth deceleration
+        const progress = this.riggedCurrentFrame / this.riggedAnimationFrames;
+        const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
+        
+        // Update rotation with easing
+        this.rotation = easedProgress * this.riggedTargetRotation;
+        
+        // Redraw spinner
+        this.draw();
+        
+        if (this.riggedCurrentFrame < this.riggedAnimationFrames) {
+            // Continue animation
+            requestAnimationFrame(() => this.animateRigged());
+        } else {
+            // Animation complete - spinner has landed exactly on target
+            console.log('🎯 RIGGED ANIMATION COMPLETE - Final rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
+            this.isSpinning = false;
+            this.velocity = 0;
+            
+            // Force the predetermined winner
+            this.winner = this.predeterminedWinner;
+            this.startWinnerAnimation();
+        }
+    }
+    
+    spin() {
+        if (this.isSpinning) return;
         
         this.isSpinning = true;
+        this.winner = null;
         
-        // Record starting position
-        this.startingRotation = this.rotation;
+        // Reset winner animation
+        this.winnerAnimation = { active: false };
         
-        // Check if we need to force a specific winner
-        if (this.forceWinner) {
-            // Use server-calculated velocity if available
+        console.log('🎰 Starting spinner with segments:', this.segments.length);
+        
+        if (this.predeterminedWinner) {
+            // ABSOLUTE RIGGING: Calculate exact rotation to land on real player
+            console.log('🎯 ABSOLUTE RIGGING: Forcing spinner to land on:', this.predeterminedWinner.name);
+            this.rigSpinnerToWinner(this.predeterminedWinner);
+            return;
+        } else if (this.forceWinner) {
             if (this.serverVelocity) {
-                console.log('🎯 Using SERVER-CALCULATED velocity for winner:', this.forceWinner.name);
-                console.log('🎰 Server velocity:', this.serverVelocity);
+                // Use server-calculated velocity for precise landing
+                console.log('🎯 Using server-calculated velocity:', this.serverVelocity);
                 this.velocity = this.serverVelocity;
             } else {
-                // Fallback to client calculation
-                const targetSegment = this.segments.find(s => 
-                    s.player.id === this.forceWinner.id || 
-                    s.player.name === this.forceWinner.name
-                );
-                
-                if (targetSegment) {
-                    console.log('🎯 FORCING winner (client calc):', this.forceWinner.name);
-                    console.log('🎯 Target segment:', {
-                        startAngle: (targetSegment.startAngle * 180 / Math.PI).toFixed(2) + '°',
-                        endAngle: (targetSegment.endAngle * 180 / Math.PI).toFixed(2) + '°'
-                    });
-                    
-                    this.velocity = this.calculateVelocityToLandOnPlayer(targetSegment);
-                    console.log('🎯 Calculated velocity to hit target:', this.velocity.toFixed(4));
-                } else {
-                    console.error('❌ Could not find segment for forced winner:', this.forceWinner.name);
-                    this.velocity = 0.8 + Math.random() * 0.8;
-                }
+                // Client-side calculation for forced winner
+                console.log('🎯 Calculating velocity to land on forced winner:', this.forceWinner.name);
+                this.velocity = this.calculateVelocityForWinner(this.forceWinner);
             }
         } else {
-            // Calculate velocity to spin for approximately 25 seconds
-            // Using physics: final_velocity = initial_velocity * friction^time
-            // We want velocity to reach minVelocity after 25 seconds
-            const targetTime = 25; // 25 seconds
-            const framesPerSecond = 60;
-            const totalFrames = targetTime * framesPerSecond;
-            
-            // Calculate initial velocity needed to last 25 seconds
-            this.velocity = this.minVelocity / Math.pow(this.friction, totalFrames);
-            console.log('🎲 Calculated velocity for 25 second spin:', this.velocity.toFixed(4));
+            // Random velocity for natural spin
+            this.velocity = Math.random() * 0.3 + 0.1;
         }
         
-        // Log spin start with position
-        const startingDegrees = (this.startingRotation * 180 / Math.PI) % 360;
-        console.log('🎰 Spinner started with initial velocity:', this.velocity.toFixed(4));
-        console.log('📍 Starting position:', startingDegrees.toFixed(2) + '°');
-        console.log('📊 Current segments:', this.segments.map(s => ({
-            player: s.player.name,
-            percentage: s.percentage.toFixed(2) + '%',
-            startAngle: (s.startAngle * 180 / Math.PI).toFixed(2) + '°',
-            endAngle: (s.endAngle * 180 / Math.PI).toFixed(2) + '°'
-        })));
-        
-        // Ensure we have a valid velocity before starting
-        if (this.velocity <= 0) {
-            console.error('❌ Invalid velocity, setting to default');
-            this.velocity = 1.0;
-        }
-        
-        // Start animation
-        console.log('🚀 Starting spinner animation...');
+        console.log('🎰 Initial velocity:', this.velocity);
         this.animate();
     }
     
@@ -500,9 +533,13 @@ class JackpotSpinner {
         // If we have a predetermined winner (real player), FORCE them to win
         if (this.predeterminedWinner) {
             console.log('🎯 FORCING predetermined winner:', this.predeterminedWinner.name);
+            console.log('🔍 SPINNER DEBUG: predeterminedWinner object:', this.predeterminedWinner);
             this.winner = this.predeterminedWinner;
             this.startWinnerAnimation();
             return this.winner;
+        } else {
+            console.log('⚠️ SPINNER DEBUG: No predeterminedWinner set, using physics');
+            console.log('🔍 SPINNER DEBUG: this.predeterminedWinner =', this.predeterminedWinner);
         }
         
         // Always determine winner by where the red pointer lands

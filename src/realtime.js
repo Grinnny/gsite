@@ -318,14 +318,26 @@ export async function initRealtime(fastify, steamAuthInstance) {
     let forcedWinner = null;
     let preciseVelocity = null;
     
+    console.log('🔍 RIGGING DEBUG: Total players:', state.players.length);
+    console.log('🔍 RIGGING DEBUG: Player details:', state.players.map(p => ({
+      id: p.id,
+      name: p.name,
+      isBot: p.isBot,
+      type: typeof p.isBot
+    })));
+    console.log('🔍 RIGGING DEBUG: Real players found:', realPlayers.length);
+    
     if (realPlayers.length > 0) {
       // Pick a real player to guarantee wins
       forcedWinner = pickWinner();
       console.log('🎯 Forcing real player to win:', forcedWinner.name);
+      console.log('🎯 Forced winner isBot:', forcedWinner.isBot);
       
       // Calculate precise velocity to land on their segment
       preciseVelocity = calculatePreciseVelocity(state.players, forcedWinner);
       console.log('🎰 Calculated precise velocity:', preciseVelocity);
+    } else {
+      console.log('⚠️ NO REAL PLAYERS FOUND - rigging will not activate');
     }
     
     // Emit spinner_start with forced winner and precise velocity

@@ -134,6 +134,9 @@ class JackpotGame {
 
             socket.on('spinner_start', ({ players, forcedWinner, preciseVelocity }) => {
                 console.log('📡 Received spinner_start event');
+                console.log('🔍 CLIENT DEBUG: forcedWinner received:', forcedWinner);
+                console.log('🔍 CLIENT DEBUG: preciseVelocity received:', preciseVelocity);
+                
                 if (this.spinner) {
                     console.log('🎲 Current spinner segments:', this.spinner.segments.length);
                     
@@ -144,12 +147,14 @@ class JackpotGame {
                         this.spinner.forceWinner = forcedWinner;
                         this.spinner.predeterminedWinner = forcedWinner;
                         this.spinner.serverVelocity = preciseVelocity;
+                        console.log('✅ CLIENT: Set predeterminedWinner to:', this.spinner.predeterminedWinner.name);
                     } else if (forcedWinner) {
                         // Fallback to client calculation
                         console.log('🎯 Forcing spinner to land on real player (client calc):', forcedWinner.name);
                         this.spinner.forceWinner = forcedWinner;
                         this.spinner.predeterminedWinner = forcedWinner;
                         this.spinner.serverVelocity = null;
+                        console.log('✅ CLIENT: Set predeterminedWinner to:', this.spinner.predeterminedWinner.name);
                     } else {
                         // Let physics decide (only bots in round)
                         console.log('🎲 Letting physics decide winner (bots only)');
