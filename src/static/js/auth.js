@@ -56,22 +56,35 @@ class AuthManager {
         if (!loggedIn) {
             this.showLoginButton();
         }
+        
+        // Handle Steam login warning (for jackpot page)
+        const steamLoginWarning = document.getElementById('steamLoginWarning');
+        if (steamLoginWarning) {
+            if (loggedIn) {
+                steamLoginWarning.classList.add('hidden');
+            } else {
+                steamLoginWarning.classList.remove('hidden');
+            }
+        }
     }
 
     replaceUserIcon(loggedIn) {
         const navRight = document.querySelector('.nav-right .flex');
         if (!navRight) return;
 
-        // Find the user icon
+        // Find the user icon (some pages may not have it)
         const userIcon = navRight.querySelector('img[src*="user-circle"]');
-        if (!userIcon) return;
-
+        
         if (loggedIn && this.user) {
-            // Replace with profile picture and dropdown
-            this.createProfileDropdown(userIcon, navRight);
+            if (userIcon) {
+                // Replace with profile picture and dropdown
+                this.createProfileDropdown(userIcon, navRight);
+            }
         } else {
-            // Hide the user icon for guests
-            userIcon.style.display = 'none';
+            if (userIcon) {
+                // Hide the user icon for guests
+                userIcon.style.display = 'none';
+            }
             // Remove any existing profile dropdown
             const existingDropdown = navRight.querySelector('.profile-dropdown-container');
             if (existingDropdown) {
