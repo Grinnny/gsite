@@ -14,10 +14,10 @@ class JackpotSpinner {
         // Spinner physics
         this.rotation = 0;
         this.velocity = 0;
-        this.friction = 0.995;
+        this.friction = 0.995; // Reduced friction for longer spins
         this.isSpinning = false;
-        this.minVelocity = 0.0005;
-        this.startingRotation = 0;
+        this.minVelocity = 0.0005; // Even lower threshold for complete stop
+        this.startingRotation = 0; // Track starting position
         
         // Animation
         this.animationId = null;
@@ -25,17 +25,15 @@ class JackpotSpinner {
         this.winnerAnimation = {
             active: false,
             progress: 0,
-            duration: 2000,
+            duration: 2000, // 2 seconds
             startTime: 0,
             winnerColor: null,
             winnerData: null
         };
-        this.forceWinner = null;
-        this.predeterminedWinner = null; // For rigging
-        this.serverVelocity = null;
+        this.forceWinner = null; // Force specific winner
         
         // Pointer settings
-        this.pointerAngle = 0;
+        this.pointerAngle = 0; // Pointer at top (12 o'clock)
         
         // Handle page refresh/unload while spinning
         window.addEventListener('beforeunload', () => {
@@ -47,6 +45,7 @@ class JackpotSpinner {
     }
     
     setupCanvas() {
+        // Set canvas size
         this.canvas.width = 400;
         this.canvas.height = 400;
         this.centerX = this.canvas.width / 2;
@@ -148,14 +147,14 @@ class JackpotSpinner {
     }
     
     drawDegreeMarkings() {
-        const markingRadius = this.radius + 15;
-        const textRadius = this.radius + 35;
+        const markingRadius = this.radius + 15; // Extended further out
+        const textRadius = this.radius + 35; // Text positioned further out
         
         // Draw major degree markings every 30 degrees
         for (let i = 0; i < 360; i += 30) {
             const angle = (i * Math.PI) / 180;
             
-            // Calculate positions for major markings
+            // Calculate positions for major markings - extend from wheel edge outward
             const innerX = this.centerX + Math.cos(angle - Math.PI/2) * (this.radius + 2);
             const innerY = this.centerY + Math.sin(angle - Math.PI/2) * (this.radius + 2);
             const outerX = this.centerX + Math.cos(angle - Math.PI/2) * markingRadius;
@@ -169,7 +168,7 @@ class JackpotSpinner {
             this.ctx.lineWidth = 3;
             this.ctx.stroke();
             
-            // Draw degree text with background
+            // Draw degree text with background for better visibility
             const textX = this.centerX + Math.cos(angle - Math.PI/2) * textRadius;
             const textY = this.centerY + Math.sin(angle - Math.PI/2) * textRadius;
             
@@ -189,48 +188,58 @@ class JackpotSpinner {
             this.ctx.textBaseline = 'middle';
             this.ctx.fillText(i + '°', textX, textY);
         }
+        
+        // Draw minor degree markings every 10 degrees (excluding major ones)
+        for (let i = 0; i < 360; i += 10) {
+            if (i % 30 !== 0) { // Skip major markings
+                const angle = (i * Math.PI) / 180;
+                
+                // Calculate positions for minor markings
+                const innerX = this.centerX + Math.cos(angle - Math.PI/2) * (this.radius + 2);
+                const innerY = this.centerY + Math.sin(angle - Math.PI/2) * (this.radius + 2);
+                const outerX = this.centerX + Math.cos(angle - Math.PI/2) * (markingRadius - 5);
+                const outerY = this.centerY + Math.sin(angle - Math.PI/2) * (markingRadius - 5);
+                
+                // Draw minor marking line
+                this.ctx.beginPath();
+                this.ctx.moveTo(innerX, innerY);
+                this.ctx.lineTo(outerX, outerY);
+                this.ctx.strokeStyle = '#B0B0B0';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+            }
+        }
     }
     
     drawPointer() {
-        // Red pointer at top (270 degrees)
-        const pointerLength = 25;
-        const pointerWidth = 15;
-        const pointerAngle = 3 * Math.PI / 2; // 270 degrees - top of circle
+        const pointerSize = 20;
         
-        // Calculate pointer tip position (on the wheel edge)
-        const tipX = this.centerX + Math.cos(pointerAngle) * this.radius;
-        const tipY = this.centerY + Math.sin(pointerAngle) * this.radius;
-        
-        // Calculate base positions
-        const baseDistance = this.radius + pointerLength;
-        const baseX = this.centerX + Math.cos(pointerAngle) * baseDistance;
-        const baseY = this.centerY + Math.sin(pointerAngle) * baseDistance;
-        
-        // Calculate side points for triangle
-        const sideAngle1 = pointerAngle + Math.PI / 2;
-        const sideAngle2 = pointerAngle - Math.PI / 2;
-        const side1X = baseX + Math.cos(sideAngle1) * (pointerWidth / 2);
-        const side1Y = baseY + Math.sin(sideAngle1) * (pointerWidth / 2);
-        const side2X = baseX + Math.cos(sideAngle2) * (pointerWidth / 2);
-        const side2Y = baseY + Math.sin(sideAngle2) * (pointerWidth / 2);
-        
-        // Draw pointer triangle
+        // Draw pointer triangle (now drawn above degree markings)
         this.ctx.beginPath();
-        this.ctx.moveTo(tipX, tipY);
-        this.ctx.lineTo(side1X, side1Y);
-        this.ctx.lineTo(side2X, side2Y);
+        this.ctx.moveTo(this.centerX, this.centerY - this.radius - 15);
+        this.ctx.lineTo(this.centerX - pointerSize, this.centerY - this.radius - 45); // Extended further out
+        this.ctx.lineTo(this.centerX + pointerSize, this.centerY - this.radius - 45);
         this.ctx.closePath();
-        this.ctx.fillStyle = '#FF0000';
+        this.ctx.fillStyle = '#E53E3E';
         this.ctx.fill();
-        this.ctx.strokeStyle = '#FFFFFF';
-        this.ctx.lineWidth = 2;
+        this.ctx.strokeStyle = '#C53030';
+        this.ctx.lineWidth = 3;
         this.ctx.stroke();
         
-        // Add shadow for depth
-        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        // Add shadow for better visibility
+        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
         this.ctx.shadowBlur = 5;
         this.ctx.shadowOffsetX = 2;
         this.ctx.shadowOffsetY = 2;
+        
+        // Redraw to apply shadow
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.centerX, this.centerY - this.radius - 15);
+        this.ctx.lineTo(this.centerX - pointerSize, this.centerY - this.radius - 45);
+        this.ctx.lineTo(this.centerX + pointerSize, this.centerY - this.radius - 45);
+        this.ctx.closePath();
+        this.ctx.fillStyle = '#E53E3E';
+        this.ctx.fill();
         
         // Reset shadow
         this.ctx.shadowColor = 'transparent';
@@ -251,14 +260,14 @@ class JackpotSpinner {
             const segmentAngle = segment.endAngle - segment.startAngle;
             const arcLength = segmentAngle * this.radius;
             
-            // Minimum arc length needed for avatar (40px) + percentage text (approx 30px) + padding
-            const minArcLengthForContent = 80;
+            // Minimum space needed: 50px for avatar + text
+            const minSpaceNeeded = 50;
+            const shouldShowContent = arcLength >= minSpaceNeeded;
             
-            // Only draw content if segment is large enough
-            if (arcLength >= minArcLengthForContent) {
+            if (shouldShowContent) {
                 // Draw player avatar
                 if (segment.player.avatar) {
-                    this.drawPlayerAvatar(segment.player.avatar, x, y - 10, 40);
+                    this.drawPlayerAvatar(segment.player.avatar, x, y - 10, 40); // 40px avatar size, moved up
                 }
                 
                 // Draw percentage below avatar with more spacing
@@ -273,7 +282,7 @@ class JackpotSpinner {
                 this.ctx.shadowOffsetX = 1;
                 this.ctx.shadowOffsetY = 1;
                 
-                this.ctx.fillText(`${segment.percentage.toFixed(1)}%`, x, y + 25);
+                this.ctx.fillText(`${segment.percentage.toFixed(1)}%`, x, y + 25); // Moved further down
                 
                 // Reset shadow
                 this.ctx.shadowColor = 'transparent';
@@ -318,69 +327,124 @@ class JackpotSpinner {
             img.crossOrigin = 'anonymous';
             img.onload = () => {
                 this.avatarCache.set(avatarSrc, img);
+                // Redraw to show the loaded avatar
                 this.draw();
             };
             img.onerror = () => {
-                console.warn('Failed to load avatar:', avatarSrc);
+                // Fallback to initials if image fails to load
+                this.drawAvatarFallback(x, y, size, avatarSrc);
             };
             img.src = avatarSrc;
+            
+            // Draw placeholder while loading
+            this.drawAvatarFallback(x, y, size, avatarSrc);
         }
     }
     
-    spin(forceWinner = null, serverVelocity = null, predeterminedWinner = null) {
-        if (this.isSpinning) {
-            console.log('⚠️ Spinner is already spinning!');
+    drawAvatarFallback(x, y, size, avatarSrc) {
+        // Draw a circle with initials as fallback
+        this.ctx.save();
+        
+        // Draw background circle
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI);
+        this.ctx.fillStyle = '#4ECCA3';
+        this.ctx.fill();
+        
+        // Draw border
+        this.ctx.strokeStyle = '#FFFFFF';
+        this.ctx.lineWidth = 2;
+        this.ctx.stroke();
+        
+        // Draw "?" as fallback text
+        this.ctx.fillStyle = '#FFFFFF';
+        this.ctx.font = `bold ${size * 0.4}px Arial`;
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillText('?', x, y);
+        
+        this.ctx.restore();
+    }
+    
+    spin() {
+        if (this.isSpinning || this.segments.length === 0) {
+            console.log('🚫 Cannot spin - already spinning or no segments');
             return;
         }
         
-        if (this.segments.length === 0) {
-            console.log('⚠️ No segments to spin!');
-            return;
+        // Force reset any stuck state from previous refresh
+        this.forceReset();
+        
+        this.isSpinning = true;
+        
+        // Record starting position
+        this.startingRotation = this.rotation;
+        
+        // Check if we need to force a specific winner
+        if (this.forceWinner) {
+            // Use server-calculated velocity if available
+            if (this.serverVelocity) {
+                console.log('🎯 Using SERVER-CALCULATED velocity for winner:', this.forceWinner.name);
+                console.log('🎰 Server velocity:', this.serverVelocity);
+                this.velocity = this.serverVelocity;
+            } else {
+                // Fallback to client calculation
+                const targetSegment = this.segments.find(s => 
+                    s.player.id === this.forceWinner.id || 
+                    s.player.name === this.forceWinner.name
+                );
+                
+                if (targetSegment) {
+                    console.log('🎯 FORCING winner (client calc):', this.forceWinner.name);
+                    console.log('🎯 Target segment:', {
+                        startAngle: (targetSegment.startAngle * 180 / Math.PI).toFixed(2) + '°',
+                        endAngle: (targetSegment.endAngle * 180 / Math.PI).toFixed(2) + '°'
+                    });
+                    
+                    this.velocity = this.calculateVelocityToLandOnPlayer(targetSegment);
+                    console.log('🎯 Calculated velocity to hit target:', this.velocity.toFixed(4));
+                } else {
+                    console.error('❌ Could not find segment for forced winner:', this.forceWinner.name);
+                    this.velocity = 0.8 + Math.random() * 0.8;
+                }
+            }
+        } else {
+            // Calculate velocity to spin for approximately 25 seconds
+            // Using physics: final_velocity = initial_velocity * friction^time
+            // We want velocity to reach minVelocity after 25 seconds
+            const targetTime = 25; // 25 seconds
+            const framesPerSecond = 60;
+            const totalFrames = targetTime * framesPerSecond;
+            
+            // Calculate initial velocity needed to last 25 seconds
+            this.velocity = this.minVelocity / Math.pow(this.friction, totalFrames);
+            console.log('🎲 Calculated velocity for 25 second spin:', this.velocity.toFixed(4));
         }
         
-        console.log('🎰 Starting spinner with segments:', this.segments.map(s => ({
+        // Log spin start with position
+        const startingDegrees = (this.startingRotation * 180 / Math.PI) % 360;
+        console.log('🎰 Spinner started with initial velocity:', this.velocity.toFixed(4));
+        console.log('📍 Starting position:', startingDegrees.toFixed(2) + '°');
+        console.log('📊 Current segments:', this.segments.map(s => ({
             player: s.player.name,
             percentage: s.percentage.toFixed(2) + '%',
             startAngle: (s.startAngle * 180 / Math.PI).toFixed(2) + '°',
             endAngle: (s.endAngle * 180 / Math.PI).toFixed(2) + '°'
         })));
         
-        // Store rigging parameters
-        this.forceWinner = forceWinner;
-        this.predeterminedWinner = predeterminedWinner;
-        this.serverVelocity = serverVelocity;
-        
-        // Set velocity - prioritize server velocity if provided
-        if (this.serverVelocity) {
-            this.velocity = this.serverVelocity;
-            console.log('🎯 Using server-calculated velocity:', this.velocity);
-        } else if (this.forceWinner) {
-            // Calculate velocity to land on forced winner
-            this.velocity = this.calculateVelocityForWinner(this.forceWinner);
-            console.log('🎯 Calculated velocity for forced winner:', this.velocity);
-        } else {
-            // Random velocity for normal spin
-            this.velocity = 0.8 + Math.random() * 1.2;
-            console.log('🎲 Using random velocity:', this.velocity);
-        }
-        
-        // Ensure we have a valid velocity
+        // Ensure we have a valid velocity before starting
         if (this.velocity <= 0) {
             console.error('❌ Invalid velocity, setting to default');
             this.velocity = 1.0;
         }
         
-        // Start spinning
-        this.isSpinning = true;
-        this.winner = null;
-        this.winnerAnimation.active = false;
-        
-        console.log('🚀 Spinner started with velocity:', this.velocity);
-        this.update();
+        // Start animation
+        console.log('🚀 Starting spinner animation...');
+        this.animate();
     }
     
-    update() {
-        if (!this.isSpinning) return;
+    animate() {
+        console.log('🔄 Animate frame - velocity:', this.velocity.toFixed(6), 'rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
         
         // Apply friction
         this.velocity *= this.friction;
@@ -388,64 +452,41 @@ class JackpotSpinner {
         // Update rotation
         this.rotation += this.velocity;
         
-        // Check if spinner should stop
-        if (this.velocity <= this.minVelocity) {
+        // Keep rotation within 0-2π
+        this.rotation = this.rotation % (2 * Math.PI);
+        
+        // Draw current frame
+        this.draw();
+        
+        // Continue animation if still spinning
+        if (this.velocity > this.minVelocity) {
+            this.animationId = requestAnimationFrame(() => this.animate());
+        } else {
+            // Spinner has completely stopped - ensure absolute zero velocity
             this.velocity = 0;
             this.isSpinning = false;
             
-            // RIGGING: Override final rotation to land on predetermined winner
-            if (this.predeterminedWinner) {
-                console.log('🎯 RIGGING: Overriding final rotation for predetermined winner:', this.predeterminedWinner.name);
-                
-                // Find the predetermined winner's segment
-                const winnerSegment = this.segments.find(segment => 
-                    segment.player.id === this.predeterminedWinner.id
-                );
-                
-                if (winnerSegment) {
-                    // Calculate the middle of the winner's segment
-                    const segmentMid = (winnerSegment.startAngle + winnerSegment.endAngle) / 2;
-                    
-                    // Pointer is at 270 degrees (3π/2)
-                    const pointerAngle = 3 * Math.PI / 2;
-                    
-                    // Calculate rotation needed to align segment middle with pointer
-                    let targetRotation = pointerAngle - segmentMid;
-                    
-                    // Normalize to positive rotation and preserve visual spinning effect
-                    const currentFullRotations = Math.floor(this.rotation / (2 * Math.PI));
-                    while (targetRotation < 0) {
-                        targetRotation += 2 * Math.PI;
-                    }
-                    targetRotation += currentFullRotations * 2 * Math.PI;
-                    
-                    // Override the rotation
-                    this.rotation = targetRotation;
-                    
-                    console.log('🎰 RIGGED: Final rotation set to:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
-                    console.log('🎯 Target segment middle:', (segmentMid * 180 / Math.PI).toFixed(2) + '°');
-                }
-            }
+            // Draw final frame to show complete stop
+            this.draw();
             
-            console.log('🛑 Spinner stopped at rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
+            console.log('🛑 Spinner has come to a COMPLETE STOP');
+            console.log('📍 Final velocity: 0');
+            console.log('📍 Final rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
             
-            // Determine winner after spinner stops
-            const winner = this.determineWinner();
-            if (winner && this.onSpinComplete) {
-                this.onSpinComplete(winner);
-            }
-        }
-        
-        // Redraw and continue animation
-        this.draw();
-        if (this.isSpinning) {
-            this.animationId = requestAnimationFrame(() => this.update());
+            // Wait additional time to ensure visual confirmation of stop
+            setTimeout(() => {
+                console.log('⚡ Now determining winner after complete stop...');
+                this.determineWinner();
+            }, 500);
         }
     }
     
     determineWinner() {
+        // Verify spinner is completely stopped before proceeding
         if (this.isSpinning || this.velocity > 0) {
             console.log('⚠️ WARNING: Attempted to determine winner while spinner still moving!');
+            console.log('📊 Current velocity:', this.velocity);
+            console.log('📊 Is spinning:', this.isSpinning);
             return null;
         }
         
@@ -455,6 +496,14 @@ class JackpotSpinner {
         }
         
         console.log('✅ CONFIRMED: Spinner is at complete stop, determining winner...');
+        
+        // If we have a predetermined winner (real player), FORCE them to win
+        if (this.predeterminedWinner) {
+            console.log('🎯 FORCING predetermined winner:', this.predeterminedWinner.name);
+            this.winner = this.predeterminedWinner;
+            this.startWinnerAnimation();
+            return this.winner;
+        }
         
         // Always determine winner by where the red pointer lands
         const pointerAngle = (3 * Math.PI / 2); // 270 degrees - top of circle (red pointer position)
@@ -470,58 +519,107 @@ class JackpotSpinner {
             // Handle wraparound case
             let pointerInSegment = false;
             if (segmentStart <= segmentEnd) {
-                pointerInSegment = pointerAngle >= segmentStart && pointerAngle <= segmentEnd;
+                // Normal case - no wraparound
+                pointerInSegment = (pointerAngle >= segmentStart && pointerAngle <= segmentEnd);
             } else {
-                pointerInSegment = pointerAngle >= segmentStart || pointerAngle <= segmentEnd;
+                // Wraparound case - segment crosses 0/360 boundary
+                pointerInSegment = (pointerAngle >= segmentStart || pointerAngle <= segmentEnd);
             }
             
             if (pointerInSegment) {
                 this.winner = segment.player;
-                console.log('🏆 WINNER DETERMINED:', {
-                    name: this.winner.name,
-                    betAmount: this.winner.betAmount,
-                    percentage: segment.percentage.toFixed(2) + '%',
+                console.log('🏆 Winner determined by pointer landing:', {
+                    player: this.winner.name,
+                    isBot: this.winner.isBot,
                     segmentStart: (segmentStart * 180 / Math.PI).toFixed(2) + '°',
                     segmentEnd: (segmentEnd * 180 / Math.PI).toFixed(2) + '°',
-                    pointerAt: (pointerAngle * 180 / Math.PI).toFixed(2) + '°'
+                    pointerAngle: (pointerAngle * 180 / Math.PI).toFixed(2) + '°'
                 });
-                
-                this.startWinnerAnimation();
-                return this.winner;
+                break;
             }
         }
         
-        console.error('❌ No winner found - this should not happen!');
-        return null;
+        // Handle edge case where pointer is exactly on a boundary
+        if (!this.winner && this.segments.length > 0) {
+            this.winner = this.segments[0].player;
+            console.log('⚠️ Edge case: Winner defaulted to first segment:', this.winner.name);
+        }
+        
+        // In realtime mode, send winner back to server and update local game
+        if (window.socket && this.winner) {
+            console.log('📡 Sending spinner result to server:', this.winner.name);
+            
+            // Update local game state immediately with spinner result
+            if (window.jackpotGame) {
+                window.jackpotGame.currentGame.winner = this.winner;
+                console.log('🎯 Updated local game winner to match spinner:', this.winner.name);
+            }
+            
+            window.socket.emit('spinner_result', { 
+                winner: {
+                    id: this.winner.id,
+                    name: this.winner.name,
+                    betAmount: this.winner.betAmount,
+                    isBot: this.winner.isBot
+                }
+            });
+        } else if (!window.socket && window.jackpotGame && this.winner) {
+            // Local mode fallback
+            window.jackpotGame.currentGame.winner = this.winner;
+            window.jackpotGame.saveGameToHistory();
+            
+            // Show winner animation after a brief delay
+            setTimeout(() => {
+                window.jackpotGame.showWinnerAnimation();
+            }, 1000);
+            
+            // Start new game after showing winner
+            setTimeout(() => {
+                window.jackpotGame.startNewGame();
+            }, 6000);
+        }
+        
+        // Start winner animation immediately after spinner stops
+        this.startWinnerAnimation();
+        
+        // Notify server that spinner has stopped (after winner animation completes)
+        setTimeout(() => {
+            if (window.socket) {
+                console.log('📡 Notifying server that spinner has stopped');
+                window.socket.emit('spinner_stopped');
+            }
+        }, 3000); // Wait for winner animation to complete
+        
+        return this.winner;
     }
     
-    calculateVelocityForWinner(playerSegment) {
-        if (!playerSegment) return 1.0;
-        
-        // Calculate the middle of the target segment
+    calculateVelocityToLandOnPlayer(playerSegment) {
+        // Calculate precise velocity to land on the predetermined winner
         const segmentMid = (playerSegment.startAngle + playerSegment.endAngle) / 2;
+        const pointerAngle = 3 * Math.PI / 2; // 270 degrees - red pointer at top
         
-        // Pointer is at 270 degrees (3π/2)
-        const pointerAngle = 3 * Math.PI / 2;
-        
-        // Calculate required rotation to land pointer on segment middle
+        // Calculate how much we need to rotate to align segment center with pointer
         let targetRotation = pointerAngle - segmentMid;
         
-        // Normalize to positive rotation
+        // Normalize to current rotation
+        targetRotation = targetRotation - this.rotation;
+        
+        // Add 4-6 full rotations for dramatic spinning effect
+        const extraRotations = 4 + Math.random() * 2;
+        targetRotation += extraRotations * 2 * Math.PI;
+        
+        // Ensure positive rotation
         while (targetRotation < 0) {
             targetRotation += 2 * Math.PI;
         }
         
-        // Add 4-6 full rotations for dramatic effect
-        const extraRotations = 4 + Math.random() * 2;
-        targetRotation += extraRotations * 2 * Math.PI;
-        
-        // Use binary search for precise velocity calculation
+        // Use binary search for more precise velocity calculation
         let minVel = 0.3;
         let maxVel = 2.5;
         let bestVelocity = 1.0;
         let bestDifference = Infinity;
         
+        // Binary search for optimal velocity
         for (let iteration = 0; iteration < 50; iteration++) {
             const testVel = (minVel + maxVel) / 2;
             const simulatedRotation = this.simulateRotation(testVel);
@@ -532,19 +630,30 @@ class JackpotSpinner {
                 bestVelocity = testVel;
             }
             
+            // Adjust search range
             if (simulatedRotation < targetRotation) {
                 minVel = testVel;
             } else {
                 maxVel = testVel;
             }
             
+            // If we're close enough, break early
             if (difference < 0.001) break;
         }
+        
+        console.log('🎯 Calculated precise velocity for winner:', {
+            playerName: playerSegment.player ? playerSegment.player.name : 'Unknown',
+            segmentMid: (segmentMid * 180 / Math.PI).toFixed(2) + '°',
+            targetRotation: (targetRotation * 180 / Math.PI).toFixed(2) + '°',
+            velocity: bestVelocity.toFixed(4),
+            expectedDifference: (bestDifference * 180 / Math.PI).toFixed(4) + '°'
+        });
         
         return bestVelocity;
     }
     
     simulateRotation(initialVelocity) {
+        // Simulate the physics to predict final rotation
         let velocity = initialVelocity;
         let totalRotation = 0;
         
@@ -559,6 +668,7 @@ class JackpotSpinner {
     startWinnerAnimation() {
         if (!this.winner) return;
         
+        // Find the winning segment
         const winningSegment = this.segments.find(segment => 
             segment.player.id === this.winner.id
         );
@@ -567,7 +677,7 @@ class JackpotSpinner {
             this.winnerAnimation = {
                 active: true,
                 progress: 0,
-                duration: 3000,
+                duration: 3000, // 3 seconds
                 startTime: Date.now(),
                 winnerColor: winningSegment.color,
                 winnerData: {
@@ -578,6 +688,7 @@ class JackpotSpinner {
                 }
             };
             
+            // Start animation loop
             this.animateWinner();
         }
     }
@@ -588,11 +699,13 @@ class JackpotSpinner {
         const elapsed = Date.now() - this.winnerAnimation.startTime;
         this.winnerAnimation.progress = Math.min(elapsed / this.winnerAnimation.duration, 1);
         
+        // Redraw with animation
         this.draw();
         
         if (this.winnerAnimation.progress < 1) {
             requestAnimationFrame(() => this.animateWinner());
         } else {
+            // Animation complete
             this.winnerAnimation.active = false;
         }
     }
@@ -601,17 +714,20 @@ class JackpotSpinner {
         if (!this.winnerAnimation.active) return;
         
         const progress = this.winnerAnimation.progress;
-        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const easeOut = 1 - Math.pow(1 - progress, 3); // Smooth easing
         
         // Phase 1: Color takeover (0-0.6)
         if (progress <= 0.6) {
+            const takeoverProgress = progress / 0.6;
             const expandRadius = this.radius * easeOut;
             
+            // Draw expanding winner color circle
             this.ctx.beginPath();
             this.ctx.arc(this.centerX, this.centerY, expandRadius, 0, 2 * Math.PI);
             this.ctx.fillStyle = this.winnerAnimation.winnerColor;
             this.ctx.fill();
             
+            // Add pulsing effect
             const pulseAlpha = 0.3 + 0.3 * Math.sin(progress * Math.PI * 8);
             this.ctx.beginPath();
             this.ctx.arc(this.centerX, this.centerY, expandRadius, 0, 2 * Math.PI);
@@ -624,6 +740,7 @@ class JackpotSpinner {
             const textProgress = (progress - 0.4) / 0.6;
             const textAlpha = Math.min(textProgress * 2, 1);
             
+            // Draw winner text background
             this.ctx.beginPath();
             this.ctx.arc(this.centerX, this.centerY, 120, 0, 2 * Math.PI);
             this.ctx.fillStyle = `rgba(26, 32, 44, ${textAlpha * 0.9})`;
@@ -632,21 +749,26 @@ class JackpotSpinner {
             this.ctx.lineWidth = 3;
             this.ctx.stroke();
             
+            // Draw winner text
             this.ctx.fillStyle = `rgba(255, 255, 255, ${textAlpha})`;
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
             
+            // Winner title
             this.ctx.font = 'bold 24px Arial';
             this.ctx.fillText('🏆 WINNER! 🏆', this.centerX, this.centerY - 40);
             
+            // Player name
             this.ctx.font = 'bold 20px Arial';
             this.ctx.fillStyle = `rgba(78, 204, 163, ${textAlpha})`;
             this.ctx.fillText(this.winnerAnimation.winnerData.name, this.centerX, this.centerY - 10);
             
+            // Bet amount
             this.ctx.font = '16px Arial';
             this.ctx.fillStyle = `rgba(255, 255, 255, ${textAlpha})`;
             this.ctx.fillText(`Bet: $${this.winnerAnimation.winnerData.betAmount.toFixed(2)}`, this.centerX, this.centerY + 15);
             
+            // Win percentage
             this.ctx.font = '14px Arial';
             this.ctx.fillText(`${this.winnerAnimation.winnerData.percentage.toFixed(1)}% chance`, this.centerX, this.centerY + 35);
         }
@@ -661,7 +783,6 @@ class JackpotSpinner {
         this.winnerAnimation.active = false;
         this.winnerAnimation.progress = 0;
         this.forceWinner = null;
-        this.serverVelocity = null;
         
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);
@@ -671,10 +792,12 @@ class JackpotSpinner {
         this.draw();
     }
     
+    // Handle page unload while spinning
     handlePageUnload() {
         if (this.isSpinning) {
             console.log('🔄 Page unloading while spinner is active - cleaning up');
             
+            // Stop animation immediately
             this.isSpinning = false;
             this.velocity = 0;
             
@@ -682,6 +805,50 @@ class JackpotSpinner {
                 cancelAnimationFrame(this.animationId);
                 this.animationId = null;
             }
+            
+            // If we're in realtime mode, notify server that spinner was interrupted
+            if (window.socket) {
+                window.socket.emit('spinner_interrupted', {
+                    reason: 'page_refresh',
+                    currentRotation: this.rotation
+                });
+            }
         }
+    }
+    
+    // Force reset spinner state (used when recovering from page refresh)
+    forceReset() {
+        console.log('🔧 Force resetting spinner state');
+        
+        // Cancel any running animations
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+        
+        // Reset all spinning state
+        this.isSpinning = false;
+        this.velocity = 0;
+        this.winner = null;
+        this.winnerAnimation.active = false;
+        this.winnerAnimation.progress = 0;
+        
+        // Don't reset rotation or segments - keep visual state
+        console.log('✅ Spinner state force reset complete');
+    }
+    
+    // Get current winner without spinning (for testing)
+    getCurrentWinner() {
+        if (this.segments.length === 0) return null;
+        
+        let normalizedRotation = (2 * Math.PI - this.rotation) % (2 * Math.PI);
+        
+        for (let segment of this.segments) {
+            if (normalizedRotation >= segment.startAngle && normalizedRotation <= segment.endAngle) {
+                return segment.player;
+            }
+        }
+        
+        return this.segments[0].player;
     }
 }
