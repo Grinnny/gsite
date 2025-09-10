@@ -440,34 +440,105 @@ class JackpotSpinner {
         }
         
         // Start animation
-        console.log('🚀 Starting spinner animation...');
         this.animate();
     }
     
     animate() {
-        console.log('🔄 Animate frame - velocity:', this.velocity.toFixed(6), 'rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
+        if (!this.isSpinning) return;
+        
+        // Apply velocity to rotation
+        this.rotation += this.velocity;
         
         // Apply friction
         this.velocity *= this.friction;
         
-        // Update rotation
-        this.rotation += this.velocity;
-        
-        // Keep rotation within 0-2π
-        this.rotation = this.rotation % (2 * Math.PI);
-        
-        // Draw current frame
-        this.draw();
-        
-        // Continue animation if still spinning
-        if (this.velocity > this.minVelocity) {
-            this.animationId = requestAnimationFrame(() => this.animate());
-        } else {
-            // Spinner has completely stopped - ensure absolute zero velocity
+        // Check if spinner should stop
+        if (this.velocity <= this.minVelocity) {
             this.velocity = 0;
             this.isSpinning = false;
             
-            // Draw final frame to show complete stop
+            // RIGGING: Force rotation to land on real player if present
+            if (this.predeterminedWinner) {
+                console.log('🎯 RIGGING: Forcing spinner to land on predetermined winner:', this.predeterminedWinner.name);
+                
+                // Find the target segment
+                const targetSegment = this.segments.find(s => 
+                    s.player.id === this.predeterminedWinner.id || 
+                    s.player.name === this.predeterminedWinner.name
+                );
+                
+                if (targetSegment) {
+                    // Calculate the exact rotation needed to land pointer on target segment
+                    const pointerAngle = 3 * Math.PI / 2; // Red pointer at top
+                    const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
+                    
+                    // Force rotation so pointer lands on segment middle
+                    this.rotation = pointerAngle - segmentMid;
+                    
+                    // Normalize rotation
+                    while (this.rotation < 0) this.rotation += 2 * Math.PI;
+                    while (this.rotation >= 2 * Math.PI) this.rotation -= 2 * Math.PI;
+                    
+                    console.log('🎰 RIGGED: Forced rotation to', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
+                    console.log('🎯 Target segment middle at', (segmentMid * 180 / Math.PI).toFixed(2) + '°');
+                }
+            }
+            
+            console.log('🛑 Spinner stopped at rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
+            
+            // Redraw with final position
+            this.draw();
+            
+            // Determine winner after spinner stops
+            setTimeout(() => {
+                this.determineWinner();
+            }, 100);
+            
+            return;
+        }
+        
+        // Redraw
+        this.draw();
+        
+        // Continue animation
+        this.animationId = requestAnimationFrame(() => this.animate());
+    }
+
+    drawPlayerAvatar(avatarSrc, x, y, size) {
+    // Check if we already have this image cached
+    if (!this.avatarCache) {
+        this.avatarCache = new Map();
+    }
+    
+    if (this.avatarCache.has(avatarSrc)) {
+        const img = this.avatarCache.get(avatarSrc);
+        if (img.complete) {
+            this.ctx.save();
+            
+            // Create circular clipping path
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI);
+            this.ctx.clip();
+            
+            // Draw the image
+            this.ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
+            
+            this.ctx.restore();
+            
+            // Draw border around avatar
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI);
+            this.ctx.strokeStyle = '#FFFFFF';
+            this.ctx.lineWidth = 2;
+            this.ctx.stroke();
+        }
+    } else {
+        // Load and cache the image
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            this.avatarCache.set(avatarSrc, img);
+            // Redraw to show the loaded avatar
             this.draw();
             
             console.log('🛑 Spinner has come to a COMPLETE STOP');
