@@ -167,17 +167,13 @@ export async function initRealtime(fastify, steamAuthInstance) {
   function pickWinner() {
     const realPlayers = state.players.filter(p => !p.isBot);
     
-    // If there are real players, guarantee one of them wins
+    // If there are real players, ALWAYS guarantee one of them wins
     if (realPlayers.length > 0) {
-      console.log('🎯 Real players present - guaranteeing real player win');
-      // Weighted selection among real players only
-      const total = realPlayers.reduce((s, p) => s + p.betAmount, 0);
-      let r = Math.random() * total;
-      for (const p of realPlayers) {
-        r -= p.betAmount;
-        if (r <= 0) return p;
-      }
-      return realPlayers[realPlayers.length - 1];
+      console.log('🎯 Real players present - RIGGING to guarantee real player win');
+      // Always pick the first real player to ensure they win
+      const winner = realPlayers[0];
+      console.log('🎰 RIGGED: Selected real player as winner:', winner.name);
+      return winner;
     }
     
     // Only if no real players, allow bots to win
