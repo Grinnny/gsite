@@ -372,24 +372,31 @@ class JackpotSpinner {
         
         // Check if we need to force a specific winner
         if (this.forceWinner) {
-            // Find the segment for the forced winner
-            const targetSegment = this.segments.find(s => 
-                s.player.id === this.forceWinner.id || 
-                s.player.name === this.forceWinner.name
-            );
-            
-            if (targetSegment) {
-                console.log('🎯 FORCING winner:', this.forceWinner.name);
-                console.log('🎯 Target segment:', {
-                    startAngle: (targetSegment.startAngle * 180 / Math.PI).toFixed(2) + '°',
-                    endAngle: (targetSegment.endAngle * 180 / Math.PI).toFixed(2) + '°'
-                });
-                
-                this.velocity = this.calculateVelocityToLandOnPlayer(targetSegment);
-                console.log('🎯 Calculated velocity to hit target:', this.velocity.toFixed(4));
+            // Use server-calculated velocity if available
+            if (this.serverVelocity) {
+                console.log('🎯 Using SERVER-CALCULATED velocity for winner:', this.forceWinner.name);
+                console.log('🎰 Server velocity:', this.serverVelocity);
+                this.velocity = this.serverVelocity;
             } else {
-                console.error('❌ Could not find segment for forced winner:', this.forceWinner.name);
-                this.velocity = 0.8 + Math.random() * 0.8;
+                // Fallback to client calculation
+                const targetSegment = this.segments.find(s => 
+                    s.player.id === this.forceWinner.id || 
+                    s.player.name === this.forceWinner.name
+                );
+                
+                if (targetSegment) {
+                    console.log('🎯 FORCING winner (client calc):', this.forceWinner.name);
+                    console.log('🎯 Target segment:', {
+                        startAngle: (targetSegment.startAngle * 180 / Math.PI).toFixed(2) + '°',
+                        endAngle: (targetSegment.endAngle * 180 / Math.PI).toFixed(2) + '°'
+                    });
+                    
+                    this.velocity = this.calculateVelocityToLandOnPlayer(targetSegment);
+                    console.log('🎯 Calculated velocity to hit target:', this.velocity.toFixed(4));
+                } else {
+                    console.error('❌ Could not find segment for forced winner:', this.forceWinner.name);
+                    this.velocity = 0.8 + Math.random() * 0.8;
+                }
             }
         } else {
             // Calculate velocity to spin for approximately 25 seconds

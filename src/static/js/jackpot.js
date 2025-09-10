@@ -132,21 +132,30 @@ class JackpotGame {
                 this.updateCountdownDisplay();
             });
 
-            socket.on('spinner_start', ({ players, forcedWinner }) => {
+            socket.on('spinner_start', ({ players, forcedWinner, preciseVelocity }) => {
                 console.log('📡 Received spinner_start event');
                 if (this.spinner) {
                     console.log('🎲 Current spinner segments:', this.spinner.segments.length);
                     
-                    if (forcedWinner) {
-                        // Force spinner to land on the predetermined real player
-                        console.log('🎯 Forcing spinner to land on real player:', forcedWinner.name);
+                    if (forcedWinner && preciseVelocity) {
+                        // Use server-calculated precise velocity
+                        console.log('🎯 Using server-calculated velocity for real player:', forcedWinner.name);
+                        console.log('🎰 Server velocity:', preciseVelocity);
                         this.spinner.forceWinner = forcedWinner;
                         this.spinner.predeterminedWinner = forcedWinner;
+                        this.spinner.serverVelocity = preciseVelocity;
+                    } else if (forcedWinner) {
+                        // Fallback to client calculation
+                        console.log('🎯 Forcing spinner to land on real player (client calc):', forcedWinner.name);
+                        this.spinner.forceWinner = forcedWinner;
+                        this.spinner.predeterminedWinner = forcedWinner;
+                        this.spinner.serverVelocity = null;
                     } else {
                         // Let physics decide (only bots in round)
                         console.log('🎲 Letting physics decide winner (bots only)');
                         this.spinner.forceWinner = null;
                         this.spinner.predeterminedWinner = null;
+                        this.spinner.serverVelocity = null;
                     }
                     
                     this.spinner.spin();

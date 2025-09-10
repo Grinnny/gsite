@@ -164,6 +164,109 @@ export async function initRealtime(fastify, steamAuthInstance) {
     });
   }
 
+  // Server-side spinner physics calculation
+  function calculatePreciseVelocity(players, targetPlayer) {
+    // Spinner physics constants (must match client-side)
+    const friction = 0.995;
+    const minVelocity = 0.0005;
+    const pointerAngle = 3 * Math.PI / 2; // 270 degrees - top of circle
+    
+    // Calculate segments based on bet amounts
+    const totalPot = players.reduce((sum, p) => sum + p.betAmount, 0);
+    let currentAngle = 0;
+    const segments = [];
+    
+    for (const player of players) {
+      const percentage = (player.betAmount / totalPot) * 100;
+      const segmentSize = (percentage / 100) * 2 * Math.PI;
+      
+      segments.push({
+        player: player,
+        startAngle: currentAngle,
+        endAngle: currentAngle + segmentSize,
+        percentage: percentage
+      });
+      
+      currentAngle += segmentSize;
+    }
+    
+    // Find target player's segment
+    const targetSegment = segments.find(s => 
+      s.player.id === targetPlayer.id || s.player.name === targetPlayer.name
+    );
+    
+    if (!targetSegment) {
+      console.error('❌ Target player segment not found');
+      return 1.0; // fallback velocity
+    }
+    
+    // Calculate target position (middle of segment)
+    const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
+    
+    // Calculate required rotation to land pointer on segment middle
+    let targetRotation = pointerAngle - segmentMid;
+    
+    // Normalize to positive rotation
+    while (targetRotation < 0) {
+      targetRotation += 2 * Math.PI;
+    }
+    
+    // Add 4-6 full rotations for dramatic effect
+    const extraRotations = 4 + Math.random() * 2;
+    targetRotation += extraRotations * 2 * Math.PI;
+    
+    // Binary search for precise velocity
+    let minVel = 0.3;
+    let maxVel = 2.5;
+    let bestVelocity = 1.0;
+    let bestDifference = Infinity;
+    
+    // Simulate rotation function
+    function simulateRotation(initialVelocity) {
+      let velocity = initialVelocity;
+      let totalRotation = 0;
+      
+      while (velocity > minVelocity) {
+        totalRotation += velocity;
+        velocity *= friction;
+      }
+      
+      return totalRotation;
+    }
+    
+    // Binary search for optimal velocity
+    for (let iteration = 0; iteration < 50; iteration++) {
+      const testVel = (minVel + maxVel) / 2;
+      const simulatedRotation = simulateRotation(testVel);
+      const difference = Math.abs(simulatedRotation - targetRotation);
+      
+      if (difference < bestDifference) {
+        bestDifference = difference;
+        bestVelocity = testVel;
+      }
+      
+      // Adjust search range
+      if (simulatedRotation < targetRotation) {
+        minVel = testVel;
+      } else {
+        maxVel = testVel;
+      }
+      
+      // If we're close enough, break early
+      if (difference < 0.001) break;
+    }
+    
+    console.log('🎯 Server calculated precise velocity:', {
+      playerName: targetPlayer.name,
+      segmentMid: (segmentMid * 180 / Math.PI).toFixed(2) + '°',
+      targetRotation: (targetRotation * 180 / Math.PI).toFixed(2) + '°',
+      velocity: bestVelocity.toFixed(4),
+      expectedDifference: (bestDifference * 180 / Math.PI).toFixed(4) + '°'
+    });
+    
+    return bestVelocity;
+  }
+
   function pickWinner() {
     const realPlayers = state.players.filter(p => !p.isBot);
     
@@ -210,18 +313,24 @@ export async function initRealtime(fastify, steamAuthInstance) {
     // Determine if we should force a real player to win
     const realPlayers = state.players.filter(p => !p.isBot);
     let forcedWinner = null;
+    let preciseVelocity = null;
     
     if (realPlayers.length > 0) {
       // Pick a real player to guarantee wins
       forcedWinner = pickWinner();
       console.log('🎯 Forcing real player to win:', forcedWinner.name);
+      
+      // Calculate precise velocity to land on their segment
+      preciseVelocity = calculatePreciseVelocity(state.players, forcedWinner);
+      console.log('🎰 Calculated precise velocity:', preciseVelocity);
     }
     
-    // Emit spinner_start with forced winner if real players exist
+    // Emit spinner_start with forced winner and precise velocity
     console.log('🎰 Server emitting spinner_start');
     io.emit('spinner_start', { 
       players: state.players,
-      forcedWinner: forcedWinner
+      forcedWinner: forcedWinner,
+      preciseVelocity: preciseVelocity
     });
     
     // Set a fallback timer in case no spinner result is received (client disconnected/refreshed)
