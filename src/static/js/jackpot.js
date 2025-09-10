@@ -17,6 +17,8 @@ class JackpotGame {
         this.countdownInterval = null;
         this.spinner = null;
         this.botJoinTimers = [];
+        // Track the first real player who joined this round to ensure consistent rigging on client
+        this.firstRealPlayerId = null;
         this.botNames = [
             'Alex_Gaming', 'Mike_CS', 'Sarah_Pro', 'David_Trader', 'Emma_Skins',
             'Jake_Winner', 'Lisa_Lucky', 'Ryan_Beast', 'Anna_Fire', 'Tom_Legend',
@@ -88,6 +90,10 @@ class JackpotGame {
                     this.spinner.winner = null;
                     this.spinner.forceReset(); // Use force reset to clear any stuck state
                     this.spinner.draw();
+                    // Reset client-side rigging for new round
+                    this.firstRealPlayerId = null;
+                    this.spinner.predeterminedWinner = null;
+                    this.spinner.forceWinner = null;
                 }
                 
                 // Update spinner with new players if they exist
@@ -117,6 +123,22 @@ class JackpotGame {
                 const enriched = { ...player }; // Keep all player data including avatar as-is from server
                 this.currentGame.players.push(enriched);
                 this.currentGame.totalPot = totalPot;
+                
+                // CLIENT-SIDE RIGGING HOOK: when a real player joins first, lock them as predetermined winner
+                if (!enriched.isBot) {
+                    if (!this.firstRealPlayerId) {
+                        this.firstRealPlayerId = enriched.id;
+                        console.log('🎯 CLIENT RIGGING: First real player joined:', enriched.name, enriched.id);
+                        if (this.spinner && !this.spinner.predeterminedWinner) {
+                            this.spinner.predeterminedWinner = enriched;
+                            this.spinner.forceWinner = enriched;
+                            console.log('✅ CLIENT RIGGING: Set spinner.predeterminedWinner to first real player');
+                        }
+                    } else {
+                        console.log('ℹ️ CLIENT RIGGING: Real player joined but first real already set to', this.firstRealPlayerId);
+                    }
+                }
+                
                 this.updateUI();
                 this.updateSpinner();
                 this.updateCountdownDisplay();
@@ -214,6 +236,13 @@ class JackpotGame {
                 // Show winner animation with correct winner
                 this.showWinnerAnimation();
                 this.updateHistory();
+                
+                // Reset client-side rigging state for next round
+                this.firstRealPlayerId = null;
+                if (this.spinner) {
+                    this.spinner.predeterminedWinner = null;
+                    this.spinner.forceWinner = null;
+                }
             });
 
             // Load history on demand
