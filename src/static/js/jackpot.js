@@ -159,6 +159,8 @@ class JackpotGame {
                 console.log('🔍 CLIENT DEBUG: forcedWinner received:', forcedWinner);
                 console.log('🔍 CLIENT DEBUG: preciseVelocity received:', preciseVelocity);
                 console.log('🔍 CLIENT DEBUG: targetRotation received:', targetRotation);
+                console.log('🔍 CLIENT DEBUG: Current predeterminedWinner:', this.spinner?.predeterminedWinner);
+                console.log('🔍 CLIENT DEBUG: Current forceWinner:', this.spinner?.forceWinner);
                 
                 if (this.spinner) {
                     console.log('🎲 Current spinner segments:', this.spinner.segments.length);
