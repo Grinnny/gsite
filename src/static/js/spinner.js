@@ -401,10 +401,12 @@ class JackpotSpinner {
             // Client-side deterministic calculation
             // We need to rotate the wheel so that the segment center aligns with the pointer
             // The pointer is at 270° (3π/2), so we need: segmentMid + finalRotation = pointerAngle (mod 2π)
+            // But since we're rotating the wheel, we need: finalRotation = pointerAngle - segmentMid
             let targetRotation = pointerAngle - segmentMid;
             
             // Normalize to positive angle
             while (targetRotation < 0) targetRotation += 2 * Math.PI;
+            while (targetRotation >= 2 * Math.PI) targetRotation -= 2 * Math.PI;
             
             // Add multiple full rotations for dramatic effect (4-6 spins)
             const extraSpins = 4 + Math.random() * 2;
@@ -456,6 +458,8 @@ class JackpotSpinner {
         } else {
             // Animation complete - spinner has landed exactly on target
             console.log('🎯 RIGGED ANIMATION COMPLETE - Final rotation:', (this.rotation * 180 / Math.PI).toFixed(2) + '°');
+            console.log('🎯 Final position (mod 360°):', ((this.rotation * 180 / Math.PI) % 360).toFixed(2) + '°');
+            console.log('🎯 Expected segment mid:', (this.predeterminedWinner ? 'Unknown' : 'N/A'));
             this.isSpinning = false;
             this.velocity = 0;
             
@@ -474,7 +478,11 @@ class JackpotSpinner {
         // Reset winner animation
         this.winnerAnimation = { active: false };
         
-        console.log('🎰 Starting spinner with segments:', this.segments.length);
+        console.log('🎰 CLIENT: Starting spinner with segments:', this.segments.length);
+        console.log('🔍 CLIENT: predeterminedWinner:', this.predeterminedWinner);
+        console.log('🔍 CLIENT: forceWinner:', this.forceWinner);
+        console.log('🔍 CLIENT: serverVelocity:', this.serverVelocity);
+        console.log('🔍 CLIENT: serverTargetRotation:', this.serverTargetRotation);
         
         if (this.predeterminedWinner) {
             // ABSOLUTE RIGGING: Calculate exact rotation to land on real player
