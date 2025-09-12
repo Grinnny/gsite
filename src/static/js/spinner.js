@@ -368,6 +368,12 @@ class JackpotSpinner {
     
     rigSpinnerToWinner(targetPlayer) {
         console.log('🎯 ABSOLUTE RIGGING: Setting up guaranteed win for:', targetPlayer.name);
+        console.log('🔍 RIGGING DEBUG: Available segments:', this.segments.map(s => ({
+            id: s.player.id,
+            name: s.player.name,
+            startAngle: (s.startAngle * 180 / Math.PI).toFixed(2) + '°',
+            endAngle: (s.endAngle * 180 / Math.PI).toFixed(2) + '°'
+        })));
         
         // Find the target player's segment
         const targetSegment = this.segments.find(segment => 
@@ -473,6 +479,8 @@ class JackpotSpinner {
         if (this.predeterminedWinner) {
             // ABSOLUTE RIGGING: Calculate exact rotation to land on real player
             console.log('🎯 ABSOLUTE RIGGING: Forcing spinner to land on:', this.predeterminedWinner.name);
+            console.log('🔍 DEBUG: predeterminedWinner object:', this.predeterminedWinner);
+            console.log('🔍 DEBUG: Current segments:', this.segments.length);
             this.rigSpinnerToWinner(this.predeterminedWinner);
             return;
         } else if (this.forceWinner) {
