@@ -214,11 +214,11 @@ class JackpotSpinner {
     drawPointer() {
         const pointerSize = 20;
         
-        // Draw pointer triangle at 0 degrees (right side)
+        // Draw pointer triangle (now drawn above degree markings)
         this.ctx.beginPath();
-        this.ctx.moveTo(this.centerX + this.radius + 15, this.centerY);
-        this.ctx.lineTo(this.centerX + this.radius + 45, this.centerY - pointerSize); // Extended further out
-        this.ctx.lineTo(this.centerX + this.radius + 45, this.centerY + pointerSize);
+        this.ctx.moveTo(this.centerX, this.centerY - this.radius - 15);
+        this.ctx.lineTo(this.centerX - pointerSize, this.centerY - this.radius - 45); // Extended further out
+        this.ctx.lineTo(this.centerX + pointerSize, this.centerY - this.radius - 45);
         this.ctx.closePath();
         this.ctx.fillStyle = '#E53E3E';
         this.ctx.fill();
@@ -234,9 +234,9 @@ class JackpotSpinner {
         
         // Redraw to apply shadow
         this.ctx.beginPath();
-        this.ctx.moveTo(this.centerX + this.radius + 15, this.centerY);
-        this.ctx.lineTo(this.centerX + this.radius + 45, this.centerY - pointerSize);
-        this.ctx.lineTo(this.centerX + this.radius + 45, this.centerY + pointerSize);
+        this.ctx.moveTo(this.centerX, this.centerY - this.radius - 15);
+        this.ctx.lineTo(this.centerX - pointerSize, this.centerY - this.radius - 45);
+        this.ctx.lineTo(this.centerX + pointerSize, this.centerY - this.radius - 45);
         this.ctx.closePath();
         this.ctx.fillStyle = '#E53E3E';
         this.ctx.fill();
@@ -384,7 +384,7 @@ class JackpotSpinner {
         
         // Calculate the middle of the target segment
         const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
-        const pointerAngle = 0; // right side pointer (0 degrees)
+        const pointerAngle = 0; // top pointer (270 degrees)
 
         // Determine final rotation. Prefer serverTargetRotation if provided.
         let finalRotation;
@@ -394,7 +394,7 @@ class JackpotSpinner {
         } else {
             // Client-side deterministic calculation
             // We need to rotate the wheel so that the segment center aligns with the pointer
-            // The pointer is at 0° (right side), so we need: segmentMid + finalRotation = pointerAngle (mod 2π)
+            // The pointer is at 270° (3π/2), so we need: segmentMid + finalRotation = pointerAngle (mod 2π)
             let targetRotation = pointerAngle - segmentMid;
             
             // Normalize to positive angle
@@ -550,7 +550,7 @@ class JackpotSpinner {
         }
         
         // Always determine winner by where the red pointer lands
-        const pointerAngle = 0; // 0 degrees - right side of circle (red pointer position)
+        const pointerAngle = (3 * Math.PI / 2); // 270 degrees - top of circle (red pointer position)
         
         console.log('🎯 Determining winner by pointer position at:', (pointerAngle * 180 / Math.PI).toFixed(2) + '°');
         
