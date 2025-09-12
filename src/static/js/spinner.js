@@ -384,7 +384,7 @@ class JackpotSpinner {
         
         // Calculate the middle of the target segment
         const segmentMid = (targetSegment.startAngle + targetSegment.endAngle) / 2;
-        const pointerAngle = 0; // top pointer (270 degrees)
+        const pointerAngle = 3 * Math.PI / 2; // top pointer (270 degrees)
 
         // Determine final rotation. Prefer serverTargetRotation if provided.
         let finalRotation;
