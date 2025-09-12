@@ -430,6 +430,17 @@ class JackpotSpinner {
         // Update rotation with easing to final rotation
         this.rotation = this.riggedStartRotation + easedProgress * (this.riggedFinalRotation - this.riggedStartRotation);
         
+        // Debug logging every 30 frames
+        if (this.riggedCurrentFrame % 30 === 0 || this.riggedCurrentFrame < 5) {
+            console.log('🔄 RIGGED ANIMATION:', {
+                frame: this.riggedCurrentFrame,
+                progress: (progress * 100).toFixed(1) + '%',
+                currentRotation: (this.rotation * 180 / Math.PI).toFixed(2) + '°',
+                targetRotation: (this.riggedFinalRotation * 180 / Math.PI).toFixed(2) + '°',
+                startRotation: (this.riggedStartRotation * 180 / Math.PI).toFixed(2) + '°'
+            });
+        }
+        
         // Redraw spinner
         this.draw();
         
